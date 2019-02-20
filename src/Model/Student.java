@@ -1,3 +1,5 @@
+package Model;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -34,6 +36,10 @@ public class Student {
         this.credits = credits;
     }
 
+    public String getPsu_id() {
+        return psu_id;
+    }
+    
     public String getFirst_name() {
         return first_name;
     }
