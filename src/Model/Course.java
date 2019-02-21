@@ -17,8 +17,9 @@ public class Course {
     private String description;
     private int units;
     private int recommended_academic_planner_priority;
+    private Course[] prereqs;
 
-    public Course(String course_id, String subject, String course_num, String session, String description, int units, int recommended_academic_planner_priority) {
+    public Course(String course_id, String subject, String course_num, String session, String description, int units, int recommended_academic_planner_priority, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -26,6 +27,7 @@ public class Course {
         this.description = description;
         this.units = units;
         this.recommended_academic_planner_priority = recommended_academic_planner_priority;
+        this.prereqs = prereqs;
     }
 
     public String getCourse_id() {
@@ -84,9 +86,17 @@ public class Course {
         this.recommended_academic_planner_priority = recommended_academic_planner_priority;
     }
 
+    public Course[] getPrereqs() {
+        return prereqs;
+    }
+
+    public void setPrereqs(Course[] prereqs) {
+        this.prereqs = prereqs;
+    }
+
     @Override
     public String toString() {
-        return "Course{" + "course_id=" + course_id + ", subject=" + subject + ", course_num=" + course_num + ", session=" + session + ", description=" + description + ", units=" + units + ", recommended_academic_planner_priority=" + recommended_academic_planner_priority + '}';
+        return "Course{" + "course_id=" + course_id + ", subject=" + subject + ", course_num=" + course_num + ", session=" + session + ", description=" + description + ", units=" + units + ", recommended_academic_planner_priority=" + recommended_academic_planner_priority + ", prereqs=" + prereqs + '}';
     }
     
 }
