@@ -13,13 +13,13 @@ public class Course {
     private String course_id;
     private String subject;
     private String course_num;
-    private String session;
+    private char session;
     private String description;
     private int units;
     private int recommended_academic_planner_priority;
     private Course[] prereqs;
 
-    public Course(String course_id, String subject, String course_num, String session, String description, int units) {
+    public Course(String course_id, String subject, String course_num, char session, String description, int units) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -28,7 +28,7 @@ public class Course {
         this.units = units;
     }  
     
-    public Course(String course_id, String subject, String course_num, String session, String description, int units, int recommended_academic_planner_priority) {
+    public Course(String course_id, String subject, String course_num, char session, String description, int units, int recommended_academic_planner_priority) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -38,7 +38,7 @@ public class Course {
         this.recommended_academic_planner_priority = recommended_academic_planner_priority;
     }
 
-    public Course(String course_id, String subject, String course_num, String session, String description, int units, Course[] prereqs) {
+    public Course(String course_id, String subject, String course_num, char session, String description, int units, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -48,7 +48,7 @@ public class Course {
         this.prereqs = prereqs;
     }
     
-    public Course(String course_id, String subject, String course_num, String session, String description, int units, int recommended_academic_planner_priority, Course[] prereqs) {
+    public Course(String course_id, String subject, String course_num, char session, String description, int units, int recommended_academic_planner_priority, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -83,11 +83,11 @@ public class Course {
         this.course_num = course_num;
     }
 
-    public String getSession() {
+    public char getSession() {
         return session;
     }
 
-    public void setSession(String session) {
+    public void setSession(char session) {
         this.session = session;
     }
 

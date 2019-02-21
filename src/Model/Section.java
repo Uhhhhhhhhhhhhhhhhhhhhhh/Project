@@ -10,26 +10,24 @@ package Model;
  * @author Derek
  */
 public class Section {
-    private String class_num;
+    private Course course;
     private String section;
     private int capacity;
     private boolean[] days;
-    private Course course;
 
-    public Section(String class_num, String section, int capacity, boolean[] days, Course course) {
-        this.class_num = class_num;
+    public Section(Course course, String section, int capacity, boolean[] days) {
+        this.course = course;
         this.section = section;
         this.capacity = capacity;
         this.days = days;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
         this.course = course;
-    }
-
-    public String getClass_num() {
-        return class_num;
-    }
-
-    public void setClass_num(String class_num) {
-        this.class_num = class_num;
     }
 
     public String getSection() {
@@ -56,17 +54,9 @@ public class Section {
         this.days = days;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     @Override
     public String toString() {
-        return "Section{" + "class_num=" + class_num + ", section=" + section + ", capacity=" + capacity + ", days=" + days + ", course=" + course + '}';
+        return "Section{" + "course=" + course + ", section=" + section + ", capacity=" + capacity + ", days=" + days + '}';
     }
-    
+
 }
