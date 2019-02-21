@@ -19,6 +19,35 @@ public class Course {
     private int recommended_academic_planner_priority;
     private Course[] prereqs;
 
+    public Course(String course_id, String subject, String course_num, String session, String description, int units) {
+        this.course_id = course_id;
+        this.subject = subject;
+        this.course_num = course_num;
+        this.session = session;
+        this.description = description;
+        this.units = units;
+    }  
+    
+    public Course(String course_id, String subject, String course_num, String session, String description, int units, int recommended_academic_planner_priority) {
+        this.course_id = course_id;
+        this.subject = subject;
+        this.course_num = course_num;
+        this.session = session;
+        this.description = description;
+        this.units = units;
+        this.recommended_academic_planner_priority = recommended_academic_planner_priority;
+    }
+
+    public Course(String course_id, String subject, String course_num, String session, String description, int units, Course[] prereqs) {
+        this.course_id = course_id;
+        this.subject = subject;
+        this.course_num = course_num;
+        this.session = session;
+        this.description = description;
+        this.units = units;
+        this.prereqs = prereqs;
+    }
+    
     public Course(String course_id, String subject, String course_num, String session, String description, int units, int recommended_academic_planner_priority, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
