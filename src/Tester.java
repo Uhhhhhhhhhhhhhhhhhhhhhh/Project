@@ -1,6 +1,9 @@
 
 import Model.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -8,8 +11,8 @@ import java.util.ArrayList;
  * and open the template in the editor.
  */
 
-/**
- *
+/** 
+*
  * @author Derek
  */
 public class Tester {
@@ -39,8 +42,13 @@ public class Tester {
         alRoom.add(new Room("Gaige", "205", 40, 41, "Computer"));
         alRoom.add(new Room("Gaige", "204", 25, 25, "Computer"));
         
-        //alCourse.add(new Course("13997", "IST", "261", "TBA", "THIS IS A DESCRIPTION", 3, 1, ))
+        alCourse.add(new Course("13997", "IST", "261", 'P', "THIS IS A DESCRIPTION", 3));
+        alCourse.add(new Course("14130", "IST", "411", 'P', "THIS IS A DESCRIPTION", 3));
         
+        alTime.add(new Time_Period(1, LocalTime.of(12, 05), LocalTime.of(13, 20)));
+        alTime.add(new Time_Period(2, LocalTime.of(15, 00), LocalTime.of(16, 15)));
+        
+        //alSection.add(new Section(, "001"));
     }
     
     
