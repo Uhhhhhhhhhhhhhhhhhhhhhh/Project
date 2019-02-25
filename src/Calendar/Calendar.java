@@ -223,6 +223,8 @@ public abstract class Calendar extends JComponent {
 
     protected abstract DayOfWeek getEndDay();
 
+    //DAY HEADER
+    //TODO: Change from string to button
     private void drawDayHeadings() {
         int y = 20;
         int x;
@@ -233,7 +235,7 @@ public abstract class Calendar extends JComponent {
             dayOfWeek = DayOfWeek.of(i);
             day = getDateFromDay(dayOfWeek);
 
-            String text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + day.getDayOfMonth() + "/" + day.getMonthValue();
+            String text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + day.getMonthValue() + "/" + day.getDayOfMonth();
             x = (int) (dayToPixel(DayOfWeek.of(i)) + (dayWidth / 2) - (FONT_LETTER_PIXEL_WIDTH * text.length() / 2));
             g2.drawString(text, x, y);
         }
