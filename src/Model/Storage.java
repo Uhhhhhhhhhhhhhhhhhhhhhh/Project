@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
  * @author dsd5227
  */
 public class Storage {
+    
+    //TODO: Sort Lists after Adding new Items!!!
 
     ArrayList<Student> alStudent;
     ArrayList<Room> alRoom;
