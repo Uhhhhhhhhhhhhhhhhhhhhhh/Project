@@ -52,5 +52,9 @@ public class Time_Period {
     public String toString() {
         return "Time_Period{" + "period=" + period + ", start_time=" + start_time + ", end_time=" + end_time + '}';
     }
+    
+    public String toEventString() {
+        return start_time.toString() + " - " + end_time.toString();
+    }
 
 } // Time_Period

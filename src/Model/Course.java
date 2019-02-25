@@ -140,5 +140,9 @@ public class Course {
     public String toString() {
         return "Course{" + "course_id=" + course_id + ", subject=" + subject + ", course_num=" + course_num + ", session=" + session + ", name=" + name + ", description=" + description + ", units=" + units + ", recommended_academic_planner_priority=" + recommended_academic_planner_priority + ", prereqs=" + prereqs + '}';
     }
+    
+    public String toEventString() {
+        return subject + " " + course_num;
+    }
 
 }
