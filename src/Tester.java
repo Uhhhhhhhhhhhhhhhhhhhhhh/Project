@@ -28,7 +28,7 @@ public class Tester {
     
     public static void main(String[] args) {
         
-        ArrayList<Student> alStudent = new ArrayList<>();
+        Storage storage = new Storage();
         ArrayList<Room> alRoom = new ArrayList<>();
         ArrayList<Faculty> alFaculty = new ArrayList<>();
         ArrayList<Section> alSection = new ArrayList<>();
@@ -37,33 +37,41 @@ public class Tester {
         ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
         
         //Students
-        alStudent.add(new Student("dsd5227", "Derek", "DeTommaso", "IST", 72));
-        alStudent.add(new Student("abc1234", "John", "Doe", "SRA", 12));
-        alStudent.add(new Student("def5678", "Jane", "Doe", "SRA", 12));
+        storage.addNewStudent("dsd5227", "Derek", "DeTommaso", "IST", 72);
+        storage.addNewStudent("abc1234", "John", "Doe", "SRA", 12);
+        storage.addNewStudent("def5678", "Jane", "Doe", "SRA", 12);
         
         //Faculty
-        alFaculty.add(new Faculty("jem1234", "James", "Waterson", "IST", new boolean[]{true, false, true, true, true}));
-        alFaculty.add(new Faculty("pen1234", "Penny", "Salmon", "SRA", new boolean[]{false, false, true, true, true}));
+        storage.addNewFaculty("jem1234", "James", "Waterson", "IST", new boolean[]{true, false, true, true, true});
+        storage.addNewFaculty("pen1234", "Penny", "Salmon", "SRA", new boolean[]{false, false, true, true, true});
         
         //Room
-        alRoom.add(new Room("Gaige", "205", 40, 41, "Computer"));
-        alRoom.add(new Room("Gaige", "204", 25, 25, "Computer"));
+        storage.addNewRoom("Gaige", "205", 40, 41, "Computer");
+        storage.addNewRoom("Gaige", "204", 25, 25, "Computer");
         
-        alCourse.add(new Course("13997", "IST", "261", 'P', "Application Development Design Studio I", "THIS IS A DESCRIPTION", 3));
-        alCourse.add(new Course("14130", "IST", "411", 'P', "Distributed-Object Computing", "THIS IS A DESCRIPTION", 3));
+        storage.addNewCourse("13997", "IST", "261", 'P', "Application Development Design Studio I", "THIS IS A DESCRIPTION", 3);
+        storage.addNewCourse("14130", "IST", "411", 'P', "Distributed-Object Computing", "THIS IS A DESCRIPTION", 3);
         
-        alTime.add(new Time_Period(1, LocalTime.of(12, 05), LocalTime.of(13, 20)));
-        alTime.add(new Time_Period(2, LocalTime.of(15, 00), LocalTime.of(16, 15)));
+        storage.addNewTime_Period(1, LocalTime.of(12, 05), LocalTime.of(13, 20));
+        storage.addNewTime_Period(2, LocalTime.of(15, 00), LocalTime.of(16, 15));
         
-        alSection.add(new Section(alCourse.get(0), "001", 25, new boolean[]{true, false, true, false, false}));
-        alSection.add(new Section(alCourse.get(1), "001", 25, new boolean[]{false, true, false, true, true}));
-        alSection.add(new Section(alCourse.get(0), "002", 25, new boolean[]{false, true, false, true, true}));
-        alSection.add(new Section(alCourse.get(1), "002", 25, new boolean[]{true, false, true, false, false}));
+        storage.addNewSection(0, "001", 25, new boolean[]{true, false, true, false, false});
+        storage.addNewSection(1, "001", 25, new boolean[]{false, true, false, true, true});
+        storage.addNewSection(0, "002", 25, new boolean[]{false, true, false, true, true});
+        storage.addNewSection(1, "002", 25, new boolean[]{true, false, true, false, false});
         
-        alFCA.add(new Final_Course_Assignment(alFaculty.get(0), alTime.get(0), alRoom.get(0), alSection.get(0)));
+        storage.addNewFCA(0, 0, 0, 0);
+        storage.addNewFCA(1, 1, 1, 1);
         
-        weeklyCalendar(fcaToCalendarEvent(alFCA.get(0), new Color(173, 216, 230), LocalDate.of(2019, 1, 7), LocalDate.of(2019, 4, 26)));
+        LocalDate startOfSemester = LocalDate.of(2019, 1, 7);
+        LocalDate endOfSemester = LocalDate.of(2019, 4, 26);
         
+        
+        ArrayList<CalendarEvent> events = new ArrayList<>();
+        events.addAll(fcaToCalendarEvent(storage.getFCA(0), new Color(173, 216, 230), startOfSemester, endOfSemester));
+        events.addAll(fcaToCalendarEvent(storage.getFCA(1), new Color(216, 191, 216), startOfSemester, endOfSemester));
+        
+        weeklyCalendar(events);
     }
     
     public static void weeklyCalendar(ArrayList<CalendarEvent> events) {
