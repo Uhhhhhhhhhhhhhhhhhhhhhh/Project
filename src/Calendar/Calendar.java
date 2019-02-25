@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public abstract class Calendar extends JComponent {
-    protected static final LocalTime START_TIME = LocalTime.of(9, 0);
-    protected static final LocalTime END_TIME = LocalTime.of(17, 0);
+    protected static final LocalTime START_TIME = LocalTime.of(6, 0);
+    protected static final LocalTime END_TIME = LocalTime.of(22, 0);
 
     protected static final int MIN_WIDTH = 600;
     protected static final int MIN_HEIGHT = MIN_WIDTH;
@@ -356,6 +356,8 @@ public abstract class Calendar extends JComponent {
             // Draw the event's text
             g2.drawString(event.getText(), (int) x + 5, (int) y0 + 23);
 
+            //TODO: EVENT DRAW ON CALENDAR
+            
             // Reset font
             g2.setFont(origFont);
         }
