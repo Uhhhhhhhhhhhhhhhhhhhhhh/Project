@@ -61,4 +61,11 @@ public class Final_Course_Assignment {
         return "Final_Course_Assignment{" + "faculty=" + faculty + ", period=" + period + ", room=" + room + ", section=" + section + '}';
     }
     
+    public String toEventString() {
+        return section.getCourse().getSubject() + " " 
+                + section.getCourse().getCourse_num() + " "
+                + section.getSection() + "\n" + section.getCourse().getName()
+                + "\nProf. " + faculty.getLast_name();
+    }
+    
 } // Final_Course_Assignment
