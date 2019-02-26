@@ -27,7 +27,7 @@ public class Storage {
     private static ArrayList<Time_Period> alTime = new ArrayList<>();
     private static ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
 
-    public static boolean addNewStudent(String psu_id, String first_name, String last_name, String major, int credits) {
+    public static boolean addNewStudent(String psu_id, String first_name, String last_name, String major, double credits) {
         Student s = new Student(psu_id, first_name, last_name, major, credits);
         boolean add = alStudent.add(s);
         String message;
@@ -42,7 +42,7 @@ public class Storage {
         return true;
     }
 
-    public static boolean addNewStudent(String psu_id, String first_name, String last_name, String major, String minor, int credits) {
+    public static boolean addNewStudent(String psu_id, String first_name, String last_name, String major, String minor, double credits) {
         Student s = new Student(psu_id, first_name, last_name, major, minor, credits);
         boolean add = alStudent.add(s);
         String message;

@@ -19,9 +19,9 @@ public class Student implements Comparable<Student> {
     private String last_name;
     private String major;
     private String minor;
-    private int credits;
+    private double credits;
 
-    public Student(String psu_id, String first_name, String last_name, String major, int credits) {
+    public Student(String psu_id, String first_name, String last_name, String major, double credits) {
         this.psu_id = psu_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -29,7 +29,7 @@ public class Student implements Comparable<Student> {
         this.credits = credits;
     }
 
-    public Student(String psu_id, String first_name, String last_name, String major, String minor, int credits) {
+    public Student(String psu_id, String first_name, String last_name, String major, String minor, double credits) {
         this.psu_id = psu_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -74,11 +74,11 @@ public class Student implements Comparable<Student> {
         this.minor = minor;
     }
 
-    public int getCredits() {
+    public double getCredits() {
         return credits;
     }
 
-    public void setCredits(int credits) {
+    public void setCredits(double credits) {
         this.credits = credits;
     }
 
