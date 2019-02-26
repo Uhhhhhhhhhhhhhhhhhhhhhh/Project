@@ -237,6 +237,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         
         ArrayList<CalendarEvent> events = new ArrayList<>();
         for(Final_Course_Assignment fca:Storage.copyFCA()){
+            //TODO: Color, ETC
             //events.addAll(fcaToCalendarEvent(fca, ))
         }
             
