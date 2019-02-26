@@ -23,8 +23,11 @@
 hs_err_pid*
 /build/
 
-# Project Files
-*.properties
-*.xml
-*.xml
-nbproject/private/private.xml
+# Netbeans Files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
