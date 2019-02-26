@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,50 +20,12 @@ public class Storage {
     
     //TODO: Sort Lists after Adding new Items!!!
 
-    private static ArrayList<Student> alStudent = new ArrayList<>();
     private static ArrayList<Room> alRoom = new ArrayList<>();
     private static ArrayList<Faculty> alFaculty = new ArrayList<>();
     private static ArrayList<Section> alSection = new ArrayList<>();
     private static ArrayList<Course> alCourse = new ArrayList<>();
     private static ArrayList<Time_Period> alTime = new ArrayList<>();
     private static ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
-
-    public static boolean addNewStudent(String psu_id, String first_name, String last_name, String major, double credits) {
-        Student s = new Student(psu_id, first_name, last_name, major, credits);
-        boolean add = alStudent.add(s);
-        String message;
-        if(add) {
-            message = s.getFirst_name() + "'s information is saved.";
-            Collections.sort(alStudent);
-        } else {
-            message = "ERROR! STUDENT NOT CREATED!";
-        }
-        JOptionPane.showMessageDialog(null, message, "Student", JOptionPane.INFORMATION_MESSAGE);
-        
-        return true;
-    }
-
-    public static boolean addNewStudent(String psu_id, String first_name, String last_name, String major, String minor, double credits) {
-        Student s = new Student(psu_id, first_name, last_name, major, minor, credits);
-        boolean add = alStudent.add(s);
-        String message;
-        if(add) {
-            message = s.getFirst_name() + "'s information is saved.";
-            Collections.sort(alStudent);
-        } else {
-            message = "ERROR! STUDENT NOT CREATED!";
-        }
-        JOptionPane.showMessageDialog(null, message, "Student", JOptionPane.INFORMATION_MESSAGE);
-        return true;
-    }
-
-    public static Student getStudent(int index) {
-        if (index < 0 || index > alStudent.size()) {
-            JOptionPane.showMessageDialog(null, "Index Out of Bounds", "Student", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-        return alStudent.get(index);
-    }
 
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         Faculty f = new Faculty(psu_id, first_name, last_name, major_college, preferred_days);
@@ -194,8 +157,8 @@ public class Storage {
         return alTime.get(index);
     }
     
-    public static boolean addNewSection(int courseIndex, String section, int capacity, boolean[] days){
-        Section s = new Section(getCourse(courseIndex), section, capacity, days);
+    public static boolean addNewSection(int courseIndex, String section, int enrollment, int capacity, LocalDate start_date, LocalDate end_date, boolean[] days){
+        Section s = new Section(getCourse(courseIndex), section, enrollment, capacity, start_date, end_date, days);
         boolean add = alSection.add(s);
         String message;
         if(add) {
@@ -236,10 +199,6 @@ public class Storage {
             return null;
         }
         return alFCA.get(index);
-    }
-    
-    public static ArrayList<Student> copyStudent() {
-        return (ArrayList<Student>) alStudent.clone();
     }
     
     public static ArrayList<Faculty> copyFaculty() {

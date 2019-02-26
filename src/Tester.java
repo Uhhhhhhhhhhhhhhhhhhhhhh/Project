@@ -28,11 +28,6 @@ public class Tester {
     
     public static void main(String[] args) {
         
-        //Students
-        Storage.addNewStudent("dsd5227", "Derek", "DeTommaso", "IST", 72);
-        Storage.addNewStudent("jbd1234", "John", "Doe", "SRA", 12);
-        Storage.addNewStudent("jed5678", "Jane", "Doe", "SRA", 12);
-        
         //Faculty
         Storage.addNewFaculty("pen1234", "Penny", "Salmon", "SRA", new boolean[]{false, false, true, true, true});
         Storage.addNewFaculty("jem1234", "James", "Waterson", "IST", new boolean[]{true, false, true, true, true});
@@ -50,19 +45,21 @@ public class Tester {
         Storage.addNewTime_Period(LocalTime.of(9, 00), LocalTime.of(11, 30));
         Storage.addNewTime_Period(LocalTime.of(12, 05), LocalTime.of(13, 20));
         
+        //Start And End of Semester
+        LocalDate startOfSemester = LocalDate.of(2019, 1, 7);
+        LocalDate endOfSemester = LocalDate.of(2019, 4, 26);
+        
         //Section
-        Storage.addNewSection(0, "001", 25, new boolean[]{true, false, true, false, false});
-        Storage.addNewSection(1, "002", 25, new boolean[]{true, false, true, false, false});
-        Storage.addNewSection(0, "002", 25, new boolean[]{false, true, false, true, true});
-        Storage.addNewSection(1, "001", 25, new boolean[]{false, true, false, true, true});
+        Storage.addNewSection(0, "001", 15, 25, startOfSemester, endOfSemester, new boolean[]{true, false, true, false, false});
+        Storage.addNewSection(1, "002", 10, 25, startOfSemester, endOfSemester, new boolean[]{true, false, true, false, false});
+        Storage.addNewSection(0, "002", 12, 25, startOfSemester, endOfSemester, new boolean[]{false, true, false, true, true});
+        Storage.addNewSection(1, "001", 6, 25, startOfSemester, endOfSemester, new boolean[]{false, true, false, true, true});
         
         //FCA
         Storage.addNewFCA(1, 1, 1, 1);
         Storage.addNewFCA(0, 0, 0, 0);
         
-        //Start And End of Semester
-        LocalDate startOfSemester = LocalDate.of(2019, 1, 7);
-        LocalDate endOfSemester = LocalDate.of(2019, 4, 26);
+        
         
         //Events
         ArrayList<CalendarEvent> events = new ArrayList<>();
