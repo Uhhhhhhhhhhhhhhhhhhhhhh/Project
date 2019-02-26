@@ -5,11 +5,13 @@
  */
 package Model;
 
+import static java.util.Comparator.comparing;
+
 /**
  *
  * @author Derek
  */
-public class Section {
+public class Section implements Comparable<Section> {
     private Course course;
     private String section;
     private int capacity;
@@ -57,6 +59,16 @@ public class Section {
     @Override
     public String toString() {
         return "Section{" + "course=" + course + ", section=" + section + ", capacity=" + capacity + ", days=" + days + '}';
+    }
+    
+    public String toEventString() {
+        return course.toEventString() + " " + section;
+    }
+    
+    public int compareTo(Section other) {
+        return comparing(Section::getCourse)
+                .thenComparing(Section::getSection)
+                .compare(this, other);
     }
 
 }

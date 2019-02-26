@@ -5,11 +5,14 @@
  */
 package Model;
 
+import static java.util.Comparator.comparing;
+
 /**
  *
  * @author Derek
  */
-public class Room {
+public class Room implements Comparable<Room> {
+    
     private String building;
     private String room_id;
     private int occupancy;
@@ -67,6 +70,16 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" + "building=" + building + ", room_id=" + room_id + ", occupancy=" + occupancy + ", computers=" + computers + ", lab_type=" + lab_type + '}';
+    }
+    
+    public String toEventString() {
+        return building + " " + room_id;
+    }
+    
+    public int compareTo(Room other) {
+        return comparing(Room::getBuilding)
+                .thenComparing(Room::getRoom_id)
+                .compare(this, other);
     }
     
 }

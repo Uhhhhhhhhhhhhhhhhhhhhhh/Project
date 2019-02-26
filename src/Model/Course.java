@@ -5,11 +5,13 @@
  */
 package Model;
 
+import static java.util.Comparator.comparing;
+
 /**
  *
  * @author Derek
  */
-public class Course {
+public class Course implements Comparable<Course> {
     private String course_id;
     private String subject;
     private String course_num;
@@ -145,4 +147,10 @@ public class Course {
         return subject + " " + course_num;
     }
 
+    public int compareTo(Course other) {
+        return comparing(Course::getSubject)
+                .thenComparing(Course::getCourse_num)
+                .compare(this, other);
+    }
+    
 }
