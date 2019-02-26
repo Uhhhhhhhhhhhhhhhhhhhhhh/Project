@@ -45,6 +45,10 @@ public class Faculty {
     public boolean[] getPreferred_days() {
         return preferred_days;
     }
+    
+    public void setPsu_id(String psu_id) {
+        this.psu_id = psu_id;
+    }
 
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
