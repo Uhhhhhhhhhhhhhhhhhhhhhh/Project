@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Storage;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -50,7 +51,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
         jcbSubject = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jlDays = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
@@ -76,12 +77,12 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jlDays.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jlDays);
 
         jLabel6.setText("Preferred Days");
 
@@ -110,16 +111,15 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                             .addComponent(jtfFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(95, 95, 95)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(70, 70, 70))
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,17 +143,17 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jtfFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtfLastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(60, 60, 60)
+                        .addComponent(jtfLastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
                 .addComponent(jButton2)
-                .addGap(70, 70, 70))
+                .addGap(240, 240, 240))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -163,7 +163,13 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        boolean[] preferred_days = {false, false, false, false, false};
+        
+        for(int day:jlDays.getSelectedIndices()){
+            preferred_days[day] = true;
+        }
+        
+        Storage.addNewFaculty(jtfPSU_ID.getText(), jtfFirstname.getText(), jtfLastname.getText(), jcbSubject.getSelectedItem().toString(), preferred_days);
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -176,9 +182,9 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbSubject;
+    private javax.swing.JList<String> jlDays;
     private javax.swing.JTextField jtfFirstname;
     private javax.swing.JTextField jtfLastname;
     private javax.swing.JTextField jtfPSU_ID;
