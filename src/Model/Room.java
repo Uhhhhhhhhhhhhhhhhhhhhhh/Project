@@ -76,6 +76,7 @@ public class Room implements Comparable<Room> {
         return building + " " + room_id;
     }
     
+    @Override
     public int compareTo(Room other) {
         return comparing(Room::getBuilding)
                 .thenComparing(Room::getRoom_id)

@@ -65,6 +65,7 @@ public class Section implements Comparable<Section> {
         return course.toEventString() + " " + section;
     }
     
+    @Override
     public int compareTo(Section other) {
         return comparing(Section::getCourse)
                 .thenComparing(Section::getSection)

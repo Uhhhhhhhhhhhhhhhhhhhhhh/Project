@@ -58,6 +58,7 @@ public class Time_Period implements Comparable<Time_Period> {
         return start_time.toString() + " - " + end_time.toString();
     }
     
+    @Override
     public int compareTo(Time_Period other) {
         return comparing(Time_Period::getStart_time)
                 .thenComparing(Time_Period::getEnd_time)

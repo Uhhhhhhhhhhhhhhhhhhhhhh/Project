@@ -87,6 +87,7 @@ public class Student implements Comparable<Student> {
         return "Student{" + "psu_id=" + psu_id + ", first_name=" + first_name + ", last_name=" + last_name + ", major=" + major + ", minor=" + minor + ", credits=" + credits + '}';
     }
     
+    @Override
     public int compareTo(Student other) {
         return comparing(Student::getLast_name)
                 .thenComparing(Student::getFirst_name)

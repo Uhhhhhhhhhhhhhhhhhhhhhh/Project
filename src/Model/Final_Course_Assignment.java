@@ -70,6 +70,7 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
                 + "\nProf. " + faculty.getLast_name();
     }
     
+    @Override
     public int compareTo(Final_Course_Assignment other) {
         return comparing(Final_Course_Assignment::getSection)
                 .compare(this, other);

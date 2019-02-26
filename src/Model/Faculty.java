@@ -73,6 +73,7 @@ public class Faculty implements Comparable<Faculty> {
         return "Faculty{" + "psu_id=" + psu_id + ", first_name=" + first_name + ", last_name=" + last_name + ", major_college=" + major_college + ", preferred_days=" + preferred_days + '}';
     }
     
+    @Override
     public int compareTo(Faculty other) {
         return comparing(Faculty::getLast_name)
                 .thenComparing(Faculty::getFirst_name)

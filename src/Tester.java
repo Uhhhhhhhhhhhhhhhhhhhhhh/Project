@@ -29,12 +29,6 @@ public class Tester {
     public static void main(String[] args) {
         
         Storage storage = new Storage();
-        ArrayList<Room> alRoom = new ArrayList<>();
-        ArrayList<Faculty> alFaculty = new ArrayList<>();
-        ArrayList<Section> alSection = new ArrayList<>();
-        ArrayList<Course> alCourse = new ArrayList<>();
-        ArrayList<Time_Period> alTime = new ArrayList<>();
-        ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
         
         //Students
         storage.addNewStudent("dsd5227", "Derek", "DeTommaso", "IST", 72);

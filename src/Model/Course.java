@@ -147,6 +147,7 @@ public class Course implements Comparable<Course> {
         return subject + " " + course_num;
     }
 
+    @Override
     public int compareTo(Course other) {
         return comparing(Course::getSubject)
                 .thenComparing(Course::getCourse_num)
