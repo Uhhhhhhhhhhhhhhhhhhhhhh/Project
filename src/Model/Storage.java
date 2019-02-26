@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 
 /*
@@ -39,15 +40,28 @@ public class Storage {
     public boolean addNewStudent(String psu_id, String first_name, String last_name, String major, int credits) {
         Student s = new Student(psu_id, first_name, last_name, major, credits);
         boolean add = alStudent.add(s);
-        String message = add ? s.getFirst_name() + "'s information is saved." : "ERROR! STUDENT NOT CREATED!";
+        String message;
+        if(add) {
+            message = s.getFirst_name() + "'s information is saved.";
+            Collections.sort(alStudent);
+        } else {
+            message = "ERROR! STUDENT NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Student", JOptionPane.INFORMATION_MESSAGE);
+        
         return true;
     }
 
     public boolean addNewStudent(String psu_id, String first_name, String last_name, String major, String minor, int credits) {
         Student s = new Student(psu_id, first_name, last_name, major, minor, credits);
         boolean add = alStudent.add(s);
-        String message = add ? s.getFirst_name() + "'s information is saved." : "ERROR! STUDENT NOT CREATED!";
+        String message;
+        if(add) {
+            message = s.getFirst_name() + "'s information is saved.";
+            Collections.sort(alStudent);
+        } else {
+            message = "ERROR! STUDENT NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Student", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -63,7 +77,13 @@ public class Storage {
     public boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         Faculty f = new Faculty(psu_id, first_name, last_name, major_college, preferred_days);
         boolean add = alFaculty.add(f);
-        String message = add ? f.getFirst_name() + "'s information is saved." : "ERROR! FACULTY NOT CREATED!";
+        String message;
+        if(add) {
+            message = f.getFirst_name() + "'s information is saved.";
+            Collections.sort(alFaculty);
+        } else {
+            message = "ERROR! FACULTY NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Faculty", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -79,7 +99,13 @@ public class Storage {
     public boolean addNewRoom(String building, String room_id, int occupancy, int computers, String lab_type){
         Room r = new Room(building, room_id, occupancy, computers, lab_type);
         boolean add = alRoom.add(r);
-        String message = add ? r.getBuilding() + " " + r.getRoom_id() + " saved." : "ERROR! ROOM NOT CREATED!";
+        String message;
+        if(add) {
+            message = r.toEventString() + " saved.";
+            Collections.sort(alRoom);
+        } else {
+            message = "ERROR! ROOM NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Room", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -95,7 +121,13 @@ public class Storage {
     public boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units){
         Course c = new Course(course_id, subject, course_num, session, name, description, units);
         boolean add = alCourse.add(c);
-        String message = add ? c.toEventString() + " saved." : "ERROR! COURSE NOT CREATED!";
+        String message;
+        if(add) {
+            message = c.toEventString() + " saved.";
+            Collections.sort(alCourse);
+        } else {
+            message = "ERROR! COURSE NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Course", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -103,7 +135,13 @@ public class Storage {
     public boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units, int recommended_academic_planner_priority){
         Course c = new Course(course_id, subject, course_num, session, name, description, units, recommended_academic_planner_priority);
         boolean add = alCourse.add(c);
-        String message = add ? c.toEventString() + " saved." : "ERROR! COURSE NOT CREATED!";
+        String message;
+        if(add) {
+            message = c.toEventString() + " saved.";
+            Collections.sort(alCourse);
+        } else {
+            message = "ERROR! COURSE NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Course", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -111,7 +149,13 @@ public class Storage {
     public boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units, Course[] prereqs){
         Course c = new Course(course_id, subject, course_num, session, name, description, units, prereqs);
         boolean add = alCourse.add(c);
-        String message = add ? c.toEventString() + " saved." : "ERROR! COURSE NOT CREATED!";
+        String message;
+        if(add) {
+            message = c.toEventString() + " saved.";
+            Collections.sort(alCourse);
+        } else {
+            message = "ERROR! COURSE NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Course", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -119,7 +163,13 @@ public class Storage {
     public boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units, int recommended_academic_planner_priority, Course[] prereqs){
         Course c = new Course(course_id, subject, course_num, session, name, description, units, recommended_academic_planner_priority, prereqs);
         boolean add = alCourse.add(c);
-        String message = add ? c.toEventString() + " saved." : "ERROR! COURSE NOT CREATED!";
+        String message;
+        if(add) {
+            message = c.toEventString() + " saved.";
+            Collections.sort(alCourse);
+        } else {
+            message = "ERROR! COURSE NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Course", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -135,7 +185,13 @@ public class Storage {
     public boolean addNewTime_Period(int period, LocalTime start_time, LocalTime end_time){
         Time_Period t = new Time_Period(period, start_time, end_time);
         boolean add = alTime.add(t);
-        String message = add ? t.toEventString() + " saved." : "ERROR! COURSE NOT CREATED!";
+        String message;
+        if(add) {
+            message = t.toEventString() + " saved.";
+            Collections.sort(alTime);
+        } else {
+            message = "ERROR! COURSE NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Time", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -151,7 +207,13 @@ public class Storage {
     public boolean addNewSection(int courseIndex, String section, int capacity, boolean[] days){
         Section s = new Section(getCourse(courseIndex), section, capacity, days);
         boolean add = alSection.add(s);
-        String message = add ? s.getCourse().toEventString() + " " + s.getSection() + " saved." : "ERROR! COURSE NOT CREATED!";
+        String message;
+        if(add) {
+            message = s.toEventString() + " saved.";
+            Collections.sort(alSection);
+        } else {
+            message = "ERROR! COURSE NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Section", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -167,7 +229,13 @@ public class Storage {
     public boolean addNewFCA(int facultyIndex, int timeIndex, int roomIndex, int sectionIndex){
         Final_Course_Assignment fca = new Final_Course_Assignment(alFaculty.get(facultyIndex), alTime.get(timeIndex), alRoom.get(roomIndex), alSection.get(sectionIndex));
         boolean add = alFCA.add(fca);
-        String message = add ? "Final Course Assignment for " + fca.toEventString() + " saved." : "ERROR! COURSE NOT CREATED!";
+        String message;
+        if(add) {
+            message = "Final Course Assignment for " + fca.toEventString();
+            Collections.sort(alFCA);
+        } else {
+            message = "ERROR! COURSE NOT CREATED!";
+        }
         JOptionPane.showMessageDialog(null, message, "Final Course Assignment", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
