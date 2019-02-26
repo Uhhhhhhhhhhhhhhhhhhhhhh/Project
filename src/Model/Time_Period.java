@@ -15,22 +15,19 @@ import static java.util.Comparator.comparing;
  */
 public class Time_Period implements Comparable<Time_Period> {
     
+    private static int counter = 0;
     private int period;
     private LocalTime start_time;
     private LocalTime end_time;
 
-    public Time_Period(int period, LocalTime start_time, LocalTime end_time) {
-        this.period = period;
+    public Time_Period(LocalTime start_time, LocalTime end_time) {
+        this.period = counter++;
         this.start_time = start_time;
         this.end_time = end_time;
     }
 
     public int getPeriod() {
         return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
     }
 
     public LocalTime getStart_time() {

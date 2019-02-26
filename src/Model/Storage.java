@@ -182,8 +182,8 @@ public class Storage {
         return alCourse.get(index);
     }
     
-    public boolean addNewTime_Period(int period, LocalTime start_time, LocalTime end_time){
-        Time_Period t = new Time_Period(period, start_time, end_time);
+    public boolean addNewTime_Period(LocalTime start_time, LocalTime end_time){
+        Time_Period t = new Time_Period(start_time, end_time);
         boolean add = alTime.add(t);
         String message;
         if(add) {

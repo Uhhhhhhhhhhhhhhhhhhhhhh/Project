@@ -48,9 +48,9 @@ public class Tester {
         storage.addNewCourse("13997", "IST", "261", 'P', "Application Development Design Studio I", "THIS IS A DESCRIPTION", 3);
         
         //Time_Period
-        storage.addNewTime_Period(2, LocalTime.of(15, 00), LocalTime.of(16, 15));
-        storage.addNewTime_Period(3, LocalTime.of(9, 00), LocalTime.of(11, 30));
-        storage.addNewTime_Period(1, LocalTime.of(12, 05), LocalTime.of(13, 20));
+        storage.addNewTime_Period(LocalTime.of(15, 00), LocalTime.of(16, 15));
+        storage.addNewTime_Period(LocalTime.of(9, 00), LocalTime.of(11, 30));
+        storage.addNewTime_Period(LocalTime.of(12, 05), LocalTime.of(13, 20));
         
         //Section
         storage.addNewSection(0, "001", 25, new boolean[]{true, false, true, false, false});
