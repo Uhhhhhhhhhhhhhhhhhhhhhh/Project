@@ -237,5 +237,33 @@ public class Storage {
         }
         return alFCA.get(index);
     }
+    
+    public static ArrayList<Student> copyStudent() {
+        return (ArrayList<Student>) alStudent.clone();
+    }
+    
+    public static ArrayList<Faculty> copyFaculty() {
+        return (ArrayList<Faculty>) alFaculty.clone();
+    }
 
+    public static ArrayList<Room> copyRoom() {
+        return (ArrayList<Room>) alRoom.clone();
+    }
+    
+    public static ArrayList<Section> copySection() {
+        return (ArrayList<Section>) alSection.clone();
+    }
+    
+    public static ArrayList<Course> copyCourse() {
+        return (ArrayList<Course>) alCourse.clone();
+    }
+    
+    public static ArrayList<Time_Period> copyTime() {
+        return (ArrayList<Time_Period>) alTime.clone();
+    }
+    
+    public static ArrayList<Final_Course_Assignment> copyFCA() {
+        return (ArrayList<Final_Course_Assignment>) alFCA.clone();
+    }
+    
 } // Storage
