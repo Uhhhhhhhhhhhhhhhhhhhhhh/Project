@@ -36,21 +36,17 @@
                               <Component id="jlStartColon" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jSpinner2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jcbStartPeriod" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jlEndColon" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jSpinner1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jcbEndPeriod" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,7 +59,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jlStartAt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlStartColon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcbStartPeriod" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jSpinner2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -71,7 +66,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jlEndAt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlEndColon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcbEndPeriod" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jSpinner4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -87,26 +81,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Starts At:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="jcbEndPeriod">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="getCBHoursPeriodModel()" type="code"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="jcbStartPeriod">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="getCBHoursPeriodModel()" type="code"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jlStartColon">
       <Properties>

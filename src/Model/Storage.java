@@ -108,7 +108,7 @@ public class Storage {
         return alRoom.get(index);
     }
     
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units){
+    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units){
         Course c = new Course(course_id, subject, course_num, session, name, description, units);
         boolean add = alCourse.add(c);
         String message;
@@ -122,7 +122,7 @@ public class Storage {
         return true;
     }
     
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units, int recommended_academic_planner_priority){
+    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority){
         Course c = new Course(course_id, subject, course_num, session, name, description, units, recommended_academic_planner_priority);
         boolean add = alCourse.add(c);
         String message;
@@ -136,7 +136,7 @@ public class Storage {
         return true;
     }
     
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units, Course[] prereqs){
+    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units, Course[] prereqs){
         Course c = new Course(course_id, subject, course_num, session, name, description, units, prereqs);
         boolean add = alCourse.add(c);
         String message;
@@ -150,7 +150,7 @@ public class Storage {
         return true;
     }
     
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, int units, int recommended_academic_planner_priority, Course[] prereqs){
+    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority, Course[] prereqs){
         Course c = new Course(course_id, subject, course_num, session, name, description, units, recommended_academic_planner_priority, prereqs);
         boolean add = alCourse.add(c);
         String message;

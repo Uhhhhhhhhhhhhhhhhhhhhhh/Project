@@ -18,11 +18,11 @@ public class Course implements Comparable<Course> {
     private char session;
     private String name;
     private String description;
-    private int units;
+    private double units;
     private int recommended_academic_planner_priority;
     private Course[] prereqs;
 
-    public Course(String course_id, String subject, String course_num, char session, String name, String description, int units) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -32,7 +32,7 @@ public class Course implements Comparable<Course> {
         this.units = units;
     }  
     
-    public Course(String course_id, String subject, String course_num, char session, String name, String description, int units, int recommended_academic_planner_priority) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -43,7 +43,7 @@ public class Course implements Comparable<Course> {
         this.recommended_academic_planner_priority = recommended_academic_planner_priority;
     }
 
-    public Course(String course_id, String subject, String course_num, char session, String name, String description, int units, Course[] prereqs) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -54,7 +54,7 @@ public class Course implements Comparable<Course> {
         this.prereqs = prereqs;
     }
     
-    public Course(String course_id, String subject, String course_num, char session, String name, String description, int units, int recommended_academic_planner_priority, Course[] prereqs) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
@@ -114,11 +114,11 @@ public class Course implements Comparable<Course> {
         this.description = description;
     }
 
-    public int getUnits() {
+    public double getUnits() {
         return units;
     }
 
-    public void setUnits(int units) {
+    public void setUnits(double units) {
         this.units = units;
     }
 
