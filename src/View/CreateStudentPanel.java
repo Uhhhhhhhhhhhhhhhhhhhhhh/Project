@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Storage;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -47,14 +48,15 @@ public class CreateStudentPanel extends javax.swing.JPanel {
         jtfLastname = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jcbSubject = new javax.swing.JComboBox<>();
+        jcbMajor = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jcbSubject1 = new javax.swing.JComboBox<>();
+        jcbMinor = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
-        jSpinner2 = new javax.swing.JSpinner();
+        jsUnits = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
+        jtbMinor = new javax.swing.JToggleButton();
 
         setPreferredSize(new java.awt.Dimension(430, 415));
 
@@ -69,7 +71,7 @@ public class CreateStudentPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Major");
 
-        jcbSubject.setModel(getCBCourseSubjectModel());
+        jcbMajor.setModel(getCBCourseSubjectModel());
 
         jButton1.setText("New Major/Minor");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +89,7 @@ public class CreateStudentPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Minor");
 
-        jcbSubject1.setModel(getCBCourseSubjectModel());
+        jcbMinor.setModel(getCBCourseSubjectModel());
 
         jButton3.setText("New Major/Minor");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +98,17 @@ public class CreateStudentPanel extends javax.swing.JPanel {
             }
         });
 
+        jsUnits.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 0.5d));
+
         jLabel6.setText("Units");
+
+        jtbMinor.setSelected(true);
+        jtbMinor.setText("Minor");
+        jtbMinor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jtbMinorItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -108,28 +120,31 @@ public class CreateStudentPanel extends javax.swing.JPanel {
                     .addComponent(jButton2)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
-                            .addComponent(jtfPSU_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jtfLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(95, 95, 95)
+                            .addComponent(jLabel3)
+                            .addComponent(jtfFirstname, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(jtfLastname)
+                            .addComponent(jtfPSU_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jcbSubject1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton1))
+                                .addComponent(jLabel6)
+                                .addComponent(jsUnits, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jcbMinor, 0, 220, Short.MAX_VALUE)
+                                .addComponent(jcbMajor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3))
-                            .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
-                .addContainerGap(79, Short.MAX_VALUE))
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtbMinor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +162,7 @@ public class CreateStudentPanel extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcbMajor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -157,9 +172,10 @@ public class CreateStudentPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtbMinor, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbSubject1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcbMinor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -169,7 +185,7 @@ public class CreateStudentPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(9, 9, 9)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jsUnits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(60, 60, 60)
                 .addComponent(jButton2)
                 .addGap(70, 70, 70))
@@ -182,13 +198,25 @@ public class CreateStudentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        if(jtbMinor.isSelected())
+            Storage.addNewStudent(jtfPSU_ID.getText(), jtfFirstname.getText(), jtfLastname.getText(), jcbMajor.getSelectedItem().toString(), jcbMinor.getSelectedItem().toString(), (double) jsUnits.getValue());
+        else
+            Storage.addNewStudent(jtfPSU_ID.getText(), jtfFirstname.getText(), jtfLastname.getText(), jcbMajor.getSelectedItem().toString(), (double) jsUnits.getValue());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String newSubject = JOptionPane.showInputDialog("Enter New Minor");
         subjects.addElement(newSubject);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jtbMinorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jtbMinorItemStateChanged
+        if(jtbMinor.isSelected())
+            jtbMinor.setText("Minor");
+        else {
+            jtbMinor.setText("No Minor");
+            jcbMinor.setSelectedIndex(-1);
+        }
+    }//GEN-LAST:event_jtbMinorItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -202,9 +230,10 @@ public class CreateStudentPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JComboBox<String> jcbSubject;
-    private javax.swing.JComboBox<String> jcbSubject1;
+    private javax.swing.JComboBox<String> jcbMajor;
+    private javax.swing.JComboBox<String> jcbMinor;
+    private javax.swing.JSpinner jsUnits;
+    private javax.swing.JToggleButton jtbMinor;
     private javax.swing.JTextField jtfFirstname;
     private javax.swing.JTextField jtfLastname;
     private javax.swing.JTextField jtfPSU_ID;
