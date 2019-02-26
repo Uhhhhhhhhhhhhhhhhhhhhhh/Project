@@ -23,7 +23,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    public ComboBoxModel createList
+    //public ComboBoxModel createList
 
     /**
      * This method is called from within the constructor to initialize the form.
