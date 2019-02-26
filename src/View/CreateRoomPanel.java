@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Storage;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -49,16 +50,16 @@ public class CreateRoomPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jcbSubject = new javax.swing.JComboBox<>();
-        jtfCourse_id = new javax.swing.JTextField();
+        jcbBuilding = new javax.swing.JComboBox<>();
+        jtfRoomId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        jsOccupancy = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
+        jsComputers = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jcbSubject1 = new javax.swing.JComboBox<>();
+        jcbLabType = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -73,13 +74,17 @@ public class CreateRoomPanel extends javax.swing.JPanel {
             }
         });
 
-        jcbSubject.setModel(getCBBuildingModel());
+        jcbBuilding.setModel(getCBBuildingModel());
 
         jLabel2.setText("Occupancy");
 
+        jsOccupancy.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
         jLabel4.setText("Room ID");
 
-        jLabel5.setText("Occupancy");
+        jsComputers.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLabel5.setText("Number of Computers");
 
         jLabel6.setText("Lab Type");
 
@@ -90,7 +95,7 @@ public class CreateRoomPanel extends javax.swing.JPanel {
             }
         });
 
-        jcbSubject1.setModel(getCBLabTypeModel());
+        jcbLabType.setModel(getCBLabTypeModel());
 
         jButton3.setText("Add Room");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -109,26 +114,30 @@ public class CreateRoomPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jtfCourse_id, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton1))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jtfRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcbBuilding, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jsOccupancy)
+                                .addGap(108, 108, 108)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jButton2))
-                                .addComponent(jcbSubject1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jcbLabType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jsComputers, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
@@ -143,11 +152,11 @@ public class CreateRoomPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jcbBuilding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(9, 9, 9)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jsComputers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -155,13 +164,13 @@ public class CreateRoomPanel extends javax.swing.JPanel {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfCourse_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbSubject1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbLabType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jsOccupancy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addGap(68, 68, 68))
         );
@@ -178,7 +187,7 @@ public class CreateRoomPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        Storage.addNewRoom(jcbBuilding.getSelectedItem().toString(), jtfRoomId.getText(), (int) jsOccupancy.getValue(), (int) jsComputers.getValue(), jcbLabType.getSelectedItem().toString());
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
@@ -192,10 +201,10 @@ public class CreateRoomPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JComboBox<String> jcbSubject;
-    private javax.swing.JComboBox<String> jcbSubject1;
-    private javax.swing.JTextField jtfCourse_id;
+    private javax.swing.JComboBox<String> jcbBuilding;
+    private javax.swing.JComboBox<String> jcbLabType;
+    private javax.swing.JSpinner jsComputers;
+    private javax.swing.JSpinner jsOccupancy;
+    private javax.swing.JTextField jtfRoomId;
     // End of variables declaration//GEN-END:variables
 }
