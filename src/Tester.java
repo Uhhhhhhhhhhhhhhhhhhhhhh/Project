@@ -38,39 +38,46 @@ public class Tester {
         
         //Students
         storage.addNewStudent("dsd5227", "Derek", "DeTommaso", "IST", 72);
-        storage.addNewStudent("abc1234", "John", "Doe", "SRA", 12);
-        storage.addNewStudent("def5678", "Jane", "Doe", "SRA", 12);
+        storage.addNewStudent("jbd1234", "John", "Doe", "SRA", 12);
+        storage.addNewStudent("jed5678", "Jane", "Doe", "SRA", 12);
         
         //Faculty
-        storage.addNewFaculty("jem1234", "James", "Waterson", "IST", new boolean[]{true, false, true, true, true});
         storage.addNewFaculty("pen1234", "Penny", "Salmon", "SRA", new boolean[]{false, false, true, true, true});
+        storage.addNewFaculty("jem1234", "James", "Waterson", "IST", new boolean[]{true, false, true, true, true});
         
         //Room
         storage.addNewRoom("Gaige", "205", 40, 41, "Computer");
         storage.addNewRoom("Gaige", "204", 25, 25, "Computer");
         
-        storage.addNewCourse("13997", "IST", "261", 'P', "Application Development Design Studio I", "THIS IS A DESCRIPTION", 3);
+        //Course
         storage.addNewCourse("14130", "IST", "411", 'P', "Distributed-Object Computing", "THIS IS A DESCRIPTION", 3);
+        storage.addNewCourse("13997", "IST", "261", 'P', "Application Development Design Studio I", "THIS IS A DESCRIPTION", 3);
         
-        storage.addNewTime_Period(1, LocalTime.of(12, 05), LocalTime.of(13, 20));
+        //Time_Period
         storage.addNewTime_Period(2, LocalTime.of(15, 00), LocalTime.of(16, 15));
+        storage.addNewTime_Period(3, LocalTime.of(9, 00), LocalTime.of(11, 30));
+        storage.addNewTime_Period(1, LocalTime.of(12, 05), LocalTime.of(13, 20));
         
+        //Section
         storage.addNewSection(0, "001", 25, new boolean[]{true, false, true, false, false});
-        storage.addNewSection(1, "001", 25, new boolean[]{false, true, false, true, true});
-        storage.addNewSection(0, "002", 25, new boolean[]{false, true, false, true, true});
         storage.addNewSection(1, "002", 25, new boolean[]{true, false, true, false, false});
+        storage.addNewSection(0, "002", 25, new boolean[]{false, true, false, true, true});
+        storage.addNewSection(1, "001", 25, new boolean[]{false, true, false, true, true});
         
-        storage.addNewFCA(0, 0, 0, 0);
+        //FCA
         storage.addNewFCA(1, 1, 1, 1);
+        storage.addNewFCA(0, 0, 0, 0);
         
+        //Start And End of Semester
         LocalDate startOfSemester = LocalDate.of(2019, 1, 7);
         LocalDate endOfSemester = LocalDate.of(2019, 4, 26);
         
-        
+        //Events
         ArrayList<CalendarEvent> events = new ArrayList<>();
         events.addAll(fcaToCalendarEvent(storage.getFCA(0), new Color(173, 216, 230), startOfSemester, endOfSemester));
         events.addAll(fcaToCalendarEvent(storage.getFCA(1), new Color(216, 191, 216), startOfSemester, endOfSemester));
         
+        //Weekly Calendar
         weeklyCalendar(events);
     }
     
