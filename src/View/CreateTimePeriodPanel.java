@@ -5,6 +5,8 @@
  */
 package View;
 
+import Model.Storage;
+import java.time.LocalTime;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
@@ -45,10 +47,10 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
         jlEndColon = new javax.swing.JLabel();
         jlEndAt = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
-        jSpinner3 = new javax.swing.JSpinner();
-        jSpinner4 = new javax.swing.JSpinner();
+        jsEndMin = new javax.swing.JSpinner();
+        jsStartMin = new javax.swing.JSpinner();
+        jsStartHr = new javax.swing.JSpinner();
+        jsEndHr = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
 
         jlStartAt.setText("Starts At:");
@@ -64,13 +66,13 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Time Period Information");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jsEndMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jsStartMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
-        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jsStartHr.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
-        jSpinner4.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jsEndHr.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
         jButton2.setText("Add Time Period");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -93,18 +95,18 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
                             .addComponent(jlEndAt))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jsStartHr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jsEndHr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jlStartColon)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jsStartMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jlEndColon)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jsEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel1))
                 .addGap(99, 99, 99))
         );
@@ -117,14 +119,14 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlStartAt)
                     .addComponent(jlStartColon)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jsStartMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jsStartHr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlEndAt)
                     .addComponent(jlEndColon)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jsEndMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jsEndHr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(jButton2)
                 .addGap(97, 97, 97))
@@ -132,20 +134,20 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        Storage.addNewTime_Period(LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JSpinner jSpinner4;
     private javax.swing.JLabel jlEndAt;
     private javax.swing.JLabel jlEndColon;
     private javax.swing.JLabel jlStartAt;
     private javax.swing.JLabel jlStartColon;
+    private javax.swing.JSpinner jsEndHr;
+    private javax.swing.JSpinner jsEndMin;
+    private javax.swing.JSpinner jsStartHr;
+    private javax.swing.JSpinner jsStartMin;
     // End of variables declaration//GEN-END:variables
 }
