@@ -28,39 +28,37 @@ public class Tester {
     
     public static void main(String[] args) {
         
-        Storage storage = new Storage();
-        
         //Students
-        storage.addNewStudent("dsd5227", "Derek", "DeTommaso", "IST", 72);
-        storage.addNewStudent("jbd1234", "John", "Doe", "SRA", 12);
-        storage.addNewStudent("jed5678", "Jane", "Doe", "SRA", 12);
+        Storage.addNewStudent("dsd5227", "Derek", "DeTommaso", "IST", 72);
+        Storage.addNewStudent("jbd1234", "John", "Doe", "SRA", 12);
+        Storage.addNewStudent("jed5678", "Jane", "Doe", "SRA", 12);
         
         //Faculty
-        storage.addNewFaculty("pen1234", "Penny", "Salmon", "SRA", new boolean[]{false, false, true, true, true});
-        storage.addNewFaculty("jem1234", "James", "Waterson", "IST", new boolean[]{true, false, true, true, true});
+        Storage.addNewFaculty("pen1234", "Penny", "Salmon", "SRA", new boolean[]{false, false, true, true, true});
+        Storage.addNewFaculty("jem1234", "James", "Waterson", "IST", new boolean[]{true, false, true, true, true});
         
         //Room
-        storage.addNewRoom("Gaige", "205", 40, 41, "Computer");
-        storage.addNewRoom("Gaige", "204", 25, 25, "Computer");
+        Storage.addNewRoom("Gaige", "205", 40, 41, "Computer");
+        Storage.addNewRoom("Gaige", "204", 25, 25, "Computer");
         
         //Course
-        storage.addNewCourse("14130", "IST", "411", 'P', "Distributed-Object Computing", "THIS IS A DESCRIPTION", 3);
-        storage.addNewCourse("13997", "IST", "261", 'P', "Application Development Design Studio I", "THIS IS A DESCRIPTION", 3);
+        Storage.addNewCourse("14130", "IST", "411", 'P', "Distributed-Object Computing", "THIS IS A DESCRIPTION", 3);
+        Storage.addNewCourse("13997", "IST", "261", 'P', "Application Development Design Studio I", "THIS IS A DESCRIPTION", 3);
         
         //Time_Period
-        storage.addNewTime_Period(LocalTime.of(15, 00), LocalTime.of(16, 15));
-        storage.addNewTime_Period(LocalTime.of(9, 00), LocalTime.of(11, 30));
-        storage.addNewTime_Period(LocalTime.of(12, 05), LocalTime.of(13, 20));
+        Storage.addNewTime_Period(LocalTime.of(15, 00), LocalTime.of(16, 15));
+        Storage.addNewTime_Period(LocalTime.of(9, 00), LocalTime.of(11, 30));
+        Storage.addNewTime_Period(LocalTime.of(12, 05), LocalTime.of(13, 20));
         
         //Section
-        storage.addNewSection(0, "001", 25, new boolean[]{true, false, true, false, false});
-        storage.addNewSection(1, "002", 25, new boolean[]{true, false, true, false, false});
-        storage.addNewSection(0, "002", 25, new boolean[]{false, true, false, true, true});
-        storage.addNewSection(1, "001", 25, new boolean[]{false, true, false, true, true});
+        Storage.addNewSection(0, "001", 25, new boolean[]{true, false, true, false, false});
+        Storage.addNewSection(1, "002", 25, new boolean[]{true, false, true, false, false});
+        Storage.addNewSection(0, "002", 25, new boolean[]{false, true, false, true, true});
+        Storage.addNewSection(1, "001", 25, new boolean[]{false, true, false, true, true});
         
         //FCA
-        storage.addNewFCA(1, 1, 1, 1);
-        storage.addNewFCA(0, 0, 0, 0);
+        Storage.addNewFCA(1, 1, 1, 1);
+        Storage.addNewFCA(0, 0, 0, 0);
         
         //Start And End of Semester
         LocalDate startOfSemester = LocalDate.of(2019, 1, 7);
@@ -68,8 +66,8 @@ public class Tester {
         
         //Events
         ArrayList<CalendarEvent> events = new ArrayList<>();
-        events.addAll(fcaToCalendarEvent(storage.getFCA(0), new Color(173, 216, 230), startOfSemester, endOfSemester));
-        events.addAll(fcaToCalendarEvent(storage.getFCA(1), new Color(216, 191, 216), startOfSemester, endOfSemester));
+        events.addAll(fcaToCalendarEvent(Storage.getFCA(0), new Color(173, 216, 230), startOfSemester, endOfSemester));
+        events.addAll(fcaToCalendarEvent(Storage.getFCA(1), new Color(216, 191, 216), startOfSemester, endOfSemester));
         
         //Weekly Calendar
         weeklyCalendar(events);
