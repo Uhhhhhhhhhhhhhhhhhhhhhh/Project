@@ -188,7 +188,7 @@ public class CreateStudentPanel extends javax.swing.JPanel {
                         .addComponent(jsUnits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(60, 60, 60)
                 .addComponent(jButton2)
-                .addGap(70, 70, 70))
+                .addGap(28, 28, 28))
         );
     }// </editor-fold>//GEN-END:initComponents
 
