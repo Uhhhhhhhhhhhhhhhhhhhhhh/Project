@@ -42,7 +42,6 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jmiFaculty = new javax.swing.JMenuItem();
-        jmiStudent = new javax.swing.JMenuItem();
         jmiTime = new javax.swing.JMenuItem();
         jmiRoom = new javax.swing.JMenuItem();
         jmiSection = new javax.swing.JMenuItem();
@@ -78,14 +77,6 @@ public class DemonstrationFrame extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jmiFaculty);
-
-        jmiStudent.setText("Student");
-        jmiStudent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiStudentActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jmiStudent);
 
         jmiTime.setText("Time");
         jmiTime.addActionListener(new java.awt.event.ActionListener() {
@@ -185,15 +176,6 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jif.setVisible(true);
         jDesktop.add(jif);
     }//GEN-LAST:event_jmiFacultyActionPerformed
-
-    private void jmiStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiStudentActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Student", false, true, true, true);
-        jif.setBounds(0,0,478,390);
-        JPanel p = new CreateStudentPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-    }//GEN-LAST:event_jmiStudentActionPerformed
 
     private void jmiSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSectionActionPerformed
         JInternalFrame jif = new JInternalFrame("New Section", false, true, true, true);
@@ -330,7 +312,6 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiFaculty;
     private javax.swing.JMenuItem jmiRoom;
     private javax.swing.JMenuItem jmiSection;
-    private javax.swing.JMenuItem jmiStudent;
     private javax.swing.JMenuItem jmiTime;
     // End of variables declaration//GEN-END:variables
 }
