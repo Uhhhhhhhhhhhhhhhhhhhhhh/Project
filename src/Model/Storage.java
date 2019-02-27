@@ -29,6 +29,8 @@ public class Storage {
 
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         Faculty f = new Faculty(psu_id, first_name, last_name, major_college, preferred_days);
+        
+        //Check for Conflicting Faculty (ie: Faculty Already Exists)
         boolean add = alFaculty.add(f);
         String message;
         if(add) {
