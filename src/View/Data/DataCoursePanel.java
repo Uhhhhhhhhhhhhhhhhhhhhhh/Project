@@ -5,9 +5,12 @@
  */
 package View.Data;
 
+import Model.Course;
 import Model.Storage;
+import View.DemonstrationFrame;
 import View.Item.ItemCoursePanel;
 import javax.swing.DefaultListModel;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -84,7 +87,16 @@ public class DataCoursePanel extends javax.swing.JPanel {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount() == 2) {
-            super.add(new ItemCoursePanel(Storage.getCourse(jList1.getSelectedIndex())));
+            Course c = Storage.getCourse(jList1.getSelectedIndex());
+            JInternalFrame jif = new JInternalFrame("Item: Course " + c.toEventString(), true, true, true, true);
+            jif.setBounds(0, 0, 629, 410);
+            jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
+            DemonstrationFrame.openFrameCount++;
+            jif.add((new ItemCoursePanel(c)));
+            jif.setVisible(true);
+            DemonstrationFrame.jDesktop.add(jif);
+            jif.toFront();
+            
         }
     }//GEN-LAST:event_jList1MouseClicked
 

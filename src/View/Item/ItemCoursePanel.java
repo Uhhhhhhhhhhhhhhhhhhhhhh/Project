@@ -36,6 +36,8 @@ public class ItemCoursePanel extends javax.swing.JPanel {
     
     public DefaultListModel createPreReqList(){
         DefaultListModel prereq = new DefaultListModel();
+        if(c.getPrereqs() == null)
+            return new DefaultListModel();
         for(Course pr:c.getPrereqs())
             prereq.addElement(pr);
         return prereq;
@@ -188,7 +190,7 @@ public class ItemCoursePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

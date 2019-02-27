@@ -16,8 +16,8 @@ import javax.swing.JPanel;
  */
 public class DemonstrationFrame extends javax.swing.JFrame {
 
-    private static int openFrameCount = 0;
-    private static final int XOFFSET = 30, YOFFSET = 30;
+    public static int openFrameCount = 0;
+    public static final int XOFFSET = 30, YOFFSET = 30;
 
     /**
      * Creates new form TestFrame
@@ -369,6 +369,17 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         // TODO Find Courses Teacher is in, Make Events, Place in Weekly View and show
     }//GEN-LAST:event_jmiCVFacultyActionPerformed
 
+    
+    public  void createNewPanel(JPanel p, String title) {
+        JInternalFrame jif = new JInternalFrame(title, true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }
     /**
      * @param args the command line arguments
      */
@@ -408,7 +419,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktop;
+    public static javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
