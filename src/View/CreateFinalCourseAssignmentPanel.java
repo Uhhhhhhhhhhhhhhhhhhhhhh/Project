@@ -5,10 +5,11 @@
  */
 package View;
 
+import Model.*;
 import Model.Storage;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -21,6 +22,38 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
      */
     public CreateFinalCourseAssignmentPanel() {
         initComponents();
+    }
+    
+    public DefaultListModel createFacultyList(){
+        DefaultListModel faculty = new DefaultListModel();
+        Storage.copyFaculty().forEach((f) -> {
+            faculty.addElement(f.toEventString());
+        });
+        return faculty;
+    }
+    
+    public DefaultListModel createRoomList(){
+        DefaultListModel room = new DefaultListModel();
+        Storage.copyRoom().forEach((r) -> {
+            room.addElement(r.toEventString());
+        });
+        return room;
+    }
+    
+    public DefaultListModel createTimeList(){
+        DefaultListModel time = new DefaultListModel();
+        Storage.copyTime().forEach((t) -> {
+            time.addElement(t.toEventString());
+        });
+        return time;
+    }
+    
+    public DefaultListModel createSectionList(){
+        DefaultListModel section = new DefaultListModel();
+        Storage.copySection().forEach((s) -> {
+            section.addElement(s.toEventString());
+        });
+        return section;
     }
     
     //public ComboBoxModel createList
@@ -59,24 +92,19 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jlTime.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jlTime);
 
         jLabel4.setText("Time Period");
 
-        jlFaculty.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jlFaculty.setModel(createFacultyList());
+        jlFaculty.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jlFaculty);
 
         jLabel5.setText("Building and Room");
 
-        jlRoom.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jlRoom.setModel(createRoomList());
+        jlRoom.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jlRoom);
 
         jLabel6.setText("Course and Section");
@@ -86,6 +114,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jlSection.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(jlSection);
 
         jButton1.setText("Create Final Course Assignment");

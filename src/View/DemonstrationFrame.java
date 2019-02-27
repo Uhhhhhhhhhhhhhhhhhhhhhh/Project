@@ -21,6 +21,11 @@ import javax.swing.JPanel;
  */
 public class DemonstrationFrame extends javax.swing.JFrame {
 
+    
+    private static int openFrameCount = 0;
+    private static final int XOFFSET = 30, YOFFSET = 30;
+    
+    
     /**
      * Creates new form TestFrame
      */
@@ -58,11 +63,11 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jDesktop.setLayout(jDesktopLayout);
         jDesktopLayout.setHorizontalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1064, Short.MAX_VALUE)
+            .addGap(0, 1300, Short.MAX_VALUE)
         );
         jDesktopLayout.setVerticalGroup(
             jDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 711, Short.MAX_VALUE)
+            .addGap(0, 857, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
@@ -152,8 +157,9 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jDesktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDesktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -162,61 +168,80 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     private void jmiRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRoomActionPerformed
         JInternalFrame jif = new JInternalFrame("New Room", false, true, true, true);
         jif.setBounds(0,0,427,325);
+        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+        openFrameCount++;
         JPanel p = new CreateRoomPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
+        jif.toFront();
     }//GEN-LAST:event_jmiRoomActionPerformed
 
     private void jmiFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFacultyActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Faculty", false, true, true, true);
+        JInternalFrame jif = new JInternalFrame("New Faculty", true, true, true, true);
         jif.setBounds(0,0,430,370);
+        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+        openFrameCount++;
         JPanel p = new CreateFacultyPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
+        jif.toFront();
     }//GEN-LAST:event_jmiFacultyActionPerformed
 
     private void jmiSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSectionActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Section", false, true, true, true);
-        jif.setBounds(0,0,50,50);
+        JInternalFrame jif = new JInternalFrame("New Section", true, true, true, true);
+        jif.setBounds(0,0,465,455);
+        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+        openFrameCount++;
         JPanel p = new CreateSectionPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
+        jif.toFront();
     }//GEN-LAST:event_jmiSectionActionPerformed
 
     private void jmiTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTimeActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Time", false, true, true, true);
+        JInternalFrame jif = new JInternalFrame("New Time", true, true, true, true);
         jif.setBounds(0,0,300,260);
+        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+        openFrameCount++;
         JPanel p = new CreateTimePeriodPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
+        jif.toFront();
     }//GEN-LAST:event_jmiTimeActionPerformed
 
     private void jmiCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCourseActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Course", false, true, true, true);
+        JInternalFrame jif = new JInternalFrame("New Course", true, true, true, true);
         jif.setBounds(0,0,455,435);
+        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+        openFrameCount++;
         JPanel p = new CreateCoursePanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
+        jif.toFront();
     }//GEN-LAST:event_jmiCourseActionPerformed
 
     private void jmiFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFCAActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Final Course Assignment", false, true, true, true);
-        jif.setBounds(0,0,50,50);
+        JInternalFrame jif = new JInternalFrame("New Final Course Assignment", true, true, true, true);
+        jif.setBounds(0,0,700,720);
+        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+        openFrameCount++;
         JPanel p = new CreateFinalCourseAssignmentPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
+        jif.toFront();
     }//GEN-LAST:event_jmiFCAActionPerformed
 
     private void jMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu6ActionPerformed
         JInternalFrame jif = new JInternalFrame("Weekly Calendar", true, true, true, true);
         jif.setBounds(0,0,1000,900);
-        
+        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+        openFrameCount++;
         ArrayList<CalendarEvent> events = new ArrayList<>();
         for(Final_Course_Assignment fca:Storage.copyFCA()){
             //TODO: Color, ETC
@@ -258,6 +283,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jif.add(cal, BorderLayout.CENTER);
         jif.setSize(1000, 900);
         jif.setVisible(true);
+        jif.toFront();
     }//GEN-LAST:event_jMenu6ActionPerformed
 
     /**
