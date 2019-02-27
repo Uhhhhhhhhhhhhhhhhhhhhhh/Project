@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Create;
 
 import Model.*;
 import Model.Storage;
@@ -87,11 +87,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Faculty Teaching Course");
 
-        jlTime.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jlTime.setModel(createTimeList());
         jlTime.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jlTime);
 
@@ -109,11 +105,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Course and Section");
 
-        jlSection.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jlSection.setModel(createSectionList());
         jlSection.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(jlSection);
 
@@ -183,7 +175,10 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Storage.addNewFCA(jlFaculty.getSelectedIndex(), jlTime.getSelectedIndex(), jlRoom.getSelectedIndex(), jlSection.getSelectedIndex());
+        
+        clearItems();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -203,4 +198,11 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     private javax.swing.JList<String> jlSection;
     private javax.swing.JList<String> jlTime;
     // End of variables declaration//GEN-END:variables
+
+    private void clearItems() {
+        jlFaculty.clearSelection();
+        jlRoom.clearSelection();
+        jlSection.clearSelection();
+        jlTime.clearSelection();
+    }
 }

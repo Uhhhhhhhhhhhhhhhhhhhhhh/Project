@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Create;
 
 import Model.Storage;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.DefaultListModel;
 import javax.swing.JSpinner;
 
 /**
@@ -24,7 +25,13 @@ public class CreateSectionPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    //public
+    public DefaultListModel createCourseList(){
+        DefaultListModel course = new DefaultListModel();
+        Storage.copyCourse().forEach((c) -> {
+            course.addElement(c.toEventString());
+        });
+        return course;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,11 +69,7 @@ public class CreateSectionPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Course");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList2.setModel(createCourseList());
         jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jList2);
 
@@ -172,11 +175,11 @@ public class CreateSectionPanel extends javax.swing.JPanel {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        jsStartDate.setEditor(new JSpinner.DateEditor(jsStartDate,"m/dd/yyyy"));
-        jsEndDate.setEditor(new JSpinner.DateEditor(jsEndDate,"m/dd/yyyy"));
+        jsStartDate.setEditor(new JSpinner.DateEditor(jsStartDate,"mm/dd/yyyy"));
+        jsEndDate.setEditor(new JSpinner.DateEditor(jsEndDate,"mm/dd/yyyy"));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -193,6 +196,8 @@ public class CreateSectionPanel extends javax.swing.JPanel {
         LocalDate endDate = end.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         Storage.addNewSection(jList2.getSelectedIndex(), jtfSection.getText(), (int) jsEnrollment.getValue(), (int) jsCapacity.getValue(), startDate, endDate, days);
+        
+        createItems();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -217,4 +222,14 @@ public class CreateSectionPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner jsStartDate;
     private javax.swing.JTextField jtfSection;
     // End of variables declaration//GEN-END:variables
+
+    private void createItems() {
+        jlDays.clearSelection();
+        jList2.clearSelection();
+        jsStartDate.setModel(new javax.swing.SpinnerDateModel());
+        jsEndDate.setModel(new javax.swing.SpinnerDateModel());
+        jtfSection.setText("");
+        jsCapacity.setValue(1);
+        jsEnrollment.setValue(0);
+    }
 }

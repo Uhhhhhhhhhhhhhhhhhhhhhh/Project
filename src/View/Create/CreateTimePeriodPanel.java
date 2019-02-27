@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Create;
 
 import Model.Storage;
 import java.time.LocalTime;
@@ -135,6 +135,7 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Storage.addNewTime_Period(LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
+        clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -150,4 +151,11 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner jsStartHr;
     private javax.swing.JSpinner jsStartMin;
     // End of variables declaration//GEN-END:variables
+
+    private void clearItems() {
+        jsStartHr.setValue(0);
+        jsStartMin.setValue(0);
+        jsEndHr.setValue(0);
+        jsEndMin.setValue(0);
+    }
 }

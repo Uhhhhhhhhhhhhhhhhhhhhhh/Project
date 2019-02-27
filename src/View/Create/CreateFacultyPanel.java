@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Create;
 
 import Model.Storage;
 import javax.swing.ComboBoxModel;
@@ -23,6 +23,14 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
      */
     public CreateFacultyPanel() {
         initComponents();
+    }
+    
+    public void clearItems() {
+        jtfPSU_ID.setText("");
+        jtfFirstname.setText("");
+        jtfLastname.setText("");
+        jcbSubject.setSelectedIndex(0);
+        jlDays.clearSelection();
     }
     
      private ComboBoxModel getCBCourseSubjectModel() {
@@ -173,6 +181,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
         }
         
         Storage.addNewFaculty(jtfPSU_ID.getText(), jtfFirstname.getText(), jtfLastname.getText(), jcbSubject.getSelectedItem().toString(), preferred_days);
+        clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Create;
 
 import Model.Storage;
 import javax.swing.ComboBoxModel;
@@ -24,6 +24,17 @@ public class CreateCoursePanel extends javax.swing.JPanel {
      */
     public CreateCoursePanel() {
         initComponents();
+    }
+    
+    
+    private void clearItems(){
+        jtfCourse_id.setText("");
+        jcbSubject.setSelectedIndex(-1);
+        jtfCourse_num.setText("");
+        jcbSession.setSelectedIndex(-1);
+        jtfName.setText("");
+        jtaDescription.setText("");
+        jsUnits.setValue(0);
     }
     
     private ComboBoxModel getCBCourseSubjectModel() {
@@ -181,6 +192,7 @@ public class CreateCoursePanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Storage.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jcbSession.getSelectedItem().toString().charAt(0), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue());
+        clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

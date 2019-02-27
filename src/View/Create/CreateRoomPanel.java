@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package View.Create;
 
 import Model.Storage;
 import javax.swing.ComboBoxModel;
@@ -188,6 +188,7 @@ public class CreateRoomPanel extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Storage.addNewRoom(jcbBuilding.getSelectedItem().toString(), jtfRoomId.getText(), (int) jsOccupancy.getValue(), (int) jsComputers.getValue(), jcbLabType.getSelectedItem().toString());
+        clearItems();
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
@@ -207,4 +208,12 @@ public class CreateRoomPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner jsOccupancy;
     private javax.swing.JTextField jtfRoomId;
     // End of variables declaration//GEN-END:variables
+
+    private void clearItems() {
+        jcbBuilding.setSelectedIndex(-1);
+        jcbLabType.setSelectedIndex(-1);
+        jsComputers.setValue(0);
+        jsOccupancy.setValue(0);
+        jtfRoomId.setText("");
+    }
 }
