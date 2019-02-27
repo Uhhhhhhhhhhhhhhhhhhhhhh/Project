@@ -251,6 +251,8 @@ public class CreateCoursePanel extends javax.swing.JPanel {
             Storage.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jcbSession.getSelectedItem().toString().charAt(0), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue(), pr);
         }
         clearItems();
+        
+        // TODO ADD CATCH NULL POINTER EXCEPTIONS
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
