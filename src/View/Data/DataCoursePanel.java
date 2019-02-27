@@ -6,6 +6,7 @@
 package View.Data;
 
 import Model.Storage;
+import View.Item.ItemCoursePanel;
 import javax.swing.DefaultListModel;
 
 /**
@@ -48,6 +49,11 @@ public class DataCoursePanel extends javax.swing.JPanel {
 
         jList1.setModel(createCourseList());
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -75,6 +81,12 @@ public class DataCoursePanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(evt.getClickCount() == 2) {
+            super.add(new ItemCoursePanel(Storage.getCourse(jList1.getSelectedIndex())));
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
