@@ -283,7 +283,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
 
     private void jmiNewCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewCourseActionPerformed
         JInternalFrame jif = new JInternalFrame("New: Course", true, true, true, true);
-        jif.setBounds(0, 0, 455, 435);
+        jif.setBounds(0, 0, 475, 485);
         jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateCoursePanel();
