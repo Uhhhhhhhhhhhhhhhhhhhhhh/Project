@@ -1,11 +1,7 @@
 package View;
 
-
-import Calendar.*;
-import Model.*;
-import java.awt.BorderLayout;
-import java.util.ArrayList;
-import javax.swing.JButton;
+import View.Create.*;
+import View.Data.*;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
@@ -14,18 +10,15 @@ import javax.swing.JPanel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Derek
  */
 public class DemonstrationFrame extends javax.swing.JFrame {
 
-    
     private static int openFrameCount = 0;
     private static final int XOFFSET = 30, YOFFSET = 30;
-    
-    
+
     /**
      * Creates new form TestFrame
      */
@@ -44,18 +37,30 @@ public class DemonstrationFrame extends javax.swing.JFrame {
 
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jmiFaculty = new javax.swing.JMenuItem();
-        jmiTime = new javax.swing.JMenuItem();
-        jmiRoom = new javax.swing.JMenuItem();
-        jmiSection = new javax.swing.JMenuItem();
-        jmiCourse = new javax.swing.JMenuItem();
-        jmiFCA = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        jmFile = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jmNew = new javax.swing.JMenu();
+        jmiNewFaculty = new javax.swing.JMenuItem();
+        jmiNewTime = new javax.swing.JMenuItem();
+        jmiNewRoom = new javax.swing.JMenuItem();
+        jmiNewCourse = new javax.swing.JMenuItem();
+        jmiNewSection = new javax.swing.JMenuItem();
+        jmiNewFCA = new javax.swing.JMenuItem();
+        jmData = new javax.swing.JMenu();
+        jmiDataFaculty = new javax.swing.JMenuItem();
+        jmiDataTime = new javax.swing.JMenuItem();
+        jmiDataRoom = new javax.swing.JMenuItem();
+        jmiDataCourse = new javax.swing.JMenuItem();
+        jmiDataSection = new javax.swing.JMenuItem();
+        jmiDataFCA = new javax.swing.JMenuItem();
+        jmCalView = new javax.swing.JMenu();
+        jmiCVFaculty = new javax.swing.JMenuItem();
+        jmiCVRoom = new javax.swing.JMenuItem();
+        jmCVCL = new javax.swing.JMenu();
+        jmiCVCLFCA = new javax.swing.JMenuItem();
+        jmiCVCLCourse = new javax.swing.JMenuItem();
+        jmiCVCLSections = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,79 +75,137 @@ public class DemonstrationFrame extends javax.swing.JFrame {
             .addGap(0, 857, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jmFile.setText("File");
 
-        jMenu2.setText("New");
+        jMenuItem1.setText("Import");
+        jmFile.add(jMenuItem1);
 
-        jmiFaculty.setText("Faculty");
-        jmiFaculty.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("Export");
+        jmFile.add(jMenuItem2);
+
+        jMenuBar1.add(jmFile);
+
+        jmNew.setText("New");
+
+        jmiNewFaculty.setText("Faculty");
+        jmiNewFaculty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiFacultyActionPerformed(evt);
+                jmiNewFacultyActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiFaculty);
+        jmNew.add(jmiNewFaculty);
 
-        jmiTime.setText("Time");
-        jmiTime.addActionListener(new java.awt.event.ActionListener() {
+        jmiNewTime.setText("Time");
+        jmiNewTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiTimeActionPerformed(evt);
+                jmiNewTimeActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiTime);
+        jmNew.add(jmiNewTime);
 
-        jmiRoom.setText("Room");
-        jmiRoom.addActionListener(new java.awt.event.ActionListener() {
+        jmiNewRoom.setText("Room");
+        jmiNewRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRoomActionPerformed(evt);
+                jmiNewRoomActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiRoom);
+        jmNew.add(jmiNewRoom);
 
-        jmiSection.setText("Section");
-        jmiSection.addActionListener(new java.awt.event.ActionListener() {
+        jmiNewCourse.setText("Course");
+        jmiNewCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiSectionActionPerformed(evt);
+                jmiNewCourseActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiSection);
+        jmNew.add(jmiNewCourse);
 
-        jmiCourse.setText("Course");
-        jmiCourse.addActionListener(new java.awt.event.ActionListener() {
+        jmiNewSection.setText("Section");
+        jmiNewSection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiCourseActionPerformed(evt);
+                jmiNewSectionActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiCourse);
+        jmNew.add(jmiNewSection);
 
-        jmiFCA.setText("Final Course Assignment");
-        jmiFCA.addActionListener(new java.awt.event.ActionListener() {
+        jmiNewFCA.setText("Final Course Assignment");
+        jmiNewFCA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiFCAActionPerformed(evt);
+                jmiNewFCAActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiFCA);
+        jmNew.add(jmiNewFCA);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jmNew);
 
-        jMenu3.setText("View");
+        jmData.setText("Data");
 
-        jMenu4.setText("Student Schedule");
-
-        jMenu5.setText("Coming Soon...");
-        jMenu4.add(jMenu5);
-
-        jMenu3.add(jMenu4);
-
-        jMenu6.setText("Example Weekly Calendar");
-        jMenu6.addActionListener(new java.awt.event.ActionListener() {
+        jmiDataFaculty.setText("Faculty");
+        jmiDataFaculty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu6ActionPerformed(evt);
+                jmiDataFacultyActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenu6);
+        jmData.add(jmiDataFaculty);
 
-        jMenuBar1.add(jMenu3);
+        jmiDataTime.setText("Time");
+        jmiDataTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDataTimeActionPerformed(evt);
+            }
+        });
+        jmData.add(jmiDataTime);
+
+        jmiDataRoom.setText("Room");
+        jmiDataRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDataRoomActionPerformed(evt);
+            }
+        });
+        jmData.add(jmiDataRoom);
+
+        jmiDataCourse.setText("Course");
+        jmiDataCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDataCourseActionPerformed(evt);
+            }
+        });
+        jmData.add(jmiDataCourse);
+
+        jmiDataSection.setText("Section");
+        jmData.add(jmiDataSection);
+
+        jmiDataFCA.setText("Final Course Assignment");
+        jmiDataFCA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDataFCAActionPerformed(evt);
+            }
+        });
+        jmData.add(jmiDataFCA);
+
+        jMenuBar1.add(jmData);
+
+        jmCalView.setText("Calendar View");
+
+        jmiCVFaculty.setText("By Faculty");
+        jmCalView.add(jmiCVFaculty);
+
+        jmiCVRoom.setText("By Room");
+        jmCalView.add(jmiCVRoom);
+
+        jmCVCL.setText("By Custom List");
+
+        jmiCVCLFCA.setText("Final Course Assignments");
+        jmCVCL.add(jmiCVCLFCA);
+
+        jmiCVCLCourse.setText("Courses");
+        jmCVCL.add(jmiCVCLCourse);
+
+        jmiCVCLSections.setText("Sections");
+        jmCVCL.add(jmiCVCLSections);
+
+        jmCalView.add(jmCVCL);
+
+        jMenuBar1.add(jmCalView);
 
         setJMenuBar(jMenuBar1);
 
@@ -165,126 +228,137 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRoomActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Room", false, true, true, true);
-        jif.setBounds(0,0,427,325);
-        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+    private void jmiNewRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewRoomActionPerformed
+        JInternalFrame jif = new JInternalFrame("New: Room", false, true, true, true);
+        jif.setBounds(0, 0, 427, 325);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateRoomPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
         jif.toFront();
-    }//GEN-LAST:event_jmiRoomActionPerformed
+    }//GEN-LAST:event_jmiNewRoomActionPerformed
 
-    private void jmiFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFacultyActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Faculty", true, true, true, true);
-        jif.setBounds(0,0,430,370);
-        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+    private void jmiNewFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFacultyActionPerformed
+        JInternalFrame jif = new JInternalFrame("New: Faculty", true, true, true, true);
+        jif.setBounds(0, 0, 430, 370);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateFacultyPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
         jif.toFront();
-    }//GEN-LAST:event_jmiFacultyActionPerformed
+    }//GEN-LAST:event_jmiNewFacultyActionPerformed
 
-    private void jmiSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSectionActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Section", true, true, true, true);
-        jif.setBounds(0,0,465,455);
-        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+    private void jmiNewSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewSectionActionPerformed
+        JInternalFrame jif = new JInternalFrame("New: Section", true, true, true, true);
+        jif.setBounds(0, 0, 465, 465);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateSectionPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
         jif.toFront();
-    }//GEN-LAST:event_jmiSectionActionPerformed
+    }//GEN-LAST:event_jmiNewSectionActionPerformed
 
-    private void jmiTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTimeActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Time", true, true, true, true);
-        jif.setBounds(0,0,300,260);
-        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+    private void jmiNewTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewTimeActionPerformed
+        JInternalFrame jif = new JInternalFrame("New: Time", true, true, true, true);
+        jif.setBounds(0, 0, 300, 260);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateTimePeriodPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
         jif.toFront();
-    }//GEN-LAST:event_jmiTimeActionPerformed
+    }//GEN-LAST:event_jmiNewTimeActionPerformed
 
-    private void jmiCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCourseActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Course", true, true, true, true);
-        jif.setBounds(0,0,455,435);
-        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+    private void jmiNewCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewCourseActionPerformed
+        JInternalFrame jif = new JInternalFrame("New: Course", true, true, true, true);
+        jif.setBounds(0, 0, 455, 435);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateCoursePanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
         jif.toFront();
-    }//GEN-LAST:event_jmiCourseActionPerformed
+    }//GEN-LAST:event_jmiNewCourseActionPerformed
 
-    private void jmiFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFCAActionPerformed
-        JInternalFrame jif = new JInternalFrame("New Final Course Assignment", true, true, true, true);
-        jif.setBounds(0,0,700,720);
-        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+    private void jmiNewFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFCAActionPerformed
+        JInternalFrame jif = new JInternalFrame("New: Final Course Assignment", true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateFinalCourseAssignmentPanel();
         jif.add(p);
         jif.setVisible(true);
         jDesktop.add(jif);
         jif.toFront();
-    }//GEN-LAST:event_jmiFCAActionPerformed
+    }//GEN-LAST:event_jmiNewFCAActionPerformed
 
-    private void jMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu6ActionPerformed
-        JInternalFrame jif = new JInternalFrame("Weekly Calendar", true, true, true, true);
-        jif.setBounds(0,0,1000,900);
-        jif.setLocation(XOFFSET*openFrameCount, YOFFSET*openFrameCount);
+    private void jmiDataFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataFacultyActionPerformed
+        JInternalFrame jif = new JInternalFrame("Data: Faculty", true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
-        ArrayList<CalendarEvent> events = new ArrayList<>();
-        for(Final_Course_Assignment fca:Storage.copyFCA()){
-            //TODO: Color, ETC
-            //events.addAll(fcaToCalendarEvent(fca, ))
-        }
-            
-        WeekCalendar cal = new WeekCalendar(events);
-
-        cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
-        cal.addCalendarEmptyClickListener(e -> {
-            System.out.println(e.getDateTime());
-            System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
-        });
-
-        JButton goToTodayBtn = new JButton("Today");
-        goToTodayBtn.addActionListener(e -> cal.goToToday());
-
-        JButton nextWeekBtn = new JButton(">");
-        nextWeekBtn.addActionListener(e -> cal.nextWeek());
-
-        JButton prevWeekBtn = new JButton("<");
-        prevWeekBtn.addActionListener(e -> cal.prevWeek());
-
-        JButton nextMonthBtn = new JButton(">>");
-        nextMonthBtn.addActionListener(e -> cal.nextMonth());
-
-        JButton prevMonthBtn = new JButton("<<");
-        prevMonthBtn.addActionListener(e -> cal.prevMonth());
-
-        JPanel weekControls = new JPanel();
-        weekControls.add(prevMonthBtn);
-        weekControls.add(prevWeekBtn);
-        weekControls.add(goToTodayBtn);
-        weekControls.add(nextWeekBtn);
-        weekControls.add(nextMonthBtn);
-
-        jif.add(weekControls, BorderLayout.NORTH);
-
-        jif.add(cal, BorderLayout.CENTER);
-        jif.setSize(1000, 900);
+        JPanel p = new DataFacultyPanel();
+        jif.add(p);
         jif.setVisible(true);
+        jDesktop.add(jif);
         jif.toFront();
-    }//GEN-LAST:event_jMenu6ActionPerformed
+    }//GEN-LAST:event_jmiDataFacultyActionPerformed
+
+    private void jmiDataTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataTimeActionPerformed
+        JInternalFrame jif = new JInternalFrame("Data: Time Period", true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        JPanel p = new DataTimePeriodPanel();
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }//GEN-LAST:event_jmiDataTimeActionPerformed
+
+    private void jmiDataRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataRoomActionPerformed
+        JInternalFrame jif = new JInternalFrame("Data: Room", true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        JPanel p = new DataRoomPanel();
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }//GEN-LAST:event_jmiDataRoomActionPerformed
+
+    private void jmiDataCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataCourseActionPerformed
+        JInternalFrame jif = new JInternalFrame("Data: Course", true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        JPanel p = new DataCoursePanel();
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }//GEN-LAST:event_jmiDataCourseActionPerformed
+
+    private void jmiDataFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataFCAActionPerformed
+        JInternalFrame jif = new JInternalFrame("Data: Final Course Assignment", true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        JPanel p = new DataFinalCourseAssignmentPanel();
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }//GEN-LAST:event_jmiDataFCAActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,18 +400,30 @@ public class DemonstrationFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktop;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jmiCourse;
-    private javax.swing.JMenuItem jmiFCA;
-    private javax.swing.JMenuItem jmiFaculty;
-    private javax.swing.JMenuItem jmiRoom;
-    private javax.swing.JMenuItem jmiSection;
-    private javax.swing.JMenuItem jmiTime;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu jmCVCL;
+    private javax.swing.JMenu jmCalView;
+    private javax.swing.JMenu jmData;
+    private javax.swing.JMenu jmFile;
+    private javax.swing.JMenu jmNew;
+    private javax.swing.JMenuItem jmiCVCLCourse;
+    private javax.swing.JMenuItem jmiCVCLFCA;
+    private javax.swing.JMenuItem jmiCVCLSections;
+    private javax.swing.JMenuItem jmiCVFaculty;
+    private javax.swing.JMenuItem jmiCVRoom;
+    private javax.swing.JMenuItem jmiDataCourse;
+    private javax.swing.JMenuItem jmiDataFCA;
+    private javax.swing.JMenuItem jmiDataFaculty;
+    private javax.swing.JMenuItem jmiDataRoom;
+    private javax.swing.JMenuItem jmiDataSection;
+    private javax.swing.JMenuItem jmiDataTime;
+    private javax.swing.JMenuItem jmiNewCourse;
+    private javax.swing.JMenuItem jmiNewFCA;
+    private javax.swing.JMenuItem jmiNewFaculty;
+    private javax.swing.JMenuItem jmiNewRoom;
+    private javax.swing.JMenuItem jmiNewSection;
+    private javax.swing.JMenuItem jmiNewTime;
     // End of variables declaration//GEN-END:variables
 }
