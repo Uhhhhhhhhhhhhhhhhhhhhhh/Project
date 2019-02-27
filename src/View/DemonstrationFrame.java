@@ -187,6 +187,11 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jmCalView.setText("Calendar View");
 
         jmiCVFaculty.setText("By Faculty");
+        jmiCVFaculty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCVFacultyActionPerformed(evt);
+            }
+        });
         jmCalView.add(jmiCVFaculty);
 
         jmiCVRoom.setText("By Room");
@@ -359,6 +364,10 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jDesktop.add(jif);
         jif.toFront();
     }//GEN-LAST:event_jmiDataFCAActionPerformed
+
+    private void jmiCVFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVFacultyActionPerformed
+        // TODO Find Courses Teacher is in, Make Events, Place in Weekly View and show
+    }//GEN-LAST:event_jmiCVFacultyActionPerformed
 
     /**
      * @param args the command line arguments
