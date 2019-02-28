@@ -363,6 +363,8 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jif.setVisible(true);
         jDesktop.add(jif);
         jif.toFront();
+        
+        
     }//GEN-LAST:event_jmiDataFCAActionPerformed
 
     private void jmiCVFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVFacultyActionPerformed
