@@ -112,6 +112,7 @@ public class ItemCoursePanel extends javax.swing.JPanel {
 
         jList1.setModel(createPreReqList());
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setEnabled(false);
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
