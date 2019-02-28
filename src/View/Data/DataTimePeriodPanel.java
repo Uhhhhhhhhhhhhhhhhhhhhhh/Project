@@ -88,7 +88,7 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
         if(evt.getClickCount() == 2) {
             Time_Period t = Storage.getTime_Period(jList1.getSelectedIndex());
             JInternalFrame jif = new JInternalFrame("Item: Time " + t.toEventString(), true, true, true, true);
-            jif.setBounds(0, 0, 285, 400);
+            jif.setBounds(0, 0, 225, 150);
             jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
             DemonstrationFrame.openFrameCount++;
             jif.add((new ItemTimePanel(t)));
