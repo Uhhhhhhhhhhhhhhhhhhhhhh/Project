@@ -5,7 +5,10 @@
  */
 package View.Data;
 
-import Model.Storage;
+import Model.*;
+import View.DemonstrationFrame;
+import View.Item.*;
+import javax.swing.JInternalFrame;
 import javax.swing.DefaultListModel;
 
 /**
@@ -48,6 +51,11 @@ public class DataRoomPanel extends javax.swing.JPanel {
 
         jList1.setModel(createRoomList());
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -75,6 +83,20 @@ public class DataRoomPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(evt.getClickCount() == 2) {
+            Room r = Storage.getRoom(jList1.getSelectedIndex());
+            JInternalFrame jif = new JInternalFrame("Item: Room " + r.toEventString(), true, true, true, true);
+            jif.setBounds(0, 0, 350, 220);
+            jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
+            DemonstrationFrame.openFrameCount++;
+            jif.add((new ItemRoomPanel(r)));
+            jif.setVisible(true);
+            DemonstrationFrame.jDesktop.add(jif);
+            jif.toFront();
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

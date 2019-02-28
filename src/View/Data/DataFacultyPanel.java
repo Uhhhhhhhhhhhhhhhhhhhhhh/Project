@@ -89,7 +89,7 @@ public class DataFacultyPanel extends javax.swing.JPanel {
         if(evt.getClickCount() == 2) {
             Faculty f = Storage.getFaculty(jList1.getSelectedIndex());
             JInternalFrame jif = new JInternalFrame("Item: Faculty " + f.toEventString(), true, true, true, true);
-            jif.setBounds(0, 0, 285, 360);
+            jif.setBounds(0, 0, 285, 400);
             jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
             DemonstrationFrame.openFrameCount++;
             jif.add((new ItemFacultyPanel(f)));
