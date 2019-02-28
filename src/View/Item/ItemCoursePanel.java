@@ -37,9 +37,10 @@ public class ItemCoursePanel extends javax.swing.JPanel {
     public DefaultListModel createPreReqList(){
         DefaultListModel prereq = new DefaultListModel();
         if(c.getPrereqs() == null)
-            return new DefaultListModel();
-        for(Course pr:c.getPrereqs())
-            prereq.addElement(pr);
+            prereq.addElement("No Prerequisites.");
+        else
+            for(Course pr:c.getPrereqs())
+                prereq.addElement(pr.toEventString());
         return prereq;
     }
 
@@ -72,8 +73,10 @@ public class ItemCoursePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setText(c.getDescription());
         jScrollPane2.setViewportView(jTextArea1);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
