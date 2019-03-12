@@ -6,11 +6,13 @@
 
 package Model;
 
+import static java.util.Comparator.comparing;
+
 /**
  * Date: Feb 21, 2019
  * @author dsd5227
  */
-public class Final_Course_Assignment {
+public class Final_Course_Assignment implements Comparable<Final_Course_Assignment> {
 
     private Faculty faculty;
     private Time_Period period;
@@ -59,6 +61,19 @@ public class Final_Course_Assignment {
     @Override
     public String toString() {
         return "Final_Course_Assignment{" + "faculty=" + faculty + ", period=" + period + ", room=" + room + ", section=" + section + '}';
+    }
+    
+    public String toEventString() {
+        return section.getCourse().getSubject() + " " 
+                + section.getCourse().getCourse_num() + " "
+                + section.getSection() + "\n" + section.getCourse().getName()
+                + "\nProf. " + faculty.getLast_name();
+    }
+    
+    @Override
+    public int compareTo(Final_Course_Assignment other) {
+        return comparing(Final_Course_Assignment::getSection)
+                .compare(this, other);
     }
     
 } // Final_Course_Assignment

@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public abstract class Calendar extends JComponent {
-    protected static final LocalTime START_TIME = LocalTime.of(9, 0);
-    protected static final LocalTime END_TIME = LocalTime.of(17, 0);
+    protected static final LocalTime START_TIME = LocalTime.of(6, 0);
+    protected static final LocalTime END_TIME = LocalTime.of(22, 0);
 
     protected static final int MIN_WIDTH = 600;
     protected static final int MIN_HEIGHT = MIN_WIDTH;
@@ -223,6 +223,8 @@ public abstract class Calendar extends JComponent {
 
     protected abstract DayOfWeek getEndDay();
 
+    //DAY HEADER
+    //TODO: Change from string to button
     private void drawDayHeadings() {
         int y = 20;
         int x;
@@ -233,7 +235,7 @@ public abstract class Calendar extends JComponent {
             dayOfWeek = DayOfWeek.of(i);
             day = getDateFromDay(dayOfWeek);
 
-            String text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + day.getDayOfMonth() + "/" + day.getMonthValue();
+            String text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + day.getMonthValue() + "/" + day.getDayOfMonth();
             x = (int) (dayToPixel(DayOfWeek.of(i)) + (dayWidth / 2) - (FONT_LETTER_PIXEL_WIDTH * text.length() / 2));
             g2.drawString(text, x, y);
         }
@@ -356,6 +358,8 @@ public abstract class Calendar extends JComponent {
             // Draw the event's text
             g2.drawString(event.getText(), (int) x + 5, (int) y0 + 23);
 
+            //TODO: EVENT DRAW ON CALENDAR
+            
             // Reset font
             g2.setFont(origFont);
         }

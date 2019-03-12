@@ -5,54 +5,61 @@
  */
 package Model;
 
+import static java.util.Comparator.comparing;
+
 /**
  *
  * @author Derek
  */
-public class Course {
+public class Course implements Comparable<Course> {
     private String course_id;
     private String subject;
     private String course_num;
     private char session;
+    private String name;
     private String description;
-    private int units;
+    private double units;
     private int recommended_academic_planner_priority;
     private Course[] prereqs;
 
-    public Course(String course_id, String subject, String course_num, char session, String description, int units) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
         this.session = session;
+        this.name = name;
         this.description = description;
         this.units = units;
     }  
     
-    public Course(String course_id, String subject, String course_num, char session, String description, int units, int recommended_academic_planner_priority) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
         this.session = session;
+        this.name = name;
         this.description = description;
         this.units = units;
         this.recommended_academic_planner_priority = recommended_academic_planner_priority;
     }
 
-    public Course(String course_id, String subject, String course_num, char session, String description, int units, Course[] prereqs) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
         this.session = session;
+        this.name = name;
         this.description = description;
         this.units = units;
         this.prereqs = prereqs;
     }
     
-    public Course(String course_id, String subject, String course_num, char session, String description, int units, int recommended_academic_planner_priority, Course[] prereqs) {
+    public Course(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority, Course[] prereqs) {
         this.course_id = course_id;
         this.subject = subject;
         this.course_num = course_num;
         this.session = session;
+        this.name = name;
         this.description = description;
         this.units = units;
         this.recommended_academic_planner_priority = recommended_academic_planner_priority;
@@ -90,6 +97,14 @@ public class Course {
     public void setSession(char session) {
         this.session = session;
     }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDescription() {
         return description;
@@ -99,11 +114,11 @@ public class Course {
         this.description = description;
     }
 
-    public int getUnits() {
+    public double getUnits() {
         return units;
     }
 
-    public void setUnits(int units) {
+    public void setUnits(double units) {
         this.units = units;
     }
 
@@ -125,7 +140,18 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" + "course_id=" + course_id + ", subject=" + subject + ", course_num=" + course_num + ", session=" + session + ", description=" + description + ", units=" + units + ", recommended_academic_planner_priority=" + recommended_academic_planner_priority + ", prereqs=" + prereqs + '}';
+        return "Course{" + "course_id=" + course_id + ", subject=" + subject + ", course_num=" + course_num + ", session=" + session + ", name=" + name + ", description=" + description + ", units=" + units + ", recommended_academic_planner_priority=" + recommended_academic_planner_priority + ", prereqs=" + prereqs + '}';
+    }
+    
+    public String toEventString() {
+        return subject + " " + course_num;
+    }
+
+    @Override
+    public int compareTo(Course other) {
+        return comparing(Course::getSubject)
+                .thenComparing(Course::getCourse_num)
+                .compare(this, other);
     }
     
 }

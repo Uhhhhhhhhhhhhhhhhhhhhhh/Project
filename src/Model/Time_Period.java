@@ -7,29 +7,27 @@
 package Model;
 
 import java.time.LocalTime;
+import static java.util.Comparator.comparing;
 
 /**
  * Date: Feb 21, 2019
  * @author dsd5227
  */
-public class Time_Period {
+public class Time_Period implements Comparable<Time_Period> {
     
+    private static int counter = 0;
     private int period;
     private LocalTime start_time;
     private LocalTime end_time;
 
-    public Time_Period(int period, LocalTime start_time, LocalTime end_time) {
-        this.period = period;
+    public Time_Period(LocalTime start_time, LocalTime end_time) {
+        this.period = counter++;
         this.start_time = start_time;
         this.end_time = end_time;
     }
 
     public int getPeriod() {
         return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
     }
 
     public LocalTime getStart_time() {
@@ -51,6 +49,17 @@ public class Time_Period {
     @Override
     public String toString() {
         return "Time_Period{" + "period=" + period + ", start_time=" + start_time + ", end_time=" + end_time + '}';
+    }
+    
+    public String toEventString() {
+        return start_time.toString() + " - " + end_time.toString();
+    }
+    
+    @Override
+    public int compareTo(Time_Period other) {
+        return comparing(Time_Period::getStart_time)
+                .thenComparing(Time_Period::getEnd_time)
+                .compare(this, other);
     }
 
 } // Time_Period

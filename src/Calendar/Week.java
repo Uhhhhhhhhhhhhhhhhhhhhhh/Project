@@ -13,7 +13,7 @@ public class Week {
         days = new ArrayList<>();
         LocalDate monday = getStartOfWeek(date);
         days.add(monday);
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 7; i++) {
             days.add(monday.plusDays(i));
         }
     }
@@ -32,7 +32,7 @@ public class Week {
     }
 
     public Week nextWeek() {
-        final LocalDate friday = getDay(DayOfWeek.FRIDAY);
+        final LocalDate friday = getDay(DayOfWeek.SUNDAY);
         return new Week(friday.plusDays(3));
     }
 

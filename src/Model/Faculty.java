@@ -1,5 +1,7 @@
 package Model;
 
+import static java.util.Comparator.comparing;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,7 +12,7 @@ package Model;
  *
  * @author Derek
  */
-public class Faculty {
+public class Faculty implements Comparable<Faculty> {
     
     private String psu_id;
     private String first_name;
@@ -45,6 +47,10 @@ public class Faculty {
     public boolean[] getPreferred_days() {
         return preferred_days;
     }
+    
+    public void setPsu_id(String psu_id) {
+        this.psu_id = psu_id;
+    }
 
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
@@ -65,6 +71,17 @@ public class Faculty {
     @Override
     public String toString() {
         return "Faculty{" + "psu_id=" + psu_id + ", first_name=" + first_name + ", last_name=" + last_name + ", major_college=" + major_college + ", preferred_days=" + preferred_days + '}';
+    }
+    
+    public String toEventString() {
+        return last_name + ", " + first_name;
+    }
+    
+    @Override
+    public int compareTo(Faculty other) {
+        return comparing(Faculty::getLast_name)
+                .thenComparing(Faculty::getFirst_name)
+                .compare(this, other);
     }
     
 }
