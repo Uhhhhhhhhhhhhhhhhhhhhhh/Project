@@ -5,8 +5,12 @@
  */
 package View.Data;
 
+import Model.Section;
 import Model.Storage;
+import View.DemonstrationFrame;
+import View.Item.ItemSectionPanel;
 import javax.swing.DefaultListModel;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -48,6 +52,11 @@ public class DataSectionPanel extends javax.swing.JPanel {
 
         jList1.setModel(createSectionList());
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -75,6 +84,20 @@ public class DataSectionPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(evt.getClickCount() == 2) {
+            Section s = Storage.getSection(jList1.getSelectedIndex());
+            JInternalFrame jif = new JInternalFrame("Item: Room " + s.toEventString(), true, true, true, true);
+            jif.setBounds(0, 0, 350, 220);
+            jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
+            DemonstrationFrame.openFrameCount++;
+            jif.add((new ItemSectionPanel(s)));
+            jif.setVisible(true);
+            DemonstrationFrame.jDesktop.add(jif);
+            jif.toFront();
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

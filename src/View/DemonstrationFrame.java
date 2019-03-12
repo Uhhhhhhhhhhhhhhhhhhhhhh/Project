@@ -172,6 +172,11 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jmData.add(jmiDataCourse);
 
         jmiDataSection.setText("Section");
+        jmiDataSection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDataSectionActionPerformed(evt);
+            }
+        });
         jmData.add(jmiDataSection);
 
         jmiDataFCA.setText("Final Course Assignment");
@@ -371,6 +376,18 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         // TODO Find Courses Teacher is in, Make Events, Place in Weekly View and show
     }//GEN-LAST:event_jmiCVFacultyActionPerformed
 
+    private void jmiDataSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataSectionActionPerformed
+        JInternalFrame jif = new JInternalFrame("Data: Section", true, true, true, true);
+        jif.setBounds(0, 0, 700, 720);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        JPanel p = new DataSectionPanel();
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }//GEN-LAST:event_jmiDataSectionActionPerformed
+
     
     public  void createNewPanel(JPanel p, String title) {
         JInternalFrame jif = new JInternalFrame(title, true, true, true, true);
@@ -413,10 +430,8 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DemonstrationFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DemonstrationFrame().setVisible(true);
         });
     }
 
