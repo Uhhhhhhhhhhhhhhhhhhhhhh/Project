@@ -6,6 +6,7 @@
 
 package Model;
 
+import java.time.LocalDate;
 import static java.util.Comparator.comparing;
 
 /**
@@ -18,12 +19,18 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
     private Time_Period period;
     private Room room;
     private Section section;
+    private LocalDate start_date;
+    private LocalDate end_date;
+    private boolean[] days;
 
-    public Final_Course_Assignment(Faculty faculty, Time_Period period, Room room, Section section) {
+    public Final_Course_Assignment(Faculty faculty, Time_Period period, Room room, Section section, LocalDate start_date, LocalDate end_date, boolean[] days) {
         this.faculty = faculty;
         this.period = period;
         this.room = room;
         this.section = section;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.days = days;
     }
 
     public Faculty getFaculty() {
@@ -56,6 +63,30 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
 
     public void setSection(Section section) {
         this.section = section;
+    }
+    
+    public boolean[] getDays() {
+        return days;
+    }
+
+    public void setDays(boolean[] days) {
+        this.days = days;
+    }
+    
+    public LocalDate getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(LocalDate start_date) {
+        this.start_date = start_date;
+    }
+
+    public LocalDate getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(LocalDate end_date) {
+        this.end_date = end_date;
     }
     
     @Override

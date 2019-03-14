@@ -195,7 +195,7 @@ public class CreateSectionPanel extends javax.swing.JPanel {
         LocalDate startDate = start.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate endDate = end.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
-        Storage.addNewSection(jList2.getSelectedIndex(), jtfSection.getText(), (int) jsEnrollment.getValue(), (int) jsCapacity.getValue(), startDate, endDate, days);
+        Storage.addNewSection(jList2.getSelectedIndex(), jtfSection.getText(), (int) jsEnrollment.getValue(), (int) jsCapacity.getValue());
         
         createItems();
     }//GEN-LAST:event_jButton1ActionPerformed
