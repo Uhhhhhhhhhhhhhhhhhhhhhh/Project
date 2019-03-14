@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import static java.util.Comparator.comparing;
 
 /*
@@ -19,6 +21,7 @@ public class Faculty implements Comparable<Faculty> {
     private String last_name;
     private String major_college;
     private boolean[] preferred_days;
+    private ArrayList<Time_Period> preferred_times;
 
     public Faculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         this.psu_id = psu_id;
@@ -26,6 +29,15 @@ public class Faculty implements Comparable<Faculty> {
         this.last_name = last_name;
         this.major_college = major_college;
         this.preferred_days = preferred_days;
+        this.preferred_times = new ArrayList<>();
+    }
+    public Faculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, ArrayList<Time_Period> preferred_times) {
+        this.psu_id = psu_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.major_college = major_college;
+        this.preferred_days = preferred_days;
+        this.preferred_times = new ArrayList(preferred_times);
     }
 
     public String getPsu_id() {
@@ -68,9 +80,17 @@ public class Faculty implements Comparable<Faculty> {
         this.preferred_days = preferred_days;
     }
 
+    public ArrayList<Time_Period> getPreferred_times() {
+        return new ArrayList(preferred_times);
+    }
+
+    public void setPreferred_times(ArrayList<Time_Period> preferred_times) {
+        this.preferred_times = new ArrayList(preferred_times);
+    }
+
     @Override
     public String toString() {
-        return "Faculty{" + "psu_id=" + psu_id + ", first_name=" + first_name + ", last_name=" + last_name + ", major_college=" + major_college + ", preferred_days=" + preferred_days + '}';
+        return "Faculty{" + "psu_id=" + psu_id + ", first_name=" + first_name + ", last_name=" + last_name + ", major_college=" + major_college + ", preferred_days=" + Arrays.toString(preferred_days) + ", preferred_times=" + new ArrayList(preferred_times) + '}';
     }
     
     public String toEventString() {
@@ -83,5 +103,7 @@ public class Faculty implements Comparable<Faculty> {
                 .thenComparing(Faculty::getFirst_name)
                 .compare(this, other);
     }
+
+    
     
 }

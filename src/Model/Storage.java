@@ -20,15 +20,31 @@ public class Storage {
     
     //TODO: Sort Lists after Adding new Items!!!
 
-    private static ArrayList<Room> alRoom = new ArrayList<>();
-    private static ArrayList<Faculty> alFaculty = new ArrayList<>();
-    private static ArrayList<Section> alSection = new ArrayList<>();
-    private static ArrayList<Course> alCourse = new ArrayList<>();
-    private static ArrayList<Time_Period> alTime = new ArrayList<>();
-    private static ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
+    private static final ArrayList<Room> alRoom = new ArrayList<>();
+    private static final ArrayList<Faculty> alFaculty = new ArrayList<>();
+    private static final ArrayList<Section> alSection = new ArrayList<>();
+    private static final ArrayList<Course> alCourse = new ArrayList<>();
+    private static final ArrayList<Time_Period> alTime = new ArrayList<>();
+    private static final ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
 
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         Faculty f = new Faculty(psu_id, first_name, last_name, major_college, preferred_days);
+        
+        //Check for Conflicting Faculty (ie: Faculty Already Exists)
+        boolean add = alFaculty.add(f);
+        String message;
+        if(add) {
+            message = f.getFirst_name() + "'s information is saved.";
+            Collections.sort(alFaculty);
+        } else {
+            message = "ERROR! FACULTY NOT CREATED!";
+        }
+        JOptionPane.showMessageDialog(null, message, "Faculty", JOptionPane.INFORMATION_MESSAGE);
+        return true;
+    }
+    
+    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, ArrayList<Time_Period> preferred_times) {
+        Faculty f = new Faculty(psu_id, first_name, last_name, major_college, preferred_days, preferred_times);
         
         //Check for Conflicting Faculty (ie: Faculty Already Exists)
         boolean add = alFaculty.add(f);
@@ -204,27 +220,27 @@ public class Storage {
     }
     
     public static ArrayList<Faculty> copyFaculty() {
-        return (ArrayList<Faculty>) alFaculty.clone();
+        return new ArrayList(alFaculty);
     }
 
     public static ArrayList<Room> copyRoom() {
-        return (ArrayList<Room>) alRoom.clone();
+        return new ArrayList(alRoom);
     }
     
     public static ArrayList<Section> copySection() {
-        return (ArrayList<Section>) alSection.clone();
+        return new ArrayList(alSection);
     }
     
     public static ArrayList<Course> copyCourse() {
-        return (ArrayList<Course>) alCourse.clone();
+        return new ArrayList(alCourse);
     }
     
     public static ArrayList<Time_Period> copyTime() {
-        return (ArrayList<Time_Period>) alTime.clone();
+        return new ArrayList(alTime);
     }
     
     public static ArrayList<Final_Course_Assignment> copyFCA() {
-        return (ArrayList<Final_Course_Assignment>) alFCA.clone();
+        return new ArrayList(alFCA);
     }
     
 } // Storage
