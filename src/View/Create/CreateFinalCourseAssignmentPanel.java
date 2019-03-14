@@ -224,8 +224,8 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
-        jsStartDate.setEditor(new JSpinner.DateEditor(jsStartDate,"mm/dd/yyyy"));
-        jsEndDate.setEditor(new JSpinner.DateEditor(jsEndDate,"mm/dd/yyyy"));
+        jsStartDate.setEditor(new JSpinner.DateEditor(jsStartDate,"MM/dd/yyyy"));
+        jsEndDate.setEditor(new JSpinner.DateEditor(jsEndDate,"MM/dd/yyyy"));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
