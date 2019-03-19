@@ -127,4 +127,30 @@ public class Faculty implements Comparable<Faculty> {
         return mon + tues + wed + thurs + fri + sat + sun;
     }
     
+    public static boolean[] intToArray(int days) {
+        
+        int sun = days % 10;
+        days /= 10;
+        
+        int sat = days % 10;
+        days /= 10;
+        
+        int fri = days % 10;
+        days /= 10;
+        
+        int thurs = days % 10;
+        days /= 10;
+        
+        int wed = days % 10;
+        days /= 10;
+        
+        int tues = days % 10;
+        days /= 10;
+        
+        int mon = days % 10;
+        days /= 10;
+        
+        return new boolean[]{mon == 1, tues  == 1, wed  == 1, thurs  == 1, fri  == 1, sat  == 1, sun  == 1};
+    }
+    
 }

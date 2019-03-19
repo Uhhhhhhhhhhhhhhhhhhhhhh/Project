@@ -29,7 +29,7 @@ public class StorageController {
     
     //Methods to store data using storage, check if dbConnection to use sql or not
     public static void tryConnectionToDB() {
-        dbConnection = SQLStorage(dbIP, dbUsername, dbPassword);
+        dbConnection = ConnectSQLStorage(dbIP, dbUsername, dbPassword);
     }
     
     public static void addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
@@ -42,14 +42,6 @@ public class StorageController {
             Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
     }
     
-    public static void addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, ArrayList<Time_Period> preferred_times) {
-        if(!dbConnection)
-            tryConnectionToDB();
-        
-        if(dbConnection)
-            SQLStorage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days, preferred_times);
-        else
-            Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days, preferred_times);
-    }
+
     
 }
