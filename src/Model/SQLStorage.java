@@ -6,6 +6,7 @@
 package Model;
 
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +27,18 @@ public class SQLStorage {
             System.out.println(e);
             return false;
         }
+    }
+    
+    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
+        String query = "INSERT into Faculty()" + "values(?, ?, ?, ?, ?, ?)";
+        
+        return true;
+    }
+
+    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, ArrayList<Time_Period> preferred_times) {
+        String query = "INSERT into Faculty";
+        
+        return true;
     }
     
     

@@ -104,6 +104,27 @@ public class Faculty implements Comparable<Faculty> {
                 .compare(this, other);
     }
 
-    
+    public static int daysToInt(boolean[] days) {
+        //MTWTFSS
+        int mon, tues, wed, thurs, fri, sat, sun;
+        mon = tues = wed = thurs = fri = sat = sun = 0;
+        
+        if(days[0])
+            mon = 1000000;
+        if(days[1])
+            tues = 100000;
+        if(days[2])
+            wed = 10000;
+        if(days[3])
+            thurs = 1000;
+        if(days[4])
+            fri = 100;
+        if(days[5])
+            sat = 10;
+        if(days[6])
+            sun = 1;
+        
+        return mon + tues + wed + thurs + fri + sat + sun;
+    }
     
 }
