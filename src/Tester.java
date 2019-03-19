@@ -50,14 +50,14 @@ public class Tester {
         LocalDate endOfSemester = LocalDate.of(2019, 4, 26);
         
         //Section
-        Storage.addNewSection(0, "001", 15, 25, startOfSemester, endOfSemester, new boolean[]{true, false, true, false, false});
-        Storage.addNewSection(1, "002", 10, 25, startOfSemester, endOfSemester, new boolean[]{true, false, true, false, false});
-        Storage.addNewSection(0, "002", 12, 25, startOfSemester, endOfSemester, new boolean[]{false, true, false, true, true});
-        Storage.addNewSection(1, "001", 6, 25, startOfSemester, endOfSemester, new boolean[]{false, true, false, true, true});
+        Storage.addNewSection(0, "001", 15, 25);
+        Storage.addNewSection(1, "002", 10, 25);
+        Storage.addNewSection(0, "002", 12, 25);
+        Storage.addNewSection(1, "001", 6, 25);
         
         //FCA
-        Storage.addNewFCA(1, 1, 1, 1);
-        Storage.addNewFCA(0, 0, 0, 0);
+        Storage.addNewFCA(1, 1, 1, 1, startOfSemester, endOfSemester, new boolean[]{false, false, true, true, true});
+        Storage.addNewFCA(0, 0, 0, 0, startOfSemester, endOfSemester, new boolean[]{true, false, true, true, true});
         
         
         
@@ -115,7 +115,7 @@ public class Tester {
         ArrayList<CalendarEvent> classes = new ArrayList<>();
         semester_end = semester_end.plusDays(1);
         
-        if(fca.getSection().getDays()[0]) {
+        if(fca.getDays()[0]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.MONDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -126,7 +126,7 @@ public class Tester {
             }
         }
         
-        if(fca.getSection().getDays()[1]) {
+        if(fca.getDays()[1]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.TUESDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -137,7 +137,7 @@ public class Tester {
             }
         }
         
-        if(fca.getSection().getDays()[2]) {
+        if(fca.getDays()[2]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.WEDNESDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -148,7 +148,7 @@ public class Tester {
             }
         }
         
-        if(fca.getSection().getDays()[3]) {
+        if(fca.getDays()[3]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.THURSDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -159,7 +159,7 @@ public class Tester {
             }
         }
         
-        if(fca.getSection().getDays()[4]) {
+        if(fca.getDays()[4]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.FRIDAY) {
                 tempLD = tempLD.plusDays(1);

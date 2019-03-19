@@ -131,6 +131,9 @@
           <SpinnerModel initial="0" maximum="23" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="CreateTimePeriodPanel_jsStartHr"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JSpinner" name="jsEndHr">
       <Properties>

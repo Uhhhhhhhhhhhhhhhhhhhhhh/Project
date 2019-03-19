@@ -21,7 +21,7 @@ public class CourseToEvents {
         ArrayList<CalendarEvent> classes = new ArrayList<>();
         semester_end = semester_end.plusDays(1);
         
-        if(fca.getSection().getDays()[0]) {
+        if(fca.getDays()[0]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.MONDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -32,7 +32,7 @@ public class CourseToEvents {
             }
         }
         
-        if(fca.getSection().getDays()[1]) {
+        if(fca.getDays()[1]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.TUESDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -43,7 +43,7 @@ public class CourseToEvents {
             }
         }
         
-        if(fca.getSection().getDays()[2]) {
+        if(fca.getDays()[2]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.WEDNESDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -54,7 +54,7 @@ public class CourseToEvents {
             }
         }
         
-        if(fca.getSection().getDays()[3]) {
+        if(fca.getDays()[3]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.THURSDAY) {
                 tempLD = tempLD.plusDays(1);
@@ -65,7 +65,7 @@ public class CourseToEvents {
             }
         }
         
-        if(fca.getSection().getDays()[4]) {
+        if(fca.getDays()[4]) {
             LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.FRIDAY) {
                 tempLD = tempLD.plusDays(1);

@@ -3,10 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/Calendar/CourseToEvents.java</file>
             <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/Model/SQLStorage.java</file>
             <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/DemonstrationFrame.java</file>
             <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/Controller/StorageController.java</file>
+=======
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Model/Storage.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Model/Section.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Model/Final_Course_Assignment.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Tester.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Create/CreateSectionPanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Create/CreateFinalCourseAssignmentPanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Model/Course.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Calendar/CourseToEvents.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Create/CreateTimePeriodPanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Data/DataFacultyPanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Model/Time_Period.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/DemonstrationFrame.java</file>
+>>>>>>> 8bbd3e08765de49267704b9a449d27d0af8832e5
         </group>
     </open-files>
 </project-private>
