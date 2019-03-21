@@ -48,7 +48,7 @@ public class SQLStorage {
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         boolean success;
-        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major, days)" + "values(?, ?, ?, ?, ?)";
+        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major, days) values(?, ?, ?, ?, ?)";
         
         try {
             PreparedStatement preparedStmt = c.prepareStatement(query);

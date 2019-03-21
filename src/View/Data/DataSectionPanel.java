@@ -88,7 +88,7 @@ public class DataSectionPanel extends javax.swing.JPanel {
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount() == 2) {
             Section s = Storage.getSection(jList1.getSelectedIndex());
-            JInternalFrame jif = new JInternalFrame("Item: Room " + s.toEventString(), true, true, true, true);
+            JInternalFrame jif = new JInternalFrame("Item: Section " + s.toEventString(), true, true, true, true);
             jif.setBounds(0, 0, 350, 220);
             jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
             DemonstrationFrame.openFrameCount++;

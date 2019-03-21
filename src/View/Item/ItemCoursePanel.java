@@ -78,6 +78,7 @@ public class ItemCoursePanel extends javax.swing.JPanel {
         jTextArea1.setRows(5);
         jTextArea1.setText(c.getDescription());
         jScrollPane2.setViewportView(jTextArea1);
+        jTextArea1.setLineWrap(true);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Course Information");
