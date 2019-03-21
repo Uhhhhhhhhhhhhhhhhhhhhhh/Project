@@ -20,15 +20,31 @@ public class Storage {
     
     //TODO: Sort Lists after Adding new Items!!!
 
-    private static ArrayList<Room> alRoom = new ArrayList<>();
-    private static ArrayList<Faculty> alFaculty = new ArrayList<>();
-    private static ArrayList<Section> alSection = new ArrayList<>();
-    private static ArrayList<Course> alCourse = new ArrayList<>();
-    private static ArrayList<Time_Period> alTime = new ArrayList<>();
-    private static ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
+    private static final ArrayList<Room> alRoom = new ArrayList<>();
+    private static final ArrayList<Faculty> alFaculty = new ArrayList<>();
+    private static final ArrayList<Section> alSection = new ArrayList<>();
+    private static final ArrayList<Course> alCourse = new ArrayList<>();
+    private static final ArrayList<Time_Period> alTime = new ArrayList<>();
+    private static final ArrayList<Final_Course_Assignment> alFCA = new ArrayList<>();
 
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         Faculty f = new Faculty(psu_id, first_name, last_name, major_college, preferred_days);
+        
+        //Check for Conflicting Faculty (ie: Faculty Already Exists)
+        boolean add = alFaculty.add(f);
+        String message;
+        if(add) {
+            message = f.getFirst_name() + "'s information is saved.";
+            Collections.sort(alFaculty);
+        } else {
+            message = "ERROR! FACULTY NOT CREATED!";
+        }
+        JOptionPane.showMessageDialog(null, message, "Faculty", JOptionPane.INFORMATION_MESSAGE);
+        return true;
+    }
+    
+    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, ArrayList<Time_Period> preferred_times) {
+        Faculty f = new Faculty(psu_id, first_name, last_name, major_college, preferred_days, preferred_times);
         
         //Check for Conflicting Faculty (ie: Faculty Already Exists)
         boolean add = alFaculty.add(f);
@@ -159,8 +175,8 @@ public class Storage {
         return alTime.get(index);
     }
     
-    public static boolean addNewSection(int courseIndex, String section, int enrollment, int capacity, LocalDate start_date, LocalDate end_date, boolean[] days){
-        Section s = new Section(getCourse(courseIndex), section, enrollment, capacity, start_date, end_date, days);
+    public static boolean addNewSection(int courseIndex, String section, int enrollment, int capacity){
+        Section s = new Section(getCourse(courseIndex), section, enrollment, capacity);
         boolean add = alSection.add(s);
         String message;
         if(add) {
@@ -181,8 +197,8 @@ public class Storage {
         return alSection.get(index);
     }
     
-    public static boolean addNewFCA(int facultyIndex, int timeIndex, int roomIndex, int sectionIndex){
-        Final_Course_Assignment fca = new Final_Course_Assignment(alFaculty.get(facultyIndex), alTime.get(timeIndex), alRoom.get(roomIndex), alSection.get(sectionIndex));
+    public static boolean addNewFCA(int facultyIndex, int timeIndex, int roomIndex, int sectionIndex, LocalDate start_date, LocalDate end_date, boolean[] days){
+        Final_Course_Assignment fca = new Final_Course_Assignment(alFaculty.get(facultyIndex), alTime.get(timeIndex), alRoom.get(roomIndex), alSection.get(sectionIndex), start_date, end_date, days);
         boolean add = alFCA.add(fca);
         String message;
         if(add) {
@@ -204,27 +220,27 @@ public class Storage {
     }
     
     public static ArrayList<Faculty> copyFaculty() {
-        return (ArrayList<Faculty>) alFaculty.clone();
+        return new ArrayList(alFaculty);
     }
 
     public static ArrayList<Room> copyRoom() {
-        return (ArrayList<Room>) alRoom.clone();
+        return new ArrayList(alRoom);
     }
     
     public static ArrayList<Section> copySection() {
-        return (ArrayList<Section>) alSection.clone();
+        return new ArrayList(alSection);
     }
     
     public static ArrayList<Course> copyCourse() {
-        return (ArrayList<Course>) alCourse.clone();
+        return new ArrayList(alCourse);
     }
     
     public static ArrayList<Time_Period> copyTime() {
-        return (ArrayList<Time_Period>) alTime.clone();
+        return new ArrayList(alTime);
     }
     
     public static ArrayList<Final_Course_Assignment> copyFCA() {
-        return (ArrayList<Final_Course_Assignment>) alFCA.clone();
+        return new ArrayList(alFCA);
     }
     
 } // Storage
