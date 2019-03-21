@@ -1,6 +1,7 @@
 package Model;
 
 import static java.util.Comparator.comparing;
+import java.time.LocalTime;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -67,7 +68,7 @@ public class Faculty implements Comparable<Faculty> {
     public void setPreferred_days(boolean[] preferred_days) {
         this.preferred_days = preferred_days;
     }
-
+    
     @Override
     public String toString() {
         return "Faculty{" + "psu_id=" + psu_id + ", first_name=" + first_name + ", last_name=" + last_name + ", major_college=" + major_college + ", preferred_days=" + preferred_days + '}';
