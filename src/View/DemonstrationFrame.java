@@ -236,6 +236,11 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jmCVCL.setText("By Custom List");
 
         jmiCVCLFCA.setText("Final Course Assignments");
+        jmiCVCLFCA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCVCLFCAActionPerformed(evt);
+            }
+        });
         jmCVCL.add(jmiCVCLFCA);
 
         jmiCVCLCourse.setText("Courses");
@@ -332,6 +337,10 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         StorageController.disconnectFromDB();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jmiCVCLFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVCLFCAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiCVCLFCAActionPerformed
 
     
     public static void createNewPanel(JPanel p, String title, int x, int y) {

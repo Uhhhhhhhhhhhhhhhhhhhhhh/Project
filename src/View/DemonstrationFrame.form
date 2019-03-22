@@ -186,6 +186,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Final Course Assignments"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiCVCLFCAActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jmiCVCLCourse">
                   <Properties>
