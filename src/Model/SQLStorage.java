@@ -17,7 +17,15 @@ import javax.swing.JOptionPane;
  */
 public class SQLStorage {
     
-    private static Connection c;
+    
+    
+    private static void createPreparedStatements() throws SQLException {
+        String query = "INSERT into faculty(PSU_ID, Last_Name, First_Name, Major_College, Preferred_Days) values(?, ?, ?, ?, ?)";
+        psInsertFaculty = c.prepareStatement(query);
+        
+        query = "INSERT into ";
+        
+    }
     
     public static boolean ConnectSQLStorage(String ip, String db, String username, String password){
         try{  
@@ -32,7 +40,7 @@ public class SQLStorage {
         }
     }
     
-    public static boolean DisconnectSQLStorage(String ip, String username, String password){
+    public static boolean DisconnectSQLStorage(){
         if(c != null)
             try {
                 c.close();
@@ -49,17 +57,15 @@ public class SQLStorage {
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         boolean success;
-        String query = "INSERT into faculty(PSU_ID, Last_Name, First_Name, Major_College, Preferred_Days) values(?, ?, ?, ?, ?)";
-        
-        try {
-            PreparedStatement preparedStmt = c.prepareStatement(query);
-            preparedStmt.setString (1, psu_id);
-            preparedStmt.setString (2, last_name);
-            preparedStmt.setString (3, first_name);
-            preparedStmt.setString (4, major_college);
-            preparedStmt.setInt    (5, Faculty.daysToInt(preferred_days));
 
-            success = preparedStmt.execute();
+        try {
+            psInsertFaculty.setString (1, psu_id);
+            psInsertFaculty.setString (2, last_name);
+            psInsertFaculty.setString (3, first_name);
+            psInsertFaculty.setString (4, major_college);
+            psInsertFaculty.setInt    (5, Faculty.daysToInt(preferred_days));
+
+            success = psInsertFaculty.execute();
             JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "MySQL: Faculty", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
@@ -86,8 +92,8 @@ public class SQLStorage {
         }
         
     }
-    
-    
+    private static Connection c;
+    private static PreparedStatement psInsertFaculty;
     
     
 }

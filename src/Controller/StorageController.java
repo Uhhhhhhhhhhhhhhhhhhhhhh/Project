@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,6 +32,13 @@ public class StorageController {
             dbConnection = false;
         else
             dbConnection = SQLStorage.ConnectSQLStorage(dbIP, dbDB, dbUsername, dbPassword);
+    }
+    
+    public static void disconnectFromDB() {
+        if(dbConnection)
+            SQLStorage.DisconnectSQLStorage();
+        else
+            JOptionPane.showMessageDialog(null, "Not connected to a SQL Server!", "DB Storage Disconnect", JOptionPane.ERROR_MESSAGE);
     }
     
     public static void addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
