@@ -22,6 +22,7 @@ import javax.swing.WindowConstants;
 *
  * @author Derek
  */
+@Deprecated
 public class Tester {
     
     
