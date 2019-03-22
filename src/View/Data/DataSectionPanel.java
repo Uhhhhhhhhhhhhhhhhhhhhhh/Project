@@ -16,6 +16,7 @@ import javax.swing.JInternalFrame;
  *
  * @author Derek
  */
+@Deprecated
 public class DataSectionPanel extends javax.swing.JPanel {
 
     /**
@@ -24,8 +25,7 @@ public class DataSectionPanel extends javax.swing.JPanel {
     public DataSectionPanel() {
         initComponents();
     }
-    
-    
+
     public DefaultListModel createSectionList(){
         DefaultListModel section = new DefaultListModel();
         Storage.copySection().forEach((s) -> {
