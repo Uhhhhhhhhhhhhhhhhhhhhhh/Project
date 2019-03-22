@@ -49,14 +49,14 @@ public class Tester {
         LocalDate endOfSemester = LocalDate.of(2019, 4, 26);
         
         //Section
-        Storage.addNewSection(0, "001", 15, 25);
-        Storage.addNewSection(1, "002", 10, 25);
-        Storage.addNewSection(0, "002", 12, 25);
-        Storage.addNewSection(1, "001", 6, 25);
+        //Storage.addNewSection(0, "001", 15, 25);
+        //Storage.addNewSection(1, "002", 10, 25);
+        //Storage.addNewSection(0, "002", 12, 25);
+        //Storage.addNewSection(1, "001", 6, 25);
         
         //FCA
-        Storage.addNewFCA(1, 1, 1, 1, startOfSemester, endOfSemester, new boolean[]{false, false, true, true, true});
-        Storage.addNewFCA(0, 0, 0, 0, startOfSemester, endOfSemester, new boolean[]{true, false, true, true, true});
+        //Storage.addNewFCA(1, 1, 1, 1, startOfSemester, endOfSemester, new boolean[]{false, false, true, true, true});
+        //Storage.addNewFCA(0, 0, 0, 0, startOfSemester, endOfSemester, new boolean[]{true, false, true, true, true});
         
         
         
