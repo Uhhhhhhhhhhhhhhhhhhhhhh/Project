@@ -15,15 +15,11 @@ import static java.util.Comparator.comparing;
 public class Section implements Comparable<Section> {
     private Course course;
     private String section;
-    private int enrollment;
-    private int capacity;
+    
 
-    public Section(Course course, String section, int enrollment, int capacity) {
+    public Section(Course course, String section) {
         this.course = course;
-        this.section = section;
-        this.enrollment = enrollment;
-        this.capacity = capacity;
-        
+        this.section = section;       
     }
 
     public Course getCourse() {
@@ -42,25 +38,9 @@ public class Section implements Comparable<Section> {
         this.section = section;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public int getEnrollment() {
-        return enrollment;
-    }
-
-    public void setEnrollment(int enrollment) {
-        this.enrollment = enrollment;
-    }
-
     @Override
     public String toString() {
-        return "Section{" + "course=" + course + ", section=" + section + ", enrollment=" + enrollment + ", capacity=" + capacity + '}';
+        return "Section{" + "course=" + course + ", section=" + section + '}';
     }
     
     public String toEventString() {

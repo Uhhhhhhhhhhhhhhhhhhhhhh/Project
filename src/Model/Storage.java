@@ -184,8 +184,11 @@ public class Storage {
         return alTime.get(index);
     }
     
-    public static boolean addNewSection(int courseIndex, String section, int enrollment, int capacity){
-        Section s = new Section(getCourse(courseIndex), section, enrollment, capacity);
+    
+    
+    // TODO - Remove Section and Update it with Auto increment Section
+    public static boolean addNewSection(int courseIndex, String section){
+        Section s = new Section(getCourse(courseIndex), section);
         boolean add = alSection.add(s);
         String message;
         if(add) {
@@ -206,8 +209,8 @@ public class Storage {
         return alSection.get(index);
     }
     
-    public static boolean addNewFCA(int facultyIndex, int timeIndex, int roomIndex, int sectionIndex, LocalDate start_date, LocalDate end_date, boolean[] days){
-        Final_Course_Assignment fca = new Final_Course_Assignment(alFaculty.get(facultyIndex), alTime.get(timeIndex), alRoom.get(roomIndex), alSection.get(sectionIndex), start_date, end_date, days);
+    public static boolean addNewFCA(int facultyIndex, int timeIndex, int roomIndex, int courseIndex, String sectionNumber, LocalDate start_date, LocalDate end_date, boolean[] days, int enrollment, int capacity){
+        Final_Course_Assignment fca = new Final_Course_Assignment(alFaculty.get(facultyIndex), alTime.get(timeIndex), alRoom.get(roomIndex), new Section(alCourse.get(courseIndex), sectionNumber), start_date, end_date, days, enrollment, capacity);
         boolean add = alFCA.add(fca);
         String message;
         if(add) {

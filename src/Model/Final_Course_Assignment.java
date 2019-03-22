@@ -22,8 +22,10 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
     private LocalDate start_date;
     private LocalDate end_date;
     private boolean[] days;
+    private int enrollment;
+    private int capacity;
 
-    public Final_Course_Assignment(Faculty faculty, Time_Period period, Room room, Section section, LocalDate start_date, LocalDate end_date, boolean[] days) {
+    public Final_Course_Assignment(Faculty faculty, Time_Period period, Room room, Section section, LocalDate start_date, LocalDate end_date, boolean[] days, int enrollment, int capacity) {
         this.faculty = faculty;
         this.period = period;
         this.room = room;
@@ -31,6 +33,8 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
         this.start_date = start_date;
         this.end_date = end_date;
         this.days = days;
+        this.enrollment = enrollment;
+        this.capacity = capacity;
     }
 
     public Faculty getFaculty() {
@@ -64,7 +68,7 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
     public void setSection(Section section) {
         this.section = section;
     }
-    
+
     public boolean[] getDays() {
         return days;
     }
@@ -72,7 +76,7 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
     public void setDays(boolean[] days) {
         this.days = days;
     }
-    
+
     public LocalDate getStart_date() {
         return start_date;
     }
@@ -88,23 +92,39 @@ public class Final_Course_Assignment implements Comparable<Final_Course_Assignme
     public void setEnd_date(LocalDate end_date) {
         this.end_date = end_date;
     }
-    
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getEnrollment() {
+        return enrollment;
+    }
+
+    public void setEnrollment(int enrollment) {
+        this.enrollment = enrollment;
+    }
+
     @Override
     public String toString() {
-        return "Final_Course_Assignment{" + "faculty=" + faculty + ", period=" + period + ", room=" + room + ", section=" + section + '}';
+        return "Final_Course_Assignment{" + "faculty=" + faculty + ", period=" + period + ", room=" + room + ", section=" + section + ", start_date=" + start_date + ", end_date=" + end_date + ", days=" + days + ", enrollment=" + enrollment + ", capacity=" + capacity + '}';
     }
-    
+
     public String toEventString() {
         return section.getCourse().getSubject() + " " 
                 + section.getCourse().getCourse_num() + " "
                 + section.getSection() + "\n" + section.getCourse().getName()
                 + "\nProf. " + faculty.getLast_name();
     }
-    
+
     @Override
     public int compareTo(Final_Course_Assignment other) {
         return comparing(Final_Course_Assignment::getSection)
                 .compare(this, other);
     }
-    
+
 } // Final_Course_Assignment
