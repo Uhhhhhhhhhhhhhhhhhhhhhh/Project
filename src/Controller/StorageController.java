@@ -21,7 +21,7 @@ public class StorageController {
     private static String dbPassword;
     private static String dbIP;
     
-    private static void setDBInfo(String ip, String un, String pw) {
+    public static void setDBInfo(String ip, String un, String pw) {
         dbIP = ip;
         dbUsername = un;
         dbPassword = pw;
