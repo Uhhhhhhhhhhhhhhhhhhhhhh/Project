@@ -36,6 +36,8 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jmiNewSection = new javax.swing.JMenuItem();
+        jmiDataSection = new javax.swing.JMenuItem();
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
@@ -50,14 +52,12 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jmiNewTime = new javax.swing.JMenuItem();
         jmiNewRoom = new javax.swing.JMenuItem();
         jmiNewCourse = new javax.swing.JMenuItem();
-        jmiNewSection = new javax.swing.JMenuItem();
         jmiNewFCA = new javax.swing.JMenuItem();
         jmData = new javax.swing.JMenu();
         jmiDataFaculty = new javax.swing.JMenuItem();
         jmiDataTime = new javax.swing.JMenuItem();
         jmiDataRoom = new javax.swing.JMenuItem();
         jmiDataCourse = new javax.swing.JMenuItem();
-        jmiDataSection = new javax.swing.JMenuItem();
         jmiDataFCA = new javax.swing.JMenuItem();
         jmCalView = new javax.swing.JMenu();
         jmiCVFaculty = new javax.swing.JMenuItem();
@@ -66,6 +66,20 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jmiCVCLFCA = new javax.swing.JMenuItem();
         jmiCVCLCourse = new javax.swing.JMenuItem();
         jmiCVCLSections = new javax.swing.JMenuItem();
+
+        jmiNewSection.setText("Section");
+        jmiNewSection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiNewSectionActionPerformed(evt);
+            }
+        });
+
+        jmiDataSection.setText("Section");
+        jmiDataSection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDataSectionActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,14 +156,6 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         });
         jmNew.add(jmiNewCourse);
 
-        jmiNewSection.setText("Section");
-        jmiNewSection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiNewSectionActionPerformed(evt);
-            }
-        });
-        jmNew.add(jmiNewSection);
-
         jmiNewFCA.setText("Final Course Assignment");
         jmiNewFCA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,14 +199,6 @@ public class DemonstrationFrame extends javax.swing.JFrame {
             }
         });
         jmData.add(jmiDataCourse);
-
-        jmiDataSection.setText("Section");
-        jmiDataSection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiDataSectionActionPerformed(evt);
-            }
-        });
-        jmData.add(jmiDataSection);
 
         jmiDataFCA.setText("Final Course Assignment");
         jmiDataFCA.addActionListener(new java.awt.event.ActionListener() {
