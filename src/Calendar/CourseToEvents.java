@@ -27,7 +27,7 @@ public class CourseToEvents {
                 tempLD = tempLD.plusDays(1);
             }
             while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color));
+                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
                 tempLD = tempLD.plusDays(7);
             }
         }
@@ -38,7 +38,7 @@ public class CourseToEvents {
                 tempLD = tempLD.plusDays(1);
             }
             while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color));
+                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
                 tempLD = tempLD.plusDays(7);
             }
         }
@@ -49,7 +49,7 @@ public class CourseToEvents {
                 tempLD = tempLD.plusDays(1);
             }
             while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color));
+                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
                 tempLD = tempLD.plusDays(7);
             }
         }
@@ -60,7 +60,7 @@ public class CourseToEvents {
                 tempLD = tempLD.plusDays(1);
             }
             while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color));
+                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
                 tempLD = tempLD.plusDays(7);
             }
         }
@@ -71,7 +71,30 @@ public class CourseToEvents {
                 tempLD = tempLD.plusDays(1);
             }
             while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color));
+                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+                tempLD = tempLD.plusDays(7);
+            }
+        }
+        
+        if(fca.getDays()[5]) {
+            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+            while(tempLD.getDayOfWeek() != DayOfWeek.SATURDAY) {
+                tempLD = tempLD.plusDays(1);
+            }
+            while(tempLD.isBefore(semester_end)){
+                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+                tempLD = tempLD.plusDays(7);
+            }
+        }
+        
+        
+        if(fca.getDays()[6]) {
+            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+            while(tempLD.getDayOfWeek() != DayOfWeek.SUNDAY) {
+                tempLD = tempLD.plusDays(1);
+            }
+            while(tempLD.isBefore(semester_end)){
+                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
                 tempLD = tempLD.plusDays(7);
             }
         }
