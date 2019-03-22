@@ -5,6 +5,8 @@
  */
 package View.Item;
 
+import Model.Final_Course_Assignment;
+
 /**
  *
  * @author Derek
@@ -14,7 +16,7 @@ public class ItemFinalCourseAssignmentPanel extends javax.swing.JPanel {
     /**
      * Creates new form ItemFinalCourseAssignmentPanel
      */
-    public ItemFinalCourseAssignmentPanel() {
+    public ItemFinalCourseAssignmentPanel(Final_Course_Assignment fca) {
         initComponents();
     }
 
