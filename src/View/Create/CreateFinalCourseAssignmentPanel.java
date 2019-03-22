@@ -31,7 +31,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     public DefaultListModel createFacultyList(){
         DefaultListModel faculty = new DefaultListModel();
         Storage.copyFaculty().forEach((f) -> {
-            faculty.addElement(f.toEventString());
+            faculty.addElement(f.toEventString());  // TODO - Need to Update to use StorageController
         });
         return faculty;
     }
@@ -39,7 +39,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     public DefaultListModel createRoomList(){
         DefaultListModel room = new DefaultListModel();
         Storage.copyRoom().forEach((r) -> {
-            room.addElement(r.toEventString());
+            room.addElement(r.toEventString());  // TODO - Need to Update to use StorageController
         });
         return room;
     }
@@ -47,17 +47,17 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     public DefaultListModel createTimeList(){
         DefaultListModel time = new DefaultListModel();
         Storage.copyTime().forEach((t) -> {
-            time.addElement(t.toEventString());
+            time.addElement(t.toEventString());  // TODO - Need to Update to use StorageController
         });
         return time;
     }
     
-    public DefaultListModel createSectionList(){
-        DefaultListModel section = new DefaultListModel();
+    public DefaultListModel createCourseList(){
+        DefaultListModel course = new DefaultListModel();
         Storage.copySection().forEach((s) -> {
-            section.addElement(s.toEventString());
+            course.addElement(s.toEventString());  // TODO - Need to Update to use StorageController
         });
-        return section;
+        return course;
     }
     
     //public ComboBoxModel createList
@@ -92,6 +92,12 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         jlDays = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jsEnrollment = new javax.swing.JSpinner();
+        jLabel11 = new javax.swing.JLabel();
+        jsCapacity = new javax.swing.JSpinner();
+        jLabel2 = new javax.swing.JLabel();
+        jtfSectionNumber = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Final Course Assignment Information");
@@ -114,9 +120,9 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jlRoom.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jlRoom);
 
-        jLabel6.setText("Course and Section");
+        jLabel6.setText("Course");
 
-        jlSection.setModel(createSectionList());
+        jlSection.setModel(createCourseList());
         jlSection.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(jlSection);
 
@@ -143,6 +149,16 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jScrollPane5.setViewportView(jlDays);
 
         jLabel8.setText("Preferred Days");
+
+        jLabel9.setText("Number of Enrollment");
+
+        jsEnrollment.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLabel11.setText("Capacity");
+
+        jsCapacity.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jLabel2.setText("Section Number");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -177,8 +193,16 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))))
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel11)
+                            .addComponent(jsCapacity)
+                            .addComponent(jsEnrollment, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jtfSectionNumber))))
                 .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
@@ -212,15 +236,30 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                        .addComponent(jsEnrollment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jsCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtfSectionNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
 
@@ -241,7 +280,8 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         LocalDate startDate = start.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate endDate = end.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
-        Storage.addNewFCA(jlFaculty.getSelectedIndex(), jlTime.getSelectedIndex(), jlRoom.getSelectedIndex(), jlSection.getSelectedIndex(), startDate, endDate, days);
+        // TODO - Need to Update to use StorageController
+        Storage.addNewFCA(jlFaculty.getSelectedIndex(), jlTime.getSelectedIndex(), jlRoom.getSelectedIndex(), jlSection.getSelectedIndex(), jtfSectionNumber.getText(), startDate, endDate, days, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue());
         
         clearItems();
         
@@ -252,12 +292,15 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -268,8 +311,11 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     private javax.swing.JList<String> jlRoom;
     private javax.swing.JList<String> jlSection;
     private javax.swing.JList<String> jlTime;
+    private javax.swing.JSpinner jsCapacity;
     private javax.swing.JSpinner jsEndDate;
+    private javax.swing.JSpinner jsEnrollment;
     private javax.swing.JSpinner jsStartDate;
+    private javax.swing.JTextField jtfSectionNumber;
     // End of variables declaration//GEN-END:variables
 
     private void clearItems() {
@@ -280,5 +326,8 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jlDays.clearSelection();
         jsStartDate.setModel(new javax.swing.SpinnerDateModel());
         jsEndDate.setModel(new javax.swing.SpinnerDateModel());
+        jsCapacity.setValue(1);
+        jsEnrollment.setValue(0);
+        jtfSectionNumber.setText("");
     }
 }
