@@ -25,8 +25,6 @@ import javax.swing.WindowConstants;
 @Deprecated
 public class Tester {
     
-    
-    
     public static void main(String[] args) {
         
         //Faculty

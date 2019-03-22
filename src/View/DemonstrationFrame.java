@@ -411,7 +411,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
         JInternalFrame jif = new JInternalFrame("SQL Connection", true, true, true, true);
-        jif.setBounds(0, 0, 310, 279);
+        jif.setBounds(0, 0, 330, 320);
         jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new SQLLoginPanel();

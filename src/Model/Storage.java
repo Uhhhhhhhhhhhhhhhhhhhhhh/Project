@@ -39,7 +39,7 @@ public class Storage {
         } else {
             message = "ERROR! FACULTY NOT CREATED!";
         }
-        JOptionPane.showMessageDialog(null, message, "Faculty", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "LocalStorage: Faculty", JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
     

@@ -5,6 +5,7 @@
  */
 package View.Create;
 
+import Controller.StorageController;
 import Model.Storage;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -180,7 +181,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
             preferred_days[day] = true;
         }
         
-        Storage.addNewFaculty(jtfPSU_ID.getText(), jtfFirstname.getText(), jtfLastname.getText(), jcbSubject.getSelectedItem().toString(), preferred_days);
+        StorageController.addNewFaculty(jtfPSU_ID.getText(), jtfFirstname.getText(), jtfLastname.getText(), jcbSubject.getSelectedItem().toString(), preferred_days);
         clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 

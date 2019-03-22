@@ -19,9 +19,10 @@ public class SQLStorage {
     
     private static Connection c;
     
-    public static boolean ConnectSQLStorage(String ip, String username, String password){
+    public static boolean ConnectSQLStorage(String ip, String db, String username, String password){
         try{  
-            c = DriverManager.getConnection(ip, username, password);
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            c = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + db, username, password);
             JOptionPane.showMessageDialog(null, "Connection to db successful!", "DB Storage Connection", JOptionPane.INFORMATION_MESSAGE);
             return true;
         } catch(Exception e) {
@@ -48,20 +49,20 @@ public class SQLStorage {
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
         boolean success;
-        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major, days) values(?, ?, ?, ?, ?)";
+        String query = "INSERT into faculty(PSU_ID, Last_Name, First_Name) values(?, ?, ?)";
         
         try {
             PreparedStatement preparedStmt = c.prepareStatement(query);
             preparedStmt.setString (1, psu_id);
             preparedStmt.setString (2, last_name);
             preparedStmt.setString (3, first_name);
-            preparedStmt.setString (4, major_college);
-            preparedStmt.setInt    (5, Faculty.daysToInt(preferred_days));
+            //preparedStmt.setString (4, major_college);
+            //preparedStmt.setInt    (5, Faculty.daysToInt(preferred_days));
 
             success = preparedStmt.execute();
-            JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "Faculty", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "MySQL: Faculty", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!", "Faculty", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!", "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
         

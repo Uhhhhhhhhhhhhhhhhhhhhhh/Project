@@ -14,6 +14,8 @@ import javax.swing.JInternalFrame;
  *
  * @author Derek
  */
+
+@Deprecated
 public class ItemSectionPanel extends javax.swing.JPanel {
 
     Section s;
