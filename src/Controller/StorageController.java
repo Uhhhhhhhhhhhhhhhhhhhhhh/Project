@@ -5,11 +5,7 @@
  */
 package Controller;
 
-import Model.SQLStorage;
-import static Model.SQLStorage.*;
-import Model.Storage;
-import Model.Time_Period;
-import java.util.ArrayList;
+import Model.*;
 
 /**
  *
@@ -29,7 +25,10 @@ public class StorageController {
     
     //Methods to store data using storage, check if dbConnection to use sql or not
     public static void tryConnectionToDB() {
-        dbConnection = ConnectSQLStorage(dbIP, dbUsername, dbPassword);
+        if(dbIP == null || dbUsername == null || dbPassword == null)
+            dbConnection = false;
+        else
+            dbConnection = SQLStorage.ConnectSQLStorage(dbIP, dbUsername, dbPassword);
     }
     
     public static void addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
