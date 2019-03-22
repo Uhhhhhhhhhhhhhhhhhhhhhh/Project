@@ -1,5 +1,6 @@
 package View;
 
+import Controller.StorageController;
 import Model.*;
 import View.Create.*;
 import View.Data.*;
@@ -42,6 +43,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
         jmiSQLConnection = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -103,6 +105,14 @@ public class DemonstrationFrame extends javax.swing.JFrame {
             }
         });
         jmFile.add(jmiSQLConnection);
+
+        jMenuItem3.setText("SQL Disconnect");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jmFile.add(jMenuItem3);
         jmFile.add(jSeparator1);
 
         jMenuItem1.setText("Import");
@@ -260,137 +270,47 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiNewRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewRoomActionPerformed
-        JInternalFrame jif = new JInternalFrame("New: Room", false, true, true, true);
-        jif.setBounds(0, 0, 427, 325);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new CreateRoomPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new CreateRoomPanel(), "New: Room", 427, 325);
     }//GEN-LAST:event_jmiNewRoomActionPerformed
 
     private void jmiNewFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFacultyActionPerformed
-        JInternalFrame jif = new JInternalFrame("New: Faculty", true, true, true, true);
-        jif.setBounds(0, 0, 430, 370);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new CreateFacultyPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new CreateFacultyPanel(), "New: Faculty", 430, 370);
     }//GEN-LAST:event_jmiNewFacultyActionPerformed
 
     private void jmiNewSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewSectionActionPerformed
-        JInternalFrame jif = new JInternalFrame("New: Section", true, true, true, true);
-        jif.setBounds(0, 0, 465, 465);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new CreateSectionPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new CreateSectionPanel(), "New: Section", 465, 465);
     }//GEN-LAST:event_jmiNewSectionActionPerformed
 
     private void jmiNewTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewTimeActionPerformed
-        JInternalFrame jif = new JInternalFrame("New: Time", true, true, true, true);
-        jif.setBounds(0, 0, 300, 260);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new CreateTimePeriodPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new CreateTimePeriodPanel(), "New: Time", 300, 260);
     }//GEN-LAST:event_jmiNewTimeActionPerformed
 
     private void jmiNewCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewCourseActionPerformed
-        JInternalFrame jif = new JInternalFrame("New: Course", true, true, true, true);
-        jif.setBounds(0, 0, 475, 485);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new CreateCoursePanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new CreateCoursePanel(), "New: Course", 475, 485);
     }//GEN-LAST:event_jmiNewCourseActionPerformed
 
     private void jmiNewFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFCAActionPerformed
-        JInternalFrame jif = new JInternalFrame("New: Final Course Assignment", true, true, true, true);
-        jif.setBounds(0, 0, 835, 745);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new CreateFinalCourseAssignmentPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new CreateFinalCourseAssignmentPanel(), "New: Final Course Assignment", 835, 745);
     }//GEN-LAST:event_jmiNewFCAActionPerformed
 
     private void jmiDataFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataFacultyActionPerformed
-        JInternalFrame jif = new JInternalFrame("Data: Faculty", true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new DataFacultyPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new DataFacultyPanel(), "Data: Faculty", 700, 720);
     }//GEN-LAST:event_jmiDataFacultyActionPerformed
 
     private void jmiDataTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataTimeActionPerformed
-        JInternalFrame jif = new JInternalFrame("Data: Time Period", true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new DataTimePeriodPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new DataTimePeriodPanel(), "Data: Time Period", 700, 720);
     }//GEN-LAST:event_jmiDataTimeActionPerformed
 
     private void jmiDataRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataRoomActionPerformed
-        JInternalFrame jif = new JInternalFrame("Data: Room", true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new DataRoomPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new DataRoomPanel(), "Data: Room", 700, 720);
     }//GEN-LAST:event_jmiDataRoomActionPerformed
 
     private void jmiDataCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataCourseActionPerformed
-        JInternalFrame jif = new JInternalFrame("Data: Course", true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new DataCoursePanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new DataCoursePanel(), "Data: Course", 700, 720);
     }//GEN-LAST:event_jmiDataCourseActionPerformed
 
     private void jmiDataFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataFCAActionPerformed
-        JInternalFrame jif = new JInternalFrame("Data: Final Course Assignment", true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new DataFinalCourseAssignmentPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
-        
-        
+        createNewPanel(new DataFinalCourseAssignmentPanel(), "Data: Final Course Assignment", 700, 720);
     }//GEN-LAST:event_jmiDataFCAActionPerformed
 
     private void jmiCVFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVFacultyActionPerformed
@@ -398,45 +318,25 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCVFacultyActionPerformed
 
     private void jmiDataSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataSectionActionPerformed
-        JInternalFrame jif = new JInternalFrame("Data: Section", true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new DataSectionPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new DataSectionPanel(), "Data: Section", 700, 720);
     }//GEN-LAST:event_jmiDataSectionActionPerformed
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
-        JInternalFrame jif = new JInternalFrame("SQL Connection", true, true, true, true);
-        jif.setBounds(0, 0, 330, 320);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new SQLLoginPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new SQLLoginPanel(), "SQL Connection", 330, 320);
     }//GEN-LAST:event_jmiSQLConnectionActionPerformed
 
     private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
-        JInternalFrame jif = new JInternalFrame("SQL Connection", true, true, true, true);
-        jif.setBounds(0, 0, 310, 279); // TODO - Change Size
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
-        openFrameCount++;
-        JPanel p = new AboutPanel();
-        jif.add(p);
-        jif.setVisible(true);
-        jDesktop.add(jif);
-        jif.toFront();
+        createNewPanel(new AboutPanel(), "About LionPlanner", 310, 279);
     }//GEN-LAST:event_jmiAboutActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        StorageController.disconnectFromDB();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     
-    public  void createNewPanel(JPanel p, String title) {
+    public static void createNewPanel(JPanel p, String title, int x, int y) {
         JInternalFrame jif = new JInternalFrame(title, true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
+        jif.setBounds(0, 0, x, y);
         jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         jif.add(p);
@@ -444,6 +344,10 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jDesktop.add(jif);
         jif.toFront();
     }
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -486,6 +390,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmCVCL;
