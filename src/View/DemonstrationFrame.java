@@ -39,8 +39,12 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
+        jmiSQLConnection = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jmiAbout = new javax.swing.JMenuItem();
         jmNew = new javax.swing.JMenu();
         jmiNewFaculty = new javax.swing.JMenuItem();
         jmiNewTime = new javax.swing.JMenuItem();
@@ -78,11 +82,29 @@ public class DemonstrationFrame extends javax.swing.JFrame {
 
         jmFile.setText("File");
 
+        jmiSQLConnection.setText("SQL Connection");
+        jmiSQLConnection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSQLConnectionActionPerformed(evt);
+            }
+        });
+        jmFile.add(jmiSQLConnection);
+        jmFile.add(jSeparator1);
+
         jMenuItem1.setText("Import");
         jmFile.add(jMenuItem1);
 
         jMenuItem2.setText("Export");
         jmFile.add(jMenuItem2);
+        jmFile.add(jSeparator2);
+
+        jmiAbout.setText("About");
+        jmiAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAboutActionPerformed(evt);
+            }
+        });
+        jmFile.add(jmiAbout);
 
         jMenuBar1.add(jmFile);
 
@@ -301,7 +323,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
 
     private void jmiNewFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFCAActionPerformed
         JInternalFrame jif = new JInternalFrame("New: Final Course Assignment", true, true, true, true);
-        jif.setBounds(0, 0, 700, 720);
+        jif.setBounds(0, 0, 835, 745);
         jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
         openFrameCount++;
         JPanel p = new CreateFinalCourseAssignmentPanel();
@@ -389,6 +411,30 @@ public class DemonstrationFrame extends javax.swing.JFrame {
         jif.toFront();
     }//GEN-LAST:event_jmiDataSectionActionPerformed
 
+    private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
+        JInternalFrame jif = new JInternalFrame("SQL Connection", true, true, true, true);
+        jif.setBounds(0, 0, 310, 279);
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        JPanel p = new SQLLoginPanel();
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }//GEN-LAST:event_jmiSQLConnectionActionPerformed
+
+    private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
+        JInternalFrame jif = new JInternalFrame("SQL Connection", true, true, true, true);
+        jif.setBounds(0, 0, 310, 279); // TODO - Change Size
+        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        openFrameCount++;
+        JPanel p = new AboutPanel();
+        jif.add(p);
+        jif.setVisible(true);
+        jDesktop.add(jif);
+        jif.toFront();
+    }//GEN-LAST:event_jmiAboutActionPerformed
+
     
     public  void createNewPanel(JPanel p, String title) {
         JInternalFrame jif = new JInternalFrame(title, true, true, true, true);
@@ -442,11 +488,14 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmCVCL;
     private javax.swing.JMenu jmCalView;
     private javax.swing.JMenu jmData;
     private javax.swing.JMenu jmFile;
     private javax.swing.JMenu jmNew;
+    private javax.swing.JMenuItem jmiAbout;
     private javax.swing.JMenuItem jmiCVCLCourse;
     private javax.swing.JMenuItem jmiCVCLFCA;
     private javax.swing.JMenuItem jmiCVCLSections;
@@ -464,5 +513,6 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiNewRoom;
     private javax.swing.JMenuItem jmiNewSection;
     private javax.swing.JMenuItem jmiNewTime;
+    private javax.swing.JMenuItem jmiSQLConnection;
     // End of variables declaration//GEN-END:variables
 }
