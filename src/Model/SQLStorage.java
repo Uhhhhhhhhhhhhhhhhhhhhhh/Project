@@ -20,10 +20,11 @@ public class SQLStorage {
     
     
     private static void createPreparedStatements() throws SQLException {
-        String query = "INSERT into faculty(PSU_ID, Last_Name, First_Name, Major_College, Preferred_Days) values(?, ?, ?, ?, ?)";
+        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major_College, Preferred_Days) values(?, ?, ?, ?, ?)";
         psInsertFaculty = c.prepareStatement(query);
         
-        query = "INSERT into ";
+        query = "INSERT into ProfessorTimePref(Faculty_PSU_ID, TimePeriod_Period) values (?, ?)";
+        
         
     }
     
@@ -55,7 +56,7 @@ public class SQLStorage {
             return false;
     }
     
-    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
+    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref){
         boolean success;
 
         try {
@@ -64,9 +65,16 @@ public class SQLStorage {
             psInsertFaculty.setString (3, first_name);
             psInsertFaculty.setString (4, major_college);
             psInsertFaculty.setInt    (5, Faculty.daysToInt(preferred_days));
-
+            
             success = psInsertFaculty.execute();
             JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "MySQL: Faculty", JOptionPane.INFORMATION_MESSAGE);
+            
+            for(int i:timePref){ 
+                psInsertFacultyTimePref.setString(1, psu_id);
+                psInsertFacultyTimePref.setInt(1, i);
+                psInsertFaculty.execute();
+            }
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
             success = false;
@@ -75,25 +83,10 @@ public class SQLStorage {
         return success;
     }
 
-    public static Faculty getFacultyByPSUId(String psu_id) {
-        boolean success;
-        String query = "SELECT * FROM Faculty WHERE PSU_ID = '" + psu_id + "'";
-        
-        try {
-            Statement st = c.createStatement();
-            
-            ResultSet rs = st.executeQuery(query);
-            
-            return new Faculty(rs.getString("PSU_ID"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("major"), Faculty.intToArray(rs.getInt("days")));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR! COULD NOT GRAB INFORMATION!", "Faculty", JOptionPane.ERROR_MESSAGE);
-            success = false;
-            return null;
-        }
-        
-    }
+    
+    
     private static Connection c;
     private static PreparedStatement psInsertFaculty;
-    
+    private static PreparedStatement psInsertFacultyTimePref;
     
 }
