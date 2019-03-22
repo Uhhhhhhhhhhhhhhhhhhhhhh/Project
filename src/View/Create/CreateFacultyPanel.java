@@ -87,7 +87,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
         });
 
         jlDays.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+            String[] strings = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -175,7 +175,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        boolean[] preferred_days = {false, false, false, false, false};
+        boolean[] preferred_days = {false, false, false, false, false, false, false};
         
         for(int day:jlDays.getSelectedIndices()){
             preferred_days[day] = true;

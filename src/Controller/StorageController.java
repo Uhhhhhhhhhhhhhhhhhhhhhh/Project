@@ -43,6 +43,14 @@ public class StorageController {
             Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
     }
     
-
+    public static void addNewRoom(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
+        if(!dbConnection)
+            tryConnectionToDB();
+        
+        if(dbConnection)
+            SQLStorage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
+        else
+            Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
+    }
     
 }

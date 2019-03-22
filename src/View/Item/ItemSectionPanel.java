@@ -7,7 +7,6 @@ package View.Item;
 
 import Model.*;
 import View.DemonstrationFrame;
-import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
 
 /**

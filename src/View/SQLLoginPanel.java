@@ -36,10 +36,10 @@ public class SQLLoginPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jtfIPAddress = new javax.swing.JTextField();
         jtfUsername = new javax.swing.JTextField();
-        jtfPassword = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jtfDB = new javax.swing.JTextField();
+        jpf = new javax.swing.JPasswordField();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("SQL Connection Information");
@@ -68,14 +68,6 @@ public class SQLLoginPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(22, 22, 22)
-                        .addComponent(jtfPassword))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(21, 21, 21)
-                        .addComponent(jtfUsername))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(26, 26, 26)
                         .addComponent(jtfDB))
@@ -83,7 +75,15 @@ public class SQLLoginPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jtfIPAddress))
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpf)
+                            .addComponent(jtfUsername))))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
@@ -106,15 +106,18 @@ public class SQLLoginPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        StorageController.setDBInfo(jtfIPAddress.getText(), jtfDB.getText(), jtfUsername.getText(), jtfPassword.getText());
+        String password = "";
+        for(char c:jpf.getPassword())
+            password += c;
+        StorageController.setDBInfo(jtfIPAddress.getText(), jtfDB.getText(), jtfUsername.getText(), password);
         StorageController.tryConnectionToDB();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -126,9 +129,9 @@ public class SQLLoginPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPasswordField jpf;
     private javax.swing.JTextField jtfDB;
     private javax.swing.JTextField jtfIPAddress;
-    private javax.swing.JTextField jtfPassword;
     private javax.swing.JTextField jtfUsername;
     // End of variables declaration//GEN-END:variables
 }
