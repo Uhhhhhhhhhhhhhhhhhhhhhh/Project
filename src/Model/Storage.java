@@ -153,6 +153,15 @@ public class Storage {
         return alCourse.get(index);
     }
     
+    public static Course getCourseBySubAndNum(String subject, String num) {
+        for(Course c:alCourse) {
+            if(c.getSubject().equals(subject))
+                if(c.getCourse_num().equals(num))
+                    return c;
+        }
+        return null;
+    }
+    
     public static boolean addNewTime_Period(LocalTime start_time, LocalTime end_time){
         Time_Period t = new Time_Period(start_time, end_time);
         boolean add = alTime.add(t);

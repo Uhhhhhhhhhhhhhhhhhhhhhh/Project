@@ -98,6 +98,7 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jtaDescription.setColumns(20);
         jtaDescription.setRows(5);
         jScrollPane1.setViewportView(jtaDescription);
+        jtaDescription.setLineWrap(true);
 
         jLabel4.setText("Course Number");
 

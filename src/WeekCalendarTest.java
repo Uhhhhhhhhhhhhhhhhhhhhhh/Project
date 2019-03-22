@@ -25,11 +25,11 @@ public class WeekCalendarTest {
 
         WeekCalendar cal = new WeekCalendar(events);
 
-        cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent()));
+        cal.addCalendarEventClickListener(e -> System.out.println(e.getCalendarEvent())); //Method to create new panel for course info
         cal.addCalendarEmptyClickListener(e -> {
             System.out.println(e.getDateTime());
             System.out.println(Calendar.roundTime(e.getDateTime().toLocalTime(), 30));
-        });
+        }); //Same here
 
         JButton goToTodayBtn = new JButton("Today");
         goToTodayBtn.addActionListener(e -> cal.goToToday());
