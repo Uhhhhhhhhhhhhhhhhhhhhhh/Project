@@ -41,12 +41,12 @@ public class StorageController {
             JOptionPane.showMessageDialog(null, "Not connected to a SQL Server!", "DB Storage Disconnect", JOptionPane.ERROR_MESSAGE);
     }
     
-    public static void addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
+    public static void addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref) {
         if(!dbConnection)
             tryConnectionToDB();
         
         if(dbConnection)
-            SQLStorage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
+            SQLStorage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days, timePref);
         else
             Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
     }
@@ -55,10 +55,10 @@ public class StorageController {
         if(!dbConnection)
             tryConnectionToDB();
         
-        if(dbConnection)
-            SQLStorage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
-        else
-            Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
+        //if(dbConnection)
+            //SQLStorage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
+        //else
+            //Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
     }
     
 }
