@@ -5,8 +5,7 @@
  */
 package View.Create;
 
-import Controller.StorageController;
-import Model.Storage;
+import Main.SQLPreparedStatements;
 import java.time.LocalTime;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -17,7 +16,6 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class CreateTimePeriodPanel extends javax.swing.JPanel {
 
-    private static int i = 0;
     /**
      * Creates new form CreateTimePeriodPanel
      */
@@ -136,7 +134,7 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        StorageController.addNewTimePeriod(i++, LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
+        SQLPreparedStatements.addNewTime(LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
         clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 

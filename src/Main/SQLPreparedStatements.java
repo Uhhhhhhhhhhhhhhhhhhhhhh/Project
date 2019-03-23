@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -59,7 +60,7 @@ public class SQLPreparedStatements {
         query = "INSERT into ProfessorTimePref(Faculty_PSU_ID, TimePeriod_Period) values (?, ?)";
         psInsertFacultyTimePref = c.prepareStatement(query);
         
-        query = "INSERT into timeperiod(period, start_time, end_time) values(?, ?, ?)";
+        query = "INSERT into timeperiod(start_time, end_time) values(?, ?)";
         psInsertTimePeriod = c.prepareStatement(query);
         
         query = "INSERT into room(room_id, building, occupancy, num_of_computers, lab_type) values (?, ?, ?, ?, ?)";
@@ -225,7 +226,43 @@ public class SQLPreparedStatements {
         return success;
     }
     
+    public static boolean addNewTime(LocalTime start, LocalTime end) {
+        boolean success;
+        
+        try {
+            psInsertTimePeriod.setTime(1, java.sql.Time.valueOf(start));
+            psInsertTimePeriod.setTime(2, java.sql.Time.valueOf(end));
+            
+            success = psInsertTimePeriod.execute();
+            JOptionPane.showMessageDialog(null, start.toString() + " - " + end.toString() + " time period saved", "MySQL: Time", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! TIME NOT CREATED!\n" + e.getMessage(), "MySQL: Time", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
     
+    public static boolean addNewRoom(String building, String number, int occupancy, int num_comp, String lab) {
+        boolean success;
+        
+        try {
+            
+            psInsertRoom.setString(1, number);
+            psInsertRoom.setString(2, building);
+            psInsertRoom.setInt(3, occupancy);
+            psInsertRoom.setInt(4, num_comp);
+            psInsertRoom.setString(5, lab);
+            
+            success = psInsertRoom.execute();
+            JOptionPane.showMessageDialog(null, building + " " + number + "'s information is saved.", "MySQL: Room", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Room NOT CREATED!\n" + e.getMessage(), "MySQL: Room", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+}
     
     public static int daysToInt(boolean[] days) {
         //MTWTFSS

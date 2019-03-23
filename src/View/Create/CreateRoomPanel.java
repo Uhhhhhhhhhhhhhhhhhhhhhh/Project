@@ -5,8 +5,7 @@
  */
 package View.Create;
 
-import Controller.StorageController;
-import Model.Storage;
+import Main.SQLPreparedStatements;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -34,7 +33,7 @@ public class CreateRoomPanel extends javax.swing.JPanel {
     }
     
     private ComboBoxModel getCBLabTypeModel() {
-        String[] items = {"Computer", "Biology", "Engineering"};
+        String[] items = {"N/A", "Computer", "Biology", "Engineering"};
         lab_types = new SortedComboBoxModel(items);
         return lab_types;
     }
@@ -188,7 +187,7 @@ public class CreateRoomPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        StorageController.addNewRoom(jcbBuilding.getSelectedItem().toString(), jtfRoomId.getText(), (int) jsOccupancy.getValue(), (int) jsComputers.getValue(), jcbLabType.getSelectedItem().toString());
+        SQLPreparedStatements.addNewRoom(jcbBuilding.getSelectedItem().toString(), jtfRoomId.getText(), (int) jsOccupancy.getValue(), (int) jsComputers.getValue(), jcbLabType.getSelectedItem().toString());
         clearItems();
     }//GEN-LAST:event_jButton3ActionPerformed
 
