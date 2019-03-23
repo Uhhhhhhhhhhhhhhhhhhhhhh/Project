@@ -5,6 +5,7 @@
  */
 package View.Create;
 
+import Controller.StorageController;
 import Model.Storage;
 import javax.swing.DefaultListModel;
 

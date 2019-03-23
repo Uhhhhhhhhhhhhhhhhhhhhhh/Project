@@ -5,6 +5,7 @@
  */
 package View.Data;
 
+import Controller.StorageController;
 import Model.Course;
 import Model.Storage;
 import View.DemonstrationFrame;
