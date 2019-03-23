@@ -220,5 +220,18 @@ public class SQLStorage {
     private static PreparedStatement psSelectCourseByDescription;
     private static PreparedStatement psSelectCourseByUnits;
     
+    //PreReq
+    private static PreparedStatement psSelectPreReqByCourseID;
+    private static PreparedStatement psSelectPreReqByCourseSubjectAndNumber;
+    private static PreparedStatement psSelectPreReqByPreReqCourseID;
+    private static PreparedStatement psSelectPreReqByPreReqSubjectAndNumber;
+    
+    //Section
+    private static PreparedStatement psSelectSectionByCourseID;
+    
+    //FCA
+    private static PreparedStatement psSelectFCAByBuildingAndRoom;
+    private static PreparedStatement psSelectFCAByCourseSubjectAndSection;
+    private static PreparedStatement psSelectFCAByCourseFacultyPSUID;
     
 }
