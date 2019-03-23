@@ -24,7 +24,7 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
     
     public DefaultListModel createFCAList(){
         DefaultListModel fca = new DefaultListModel();
-        Storage.copyFCA().forEach((a) -> {
+        StorageController.selectAllFCA().forEach((a) -> {
             fca.addElement(a.toEventString());
         });
         return fca;

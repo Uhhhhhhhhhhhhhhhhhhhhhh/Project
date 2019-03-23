@@ -28,7 +28,7 @@ public class DataFacultyPanel extends javax.swing.JPanel {
     
     public DefaultListModel createFacultyList(){
         DefaultListModel faculty = new DefaultListModel();
-        Storage.copyFaculty().forEach((f) -> {
+        StorageController.selectAllFaculty().forEach((f) -> {
             faculty.addElement(f.toEventString());
         });
         return faculty;

@@ -5,6 +5,7 @@
  */
 package View.Create;
 
+import Controller.StorageController;
 import Model.Course;
 import Model.Storage;
 import java.util.ArrayList;
@@ -249,7 +250,7 @@ public class CreateCoursePanel extends javax.swing.JPanel {
             Course[] pr = new Course[prereqs.size()];
             for(int i = 0; i < pr.length; i++)
                 pr[i] = prereqs.get(i);
-            Storage.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jcbSession.getSelectedItem().toString().charAt(0), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue(), pr);
+            StorageController.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jcbSession.getSelectedItem().toString().charAt(0), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue(), pr);
         }
         clearItems();
         

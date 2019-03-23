@@ -281,7 +281,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         LocalDate endDate = end.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         // TODO - Need to Update to use StorageController
-        Storage.addNewFCA(jlFaculty.getSelectedIndex(), jlTime.getSelectedIndex(), jlRoom.getSelectedIndex(), jlSection.getSelectedIndex(), jtfSectionNumber.getText(), startDate, endDate, days, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue());
+        StorageController.addNewFCA(jlFaculty.getSelectedIndex(), jlTime.getSelectedIndex(), jlRoom.getSelectedIndex(), jlSection.getSelectedIndex(), jtfSectionNumber.getText(), startDate, endDate, days, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue());
         
         clearItems();
         

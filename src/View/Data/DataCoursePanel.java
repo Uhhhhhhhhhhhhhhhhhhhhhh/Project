@@ -28,7 +28,7 @@ public class DataCoursePanel extends javax.swing.JPanel {
     
     public DefaultListModel createCourseList(){
         DefaultListModel course = new DefaultListModel();
-        Storage.copyCourse().forEach((c) -> {
+        StorageController.SelectAllCourse().forEach((c) -> {
             course.addElement(c.toEventString());
         });
         return course;

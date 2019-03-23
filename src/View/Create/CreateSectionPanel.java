@@ -110,7 +110,7 @@ public class CreateSectionPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                
-        Storage.addNewSection(jList2.getSelectedIndex(), jtfSection.getText());
+        StorageController.addNewSection(jList2.getSelectedIndex(), jtfSection.getText());
         
         createItems();
     }//GEN-LAST:event_jButton1ActionPerformed

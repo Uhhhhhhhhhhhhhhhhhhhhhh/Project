@@ -5,6 +5,7 @@
  */
 package View.Data;
 
+import Controller.StorageController;
 import Model.Section;
 import Model.Storage;
 import View.DemonstrationFrame;
@@ -28,7 +29,7 @@ public class DataSectionPanel extends javax.swing.JPanel {
 
     public DefaultListModel createSectionList(){
         DefaultListModel section = new DefaultListModel();
-        Storage.copySection().forEach((s) -> {
+        StorageController.selectAllSection().forEach((s) -> {
             section.addElement(s.toEventString());
         });
         return section;

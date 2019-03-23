@@ -5,6 +5,7 @@
  */
 package View.Data;
 
+import Controller.StorageController;
 import Model.*;
 import View.DemonstrationFrame;
 import View.Item.*;
@@ -27,7 +28,7 @@ public class DataRoomPanel extends javax.swing.JPanel {
     
     public DefaultListModel createRoomList(){
         DefaultListModel room = new DefaultListModel();
-        Storage.copyRoom().forEach((r) -> {
+        StorageController.selectAllRoom().forEach((r) -> {
             room.addElement(r.toEventString());
         });
         return room;

@@ -5,6 +5,7 @@
  */
 package View.Data;
 
+import Controller.StorageController;
 import Model.*;
 import View.DemonstrationFrame;
 import View.Item.*;
@@ -27,7 +28,7 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
     
     public DefaultListModel createTimeList(){
         DefaultListModel time = new DefaultListModel();
-        Storage.copyTime().forEach((t) -> {
+        StorageController.selectAllTime().forEach((t) -> {
             time.addElement(t.toEventString());
         });
         return time;
