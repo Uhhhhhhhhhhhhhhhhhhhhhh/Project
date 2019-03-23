@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -212,12 +213,6 @@ public class SQLPreparedStatements {
                 psInsertFacultyTimePref.execute();
             }
             
-            for(int i:timePref){ 
-                psInsertFacultyTimePref.setString(1, psu_id);
-                psInsertFacultyTimePref.setInt(1, i);
-                psInsertFacultyTimePref.execute();
-            }
-            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
             success = false;
@@ -262,7 +257,59 @@ public class SQLPreparedStatements {
         }
         
         return success;
-}
+    }
+    
+    public static boolean addNewCourse(String course_id, String sub, String num, String name, String description, double units) {
+        boolean success;
+        
+        try {
+            psInsertCourse.setString(1, course_id);
+            psInsertCourse.setString(2, sub);
+            psInsertCourse.setString(3, num);
+            psInsertCourse.setString(4, description);
+            psInsertCourse.setDouble(5, units);
+            
+            success = psInsertCourse.execute();
+            JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
+    
+    public static boolean addNewCourse(String course_id, String sub, String num, String name, String description, double units, List<String> prereqs) {
+        boolean success;
+        
+        try {
+            psInsertCourse.setString(1, course_id);
+            psInsertCourse.setString(2, sub);
+            psInsertCourse.setString(3, num);
+            psInsertCourse.setString(4, description);
+            psInsertCourse.setDouble(5, units);
+            
+            success = psInsertCourse.execute();
+            JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
+            
+            for(String pr:prereqs){ 
+                psInsertPreReq.setString(1, course_id);
+                psInsertPreReq.setString(2, pr);
+                psInsertPreReq.execute();
+            }
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
+    
+    
+    
+    
     
     public static int daysToInt(boolean[] days) {
         //MTWTFSS

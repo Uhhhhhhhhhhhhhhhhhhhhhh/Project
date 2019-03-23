@@ -5,9 +5,7 @@
  */
 package View.Create;
 
-import Controller.StorageController;
-import Model.Course;
-import Model.Storage;
+import Main.SQLPreparedStatements;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -32,9 +30,9 @@ public class CreateCoursePanel extends javax.swing.JPanel {
     
     public DefaultListModel createCourseList(){
         DefaultListModel course = new DefaultListModel();
-        Storage.copyCourse().forEach((c) -> {
-            course.addElement(c.toEventString());
-        });
+        //Storage.copyCourse().forEach((c) -> {
+            //course.addElement(c.toEventString());
+        //});
         return course;
     }
     
@@ -43,7 +41,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jtfCourse_id.setText("");
         jcbSubject.setSelectedIndex(-1);
         jtfCourse_num.setText("");
-        jcbSession.setSelectedIndex(-1);
         jtfName.setText("");
         jtaDescription.setText("");
         jsUnits.setValue(0);
@@ -69,7 +66,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
 
         jcbSubject = new javax.swing.JComboBox<>();
         jtfCourse_num = new javax.swing.JTextField();
-        jcbSession = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaDescription = new javax.swing.JTextArea();
@@ -77,7 +73,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jtfCourse_id = new javax.swing.JTextField();
@@ -92,8 +87,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
 
         jcbSubject.setModel(getCBCourseSubjectModel());
 
-        jcbSession.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "H", "W" }));
-
         jLabel6.setText("Course Name");
 
         jtaDescription.setColumns(20);
@@ -106,8 +99,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jLabel8.setText("PreReqs");
 
         jLabel7.setText("Course Description");
-
-        jLabel5.setText("Session");
 
         jButton2.setText("Add Course");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -171,10 +162,7 @@ public class CreateCoursePanel extends javax.swing.JPanel {
                                 .addComponent(jtfCourse_num, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jcbSubject, javax.swing.GroupLayout.Alignment.LEADING, 0, 142, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbSession, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(67, 67, 67)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jsUnits, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -221,18 +209,14 @@ public class CreateCoursePanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel9))
+                    .addComponent(jLabel9)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jcbSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jsUnits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jsUnits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -242,15 +226,9 @@ public class CreateCoursePanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(jList1.getSelectedIndices().length == 0)
-            Storage.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jcbSession.getSelectedItem().toString().charAt(0), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue());
+            SQLPreparedStatements.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue());
         else {
-            ArrayList<Course> prereqs = new ArrayList<>();
-            for(int i:jList1.getSelectedIndices())
-                prereqs.add(Storage.getCourse(i));
-            Course[] pr = new Course[prereqs.size()];
-            for(int i = 0; i < pr.length; i++)
-                pr[i] = prereqs.get(i);
-            StorageController.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jcbSession.getSelectedItem().toString().charAt(0), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue(), pr);
+            SQLPreparedStatements.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue(), jList1.getSelectedValuesList());
         }
         clearItems();
         
@@ -275,7 +253,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -283,7 +260,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JComboBox<String> jcbSession;
     private javax.swing.JComboBox<String> jcbSubject;
     private javax.swing.JSpinner jsUnits;
     private javax.swing.JTextArea jtaDescription;
