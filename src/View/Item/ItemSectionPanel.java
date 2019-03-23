@@ -6,7 +6,7 @@
 package View.Item;
 
 import Model.*;
-import View.DemonstrationFrame;
+import Main.ApplicationFrame;
 import javax.swing.JInternalFrame;
 
 /**
@@ -116,11 +116,11 @@ public class ItemSectionPanel extends javax.swing.JPanel {
             Course c = s.getCourse();
             JInternalFrame jif = new JInternalFrame("Item: Course " + c.toEventString(), true, true, true, true);
             jif.setBounds(0, 0, 629, 410);
-            jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
-            DemonstrationFrame.openFrameCount++;
+            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+            ApplicationFrame.openFrameCount++;
             jif.add((new ItemCoursePanel(c)));
             jif.setVisible(true);
-            DemonstrationFrame.jDesktop.add(jif);
+            ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
             
         }

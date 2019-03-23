@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Main;
 
 import Calendar.Calendar;
 import Calendar.CalendarEvent;
@@ -66,6 +66,6 @@ public class CalendarView {
     }
     
     private static void createEventPopUp(CalendarEvent e){
-        DemonstrationFrame.createNewPanel(new View.Item.ItemFinalCourseAssignmentPanel(e.getFCA()), "Item: Final Course Assignment", 10, 10);
+        ApplicationFrame.createNewPanel(new View.Item.ItemFinalCourseAssignmentPanel(e.getFCA()), "Item: Final Course Assignment", 10, 10);
     }
 }

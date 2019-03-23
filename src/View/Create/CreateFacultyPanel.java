@@ -5,8 +5,7 @@
  */
 package View.Create;
 
-import Controller.StorageController;
-import Model.Storage;
+import Main.SQLPreparedStatements;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -29,9 +28,9 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
     
     public DefaultListModel createTimeList(){
         DefaultListModel time = new DefaultListModel();
-        Storage.copyTime().forEach((c) -> {
-            time.addElement(c.toEventString());
-        });
+        //Storage.copyTime().forEach((c) -> {
+            //time.addElement(c.toEventString());
+        //});
         return time;
     }
     
@@ -205,7 +204,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
             preferred_days[day] = true;
         }
         
-        StorageController.addNewFaculty(jtfPSU_ID.getText(), jtfFirstname.getText(), jtfLastname.getText(), jcbSubject.getSelectedItem().toString(), preferred_days, jlTimes.getSelectedIndices());
+        SQLPreparedStatements.addNewFaculty(jtfPSU_ID.getText(), jtfLastname.getText(), jtfFirstname.getText(), (String) jcbSubject.getSelectedItem(), preferred_days, jlTimes.getSelectedIndices());
         clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 

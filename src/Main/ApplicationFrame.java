@@ -1,7 +1,5 @@
-package View;
+package Main;
 
-import Controller.StorageController;
-import Model.*;
 import View.Create.*;
 import View.Data.*;
 import javax.swing.JInternalFrame;
@@ -16,7 +14,7 @@ import javax.swing.JPanel;
  *
  * @author Derek
  */
-public class DemonstrationFrame extends javax.swing.JFrame {
+public class ApplicationFrame extends javax.swing.JFrame {
 
     public static int openFrameCount = 0;
     public static final int XOFFSET = 30, YOFFSET = 30;
@@ -24,7 +22,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     /**
      * Creates new form TestFrame
      */
-    public DemonstrationFrame() {
+    public ApplicationFrame() {
         initComponents();
     }
 
@@ -335,7 +333,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiAboutActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        StorageController.disconnectFromDB();
+        SQLPreparedStatements.disconnectFromDB();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jmiCVCLFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVCLFCAActionPerformed
@@ -375,14 +373,18 @@ public class DemonstrationFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DemonstrationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApplicationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DemonstrationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApplicationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DemonstrationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApplicationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DemonstrationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApplicationFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -390,7 +392,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new DemonstrationFrame().setVisible(true);
+            new ApplicationFrame().setVisible(true);
         });
     }
 

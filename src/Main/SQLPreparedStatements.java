@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Main;
 
-import java.sql.*;
-import java.time.LocalTime;
-import java.util.ArrayList;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,9 +18,39 @@ import javax.swing.JOptionPane;
  *
  * @author Derek
  */
-public class SQLStorage {
+public class SQLPreparedStatements {
+    
+    private static Connection c;
     
     
+    public static boolean checkConnection(){
+        return c == null;
+    }
+    
+    public static void connectToDB(String ip, String db, String username, String password) {
+        try{  
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            c = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + db, username, password);
+            JOptionPane.showMessageDialog(null, "Connection to db successful!", "DB Storage Connection", JOptionPane.INFORMATION_MESSAGE);
+            createPreparedStatements();
+        } catch(HeadlessException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Connection to db unsuccessful!", "DB Storage Connection", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
+        }
+    }
+    
+    public static void disconnectFromDB() {
+        if(c != null) {
+            try {
+                c.close();
+                JOptionPane.showMessageDialog(null, "Disconnected from db successful!", "DB Storage Disconnect", JOptionPane.INFORMATION_MESSAGE);
+                c = null;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Disconnected from db unsuccessful!", "DB Storage Disconnect", JOptionPane.ERROR_MESSAGE);
+                System.out.println(e);
+            }
+        }
+    }
     
     private static void createPreparedStatements() throws SQLException {
         String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major_College, Preferred_Days) values(?, ?, ?, ?, ?)";
@@ -48,7 +80,7 @@ public class SQLStorage {
         query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
-        query = "";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignmentWIthSelects = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
@@ -160,35 +192,6 @@ public class SQLStorage {
         psSelectFCAByFacultyLastAndFirstName = c.prepareStatement(query);
     }
     
-    public static boolean ConnectSQLStorage(String ip, String db, String username, String password){
-        try{  
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + db, username, password);
-            JOptionPane.showMessageDialog(null, "Connection to db successful!", "DB Storage Connection", JOptionPane.INFORMATION_MESSAGE);
-            createPreparedStatements();
-            return true;
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Connection to db unsuccessful!", "DB Storage Connection", JOptionPane.ERROR_MESSAGE);
-            System.out.println(e);
-            return false;
-        }
-    }
-    
-    public static boolean DisconnectSQLStorage(){
-        if(c != null)
-            try {
-                c.close();
-                JOptionPane.showMessageDialog(null, "Disconnected from db successful!", "DB Storage Disconnect", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Disconnected from db unsuccessful!", "DB Storage Disconnect", JOptionPane.ERROR_MESSAGE);
-                System.out.println(e);
-                return false;
-            }
-        else
-            return false;
-    }
-    
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref){
         boolean success;
 
@@ -197,10 +200,16 @@ public class SQLStorage {
             psInsertFaculty.setString (2, last_name);
             psInsertFaculty.setString (3, first_name);
             psInsertFaculty.setString (4, major_college);
-            psInsertFaculty.setInt    (5, Faculty.daysToInt(preferred_days));
+            psInsertFaculty.setInt    (5, daysToInt(preferred_days));
             
             success = psInsertFaculty.execute();
             JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "MySQL: Faculty", JOptionPane.INFORMATION_MESSAGE);
+            
+            for(int i:timePref){ 
+                psInsertFacultyTimePref.setString(1, psu_id);
+                psInsertFacultyTimePref.setInt(1, i);
+                psInsertFacultyTimePref.execute();
+            }
             
             for(int i:timePref){ 
                 psInsertFacultyTimePref.setString(1, psu_id);
@@ -216,147 +225,56 @@ public class SQLStorage {
         return success;
     }
     
-    public static boolean addNewTimePeriod(int period, LocalTime start_time, LocalTime end_time) {
-        boolean success;
+    
+    
+    public static int daysToInt(boolean[] days) {
+        //MTWTFSS
+        int mon, tues, wed, thurs, fri, sat, sun;
+        mon = tues = wed = thurs = fri = sat = sun = 0;
         
-        try {
-            psInsertTimePeriod.setInt(1, period);
-            psInsertTimePeriod.setTime(2, java.sql.Time.valueOf(start_time));
-            psInsertTimePeriod.setTime(3, java.sql.Time.valueOf(end_time));
-            
-            success = psInsertTimePeriod.execute();
-            JOptionPane.showMessageDialog(null, start_time.toString() + " - " + end_time.toString() + "'s information is saved.", "MySQL: Time", JOptionPane.INFORMATION_MESSAGE);
-            
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! TIME NOT CREATED!\n" + e.getMessage(), "MySQL: Time", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
+        if(days[0])
+            mon = 1000000;
+        if(days[1])
+            tues = 100000;
+        if(days[2])
+            wed = 10000;
+        if(days[3])
+            thurs = 1000;
+        if(days[4])
+            fri = 100;
+        if(days[5])
+            sat = 10;
+        if(days[6])
+            sun = 1;
         
-        return success;
+        return mon + tues + wed + thurs + fri + sat + sun;
     }
     
-    public static boolean addNewRoom(String building, String number, int occupancy, int num_comp, String lab) {
-        boolean success;
+    public static boolean[] intToArray(int days) {
         
-        try {
-            
-            psInsertRoom.setString(1, number);
-            psInsertRoom.setString(2, building);
-            psInsertRoom.setInt(3, occupancy);
-            psInsertRoom.setInt(4, num_comp);
-            psInsertRoom.setString(5, lab);
-            
-            success = psInsertRoom.execute();
-            JOptionPane.showMessageDialog(null, building + " " + number + "'s information is saved.", "MySQL: Room", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! Room NOT CREATED!\n" + e.getMessage(), "MySQL: Room", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
+        int sun = days % 10;
+        days /= 10;
         
-        return success;
+        int sat = days % 10;
+        days /= 10;
+        
+        int fri = days % 10;
+        days /= 10;
+        
+        int thurs = days % 10;
+        days /= 10;
+        
+        int wed = days % 10;
+        days /= 10;
+        
+        int tues = days % 10;
+        days /= 10;
+        
+        int mon = days % 10;
+        days /= 10;
+        
+        return new boolean[]{mon == 1, tues  == 1, wed  == 1, thurs  == 1, fri  == 1, sat  == 1, sun  == 1};
     }
-
-    public static boolean addNewCourse(String course_id, String sub, String num, String name, String description, double units) {
-        boolean success;
-        
-        try {
-            psInsertCourse.setString(1, course_id);
-            psInsertCourse.setString(2, sub);
-            psInsertCourse.setString(3, num);
-            psInsertCourse.setString(4, description);
-            psInsertCourse.setDouble(5, units);
-            
-            success = psInsertCourse.execute();
-            JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
-        
-        return success;
-    }
-    
-    public static boolean addNewPreReq(String course_id, String prereq_course_id) {
-        boolean success;
-        
-        try {
-            psInsertPreReq.setString(1, course_id);
-            psInsertPreReq.setString(2, prereq_course_id);
-            
-            success = psInsertPreReq.execute();
-            JOptionPane.showMessageDialog(null, course_id + " has been given " + prereq_course_id + " as a prereq.", "MySQL: prereq", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: prereq", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
-        
-        return success;
-    }
-    
-    public static boolean addNewPreReq(String course_sub, String course_num, String prereq_course_sub, String prereq_course_num) {
-        boolean success;
-        
-        try {
-            psInsertPreReqWithSelects.setString(1, course_sub);
-            psInsertPreReqWithSelects.setString(2, course_num);
-            psInsertPreReqWithSelects.setString(1, prereq_course_sub);
-            psInsertPreReqWithSelects.setString(2, prereq_course_num);
-            
-            success = psInsertPreReqWithSelects.execute();
-            JOptionPane.showMessageDialog(null, course_sub + " " + course_num + " has been given " + prereq_course_sub + " " + prereq_course_num + " as a prereq.", "MySQL: prereq", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: prereq", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
-        
-        return success;
-    }
-    
-    public static boolean addNewSection(String class_num, String course_course_id){
-        boolean success;
-        
-        try {
-            psInsertSection.setString(1, class_num);
-            psInsertSection.setString(2, course_course_id);
-            
-            success = psInsertSection.execute();
-            JOptionPane.showMessageDialog(null, class_num + " " + course_course_id + " as a Section.", "MySQL: Section", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! Section NOT CREATED!\n" + e.getMessage(), "MySQL: Section", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
-        
-        return success;
-    }
-    
-    public static boolean addNewFCA(String room_room_id, String room_building, String section_class_num, String course_course_id, String faculty_psu_id, int time_period, int days, int class_capacity, int enrollment, String course_type) {
-        boolean success;
-        
-        try {
-            psInsertFinalCourseAssignment.setString(1, room_room_id);
-            psInsertFinalCourseAssignment.setString(2, room_building);
-            psInsertFinalCourseAssignment.setString(3, section_class_num);
-            psInsertFinalCourseAssignment.setString(4, course_course_id);
-            psInsertFinalCourseAssignment.setString(5, faculty_psu_id);
-            psInsertFinalCourseAssignment.setInt(6, time_period);
-            psInsertFinalCourseAssignment.setInt(7, days);
-            psInsertFinalCourseAssignment.setInt(8, class_capacity);
-            psInsertFinalCourseAssignment.setInt(9, enrollment);
-            psInsertFinalCourseAssignment.setString(10, course_type);
-            
-            success = psInsertFinalCourseAssignment.execute();
-            JOptionPane.showMessageDialog(null, course_course_id + " " + section_class_num + "" + " as a FCA.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
-        
-        return success;
-    }
-    
-    private static Connection c;
     
     //Insert
     private static PreparedStatement psInsertFaculty;
@@ -424,5 +342,4 @@ public class SQLStorage {
     private static PreparedStatement psSelectFCAByFacultyLastName;
     private static PreparedStatement psSelectFCAByFacultyFirstName;
     private static PreparedStatement psSelectFCAByFacultyLastAndFirstName;
-    
 }

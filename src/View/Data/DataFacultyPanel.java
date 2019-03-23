@@ -7,7 +7,7 @@ package View.Data;
 
 import Model.Faculty;
 import Model.Storage;
-import View.DemonstrationFrame;
+import Main.ApplicationFrame;
 import View.Item.ItemFacultyPanel;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
@@ -90,11 +90,11 @@ public class DataFacultyPanel extends javax.swing.JPanel {
             Faculty f = Storage.getFaculty(jList1.getSelectedIndex());
             JInternalFrame jif = new JInternalFrame("Item: Faculty " + f.toEventString(), true, true, true, true);
             jif.setBounds(0, 0, 285, 400);
-            jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
-            DemonstrationFrame.openFrameCount++;
+            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+            ApplicationFrame.openFrameCount++;
             jif.add((new ItemFacultyPanel(f)));
             jif.setVisible(true);
-            DemonstrationFrame.jDesktop.add(jif);
+            ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
         }
     }//GEN-LAST:event_jList1MouseClicked

@@ -8,7 +8,7 @@ package View.Data;
 import Controller.StorageController;
 import Model.Course;
 import Model.Storage;
-import View.DemonstrationFrame;
+import Main.ApplicationFrame;
 import View.Item.ItemCoursePanel;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
@@ -91,11 +91,11 @@ public class DataCoursePanel extends javax.swing.JPanel {
             Course c = Storage.getCourse(jList1.getSelectedIndex());
             JInternalFrame jif = new JInternalFrame("Item: Course " + c.toEventString(), true, true, true, true);
             jif.setBounds(0, 0, 629, 410);
-            jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
-            DemonstrationFrame.openFrameCount++;
+            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+            ApplicationFrame.openFrameCount++;
             jif.add((new ItemCoursePanel(c)));
             jif.setVisible(true);
-            DemonstrationFrame.jDesktop.add(jif);
+            ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
             
         }

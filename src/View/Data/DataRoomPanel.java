@@ -7,7 +7,7 @@ package View.Data;
 
 import Controller.StorageController;
 import Model.*;
-import View.DemonstrationFrame;
+import Main.ApplicationFrame;
 import View.Item.*;
 import javax.swing.JInternalFrame;
 import javax.swing.DefaultListModel;
@@ -90,11 +90,11 @@ public class DataRoomPanel extends javax.swing.JPanel {
             Room r = Storage.getRoom(jList1.getSelectedIndex());
             JInternalFrame jif = new JInternalFrame("Item: Room " + r.toEventString(), true, true, true, true);
             jif.setBounds(0, 0, 350, 220);
-            jif.setLocation(DemonstrationFrame.XOFFSET * DemonstrationFrame.openFrameCount, DemonstrationFrame.YOFFSET * DemonstrationFrame.openFrameCount);
-            DemonstrationFrame.openFrameCount++;
+            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+            ApplicationFrame.openFrameCount++;
             jif.add((new ItemRoomPanel(r)));
             jif.setVisible(true);
-            DemonstrationFrame.jDesktop.add(jif);
+            ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
         }
     }//GEN-LAST:event_jList1MouseClicked
