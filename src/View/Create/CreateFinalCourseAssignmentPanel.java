@@ -5,9 +5,7 @@
  */
 package View.Create;
 
-import Controller.StorageController;
-import Model.*;
-import Model.Storage;
+import Main.SQLPreparedStatements;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -31,33 +29,33 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     
     public DefaultListModel createFacultyList(){
         DefaultListModel faculty = new DefaultListModel();
-        Storage.copyFaculty().forEach((f) -> {
-            faculty.addElement(f.toEventString());  // TODO - Need to Update to use StorageController
-        });
+        //Storage.copyFaculty().forEach((f) -> {
+            //faculty.addElement(f.toEventString());  // TODO - Need to Update to use StorageController
+        //});
         return faculty;
     }
     
     public DefaultListModel createRoomList(){
         DefaultListModel room = new DefaultListModel();
-        Storage.copyRoom().forEach((r) -> {
-            room.addElement(r.toEventString());  // TODO - Need to Update to use StorageController
-        });
+        //Storage.copyRoom().forEach((r) -> {
+            //room.addElement(r.toEventString());  // TODO - Need to Update to use StorageController
+        //});
         return room;
     }
     
     public DefaultListModel createTimeList(){
         DefaultListModel time = new DefaultListModel();
-        Storage.copyTime().forEach((t) -> {
-            time.addElement(t.toEventString());  // TODO - Need to Update to use StorageController
-        });
+        //Storage.copyTime().forEach((t) -> {
+            //time.addElement(t.toEventString());  // TODO - Need to Update to use StorageController
+        //});
         return time;
     }
     
     public DefaultListModel createCourseList(){
         DefaultListModel course = new DefaultListModel();
-        Storage.copySection().forEach((s) -> {
-            course.addElement(s.toEventString());  // TODO - Need to Update to use StorageController
-        });
+        //Storage.copySection().forEach((s) -> {
+            //course.addElement(s.toEventString());  // TODO - Need to Update to use StorageController
+        //});
         return course;
     }
     
@@ -99,6 +97,8 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jsCapacity = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         jtfSectionNumber = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Final Course Assignment Information");
@@ -161,6 +161,10 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Section Number");
 
+        jLabel12.setText("Type of Course");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In-Person", "Online", "Hybrid" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +207,9 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                             .addComponent(jsCapacity)
                             .addComponent(jsEnrollment, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jtfSectionNumber))))
+                            .addComponent(jtfSectionNumber)
+                            .addComponent(jLabel12)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
@@ -260,7 +266,11 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jtfSectionNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jtfSectionNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
 
@@ -282,7 +292,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         LocalDate endDate = end.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         // TODO - Need to Update to use StorageController
-        StorageController.addNewFCA(jlFaculty.getSelectedIndex(), jlTime.getSelectedIndex(), jlRoom.getSelectedIndex(), jlSection.getSelectedIndex(), jtfSectionNumber.getText(), startDate, endDate, days, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue());
+        SQLPreparedStatements.addNewFCA(jlFaculty.getSelectedValue(), jlTime.getSelectedValue(), jlRoom.getSelectedValue(), jlSection.getSelectedValue(), jtfSectionNumber.getText(), startDate, endDate, days, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue());
         
         clearItems();
         
@@ -291,9 +301,11 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
