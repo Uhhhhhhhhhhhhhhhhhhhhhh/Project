@@ -195,4 +195,30 @@ public class SQLStorage {
     private static PreparedStatement psSelectAllSection;
     private static PreparedStatement psSelectAllFinalCourseAssignment;
     
+    //Select By Topics
+    // Faculty
+    private static PreparedStatement psSelectFacultyByPsuID;
+    private static PreparedStatement psSelectFacultyByFirstName;
+    private static PreparedStatement psSelectFacultyByLastName;
+    
+    //Faculty Time
+    private static PreparedStatement psSelectFacultyTimeByPsuID;
+    
+    //Time Period
+    private static PreparedStatement psSelectTimePeriodByID;
+    
+    //Room
+    private static PreparedStatement psSelectRoomByBuilding;
+    private static PreparedStatement psSelectRoomByNumber;
+    private static PreparedStatement psSelectRoomByLabType;
+    
+    //Course
+    private static PreparedStatement psSelectCourseByID;
+    private static PreparedStatement psSelectCourseBySubject;
+    private static PreparedStatement psSelectCourseBySubjectAndNumber;
+    private static PreparedStatement psSelectCourseByNumber;
+    private static PreparedStatement psSelectCourseByDescription;
+    private static PreparedStatement psSelectCourseByUnits;
+    
+    
 }
