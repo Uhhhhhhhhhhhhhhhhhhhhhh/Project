@@ -42,10 +42,10 @@ public class SQLStorage {
         query = "INSERT into prereqs(course_id, prereq_course_id) values(select course_id from course where sub like ? and course_num like ?, select course_id from course where sub like ? and course_num like ?)";
         psInsertPreReqWithSelects = c.prepareStatement(query);
         
-        query = "INSERT into section(course_num, course_course_id) values(?, ?)";
+        query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into Select(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
@@ -306,6 +306,24 @@ public class SQLStorage {
             JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: prereq", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
+        
+        return success;
+    }
+    
+    public static boolean addNewSection(String class_num, String course_course_id){
+        boolean success;
+        
+        try {
+            psInsertSection.setString(1, class_num);
+            psInsertSection.setString(2, course_course_id);
+            
+            success = psInsertSection.execute();
+            JOptionPane.showMessageDialog(null, class_num + " " + course_course_id + " as a Section.", "MySQL: Section", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Section NOT CREATED!\n" + e.getMessage(), "MySQL: Section", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
         
         return success;
     }
