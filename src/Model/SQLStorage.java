@@ -123,23 +123,35 @@ public class SQLStorage {
         query = "select * from prereqs where course_id like (select course_id from course where sub like ? and course_num like ?)";
         psSelectPreReqByCourseSubjectAndNumber = c.prepareStatement(query);
            
-        query = "";
+        query = "select * from prereqs where prereq_course_id like ?";
         psSelectPreReqByPreReqCourseID = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from prereqs where prereq_course_id like (select course_id from course where sub like ? and course_num like ?)";
         psSelectPreReqByPreReqSubjectAndNumber = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from section where course_course_id like ?";
         psSelectSectionByCourseID = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from section where course_course_id like (select course_id from course where sub like ? and course_num like ?)";
+        psSelectSectionByCourseSubjectAndNumber = c.prepareStatement(query);
+        
+        query = "select * from finalcourseassignment where room_room_id like ? and room_building like ?";
         psSelectFCAByBuildingAndRoom = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from finalcourseassignment where course_course_id like (select course_id from course where sub like ? and course_num like ?)";
         psSelectFCAByCourseSubjectAndSection = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from finalcourseassignment where faculty_psu_id like ?";
         psSelectFCAByCourseFacultyPSUID = c.prepareStatement(query);
+        
+        query = "select * from finalcourseassignment where faculty_psu_id like (select psu_id from faculty where last_name like ?)";
+        psSelectFCAByFacultyLastName = c.prepareStatement(query);
+        
+        query = "select * from finalcourseassignment where faculty_psu_id like (select psu_id from faculty where first_name like ?)";
+        psSelectFCAByFacultyFirstName = c.prepareStatement(query);
+        
+        query = "select * from finalcourseassignment where faculty_psu_id like (select psu_id from faculty where last_name like ? and first_name like ?)";
+        psSelectFCAByFacultyLastAndFirstName = c.prepareStatement(query);
     }
     
     public static boolean ConnectSQLStorage(String ip, String db, String username, String password){
@@ -314,10 +326,14 @@ public class SQLStorage {
     
     //Section
     private static PreparedStatement psSelectSectionByCourseID;
+    private static PreparedStatement psSelectSectionByCourseSubjectAndNumber;
     
     //FCA
     private static PreparedStatement psSelectFCAByBuildingAndRoom;
     private static PreparedStatement psSelectFCAByCourseSubjectAndSection;
     private static PreparedStatement psSelectFCAByCourseFacultyPSUID;
+    private static PreparedStatement psSelectFCAByFacultyLastName;
+    private static PreparedStatement psSelectFCAByFacultyFirstName;
+    private static PreparedStatement psSelectFCAByFacultyLastAndFirstName;
     
 }
