@@ -243,8 +243,6 @@ public class SQLStorage {
             
             success = psInsertRoom.execute();
             JOptionPane.showMessageDialog(null, building + " " + number + "'s information is saved.", "MySQL: Room", JOptionPane.INFORMATION_MESSAGE);
-            
-            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! Room NOT CREATED!\n" + e.getMessage(), "MySQL: Room", JOptionPane.ERROR_MESSAGE);
             success = false;
@@ -253,10 +251,16 @@ public class SQLStorage {
         return success;
     }
 
-    public static boolean addNewCourse() {
+    public static boolean addNewCourse(String course_id, String sub, String num, String description, int units) {
         boolean success;
         
         try {
+            psInsertCourse.setString(1, course_id);
+            psInsertCourse.setString(2, sub);
+            psInsertCourse.setString(3, num);
+            psInsertCourse.setString(4, description);
+            psInsertCourse.setInt(5, units);
+            
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);

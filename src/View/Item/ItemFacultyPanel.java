@@ -37,6 +37,10 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
             preferredDays.addElement("Thursday");
         if(f.getPreferred_days()[4])
             preferredDays.addElement("Friday");
+        if(f.getPreferred_days()[5])
+            preferredDays.addElement("Saturday");
+        if(f.getPreferred_days()[6])
+            preferredDays.addElement("Sunday");
         if(preferredDays.isEmpty())
             preferredDays.addElement("No Preference.");
         return preferredDays;

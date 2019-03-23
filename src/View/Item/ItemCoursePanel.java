@@ -42,7 +42,7 @@ public class ItemCoursePanel extends javax.swing.JPanel {
             for(Course pr:c.getPrereqs())
                 prereq.addElement(pr.toEventString());
         return prereq;
-    }
+    } // TODO - PreReq Clickable to show info of Pre Req Course
 
     /**
      * This method is called from within the constructor to initialize the form.
