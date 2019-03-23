@@ -69,58 +69,58 @@ public class SQLStorage {
         query = "SELECT * from finalcourseassignment";
         psSelectAllFinalCourseAssignment = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from faculty where psu_id like ?";
         psSelectFacultyByPsuID = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from faculty where first_name like ?";
         psSelectFacultyByFirstName = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from faculty where last_name like ?";
         psSelectFacultyByLastName = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from faculty where last_name like ? and first_name like ?";
         psSelectFacultyByLastAndFirstName = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from ProfessorTimePref where faculty_psu_id like ?";
         psSelectFacultyTimeByPsuID = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from ProfessorTimePref where timeperiod_period = ?";
         psSelectTimePeriodByID = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from room where building like ?";
         psSelectRoomByBuilding = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from room where room_id like ?";
         psSelectRoomByNumber = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from room where building like ? and room_id like ?";
         psSelectRoomByBuildingAndNumber = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from room where lab_type like ?";
         psSelectRoomByLabType = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from course where course_id like ?";
         psSelectCourseByID = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from course where sub like ?";
         psSelectCourseBySubject = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from course where sub like ? and course_num like ?";
         psSelectCourseBySubjectAndNumber = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from course where course_num like ?";
         psSelectCourseByNumber = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from course where description like ?";
         psSelectCourseByDescription = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from course where units = ?";
         psSelectCourseByUnits = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from prereqs where course_id like ?";
         psSelectPreReqByCourseID = c.prepareStatement(query);
         
-        query = "";
+        query = "select * from prereqs where course_id like (select course_id from course where sub like ? and course_num like ?)";
         psSelectPreReqByCourseSubjectAndNumber = c.prepareStatement(query);
            
         query = "";
