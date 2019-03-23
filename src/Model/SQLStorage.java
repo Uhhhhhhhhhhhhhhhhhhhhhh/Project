@@ -46,19 +46,28 @@ public class SQLStorage {
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
-        psSelectFaculty = c.prepareStatement(query);
+        psSelectAllFaculty = c.prepareStatement(query);
         
         query = "SELECT * from professortimepref";
-        psSelectFacultyTimePref = c.prepareStatement(query);
+        psSelectAllFacultyTimePref = c.prepareStatement(query);
         
         query = "SELECT * from timeperiod";
-        psSelectTimePeriod = c.prepareStatement(query);
+        psSelectAllTimePeriod = c.prepareStatement(query);
         
         query = "SELECT * from room";
-        psSelectRoom = c.prepareStatement(query);
+        psSelectAllRoom = c.prepareStatement(query);
         
         query = "SELECT * from course";
-        psSelectCourse = c.prepareStatement(query);
+        psSelectAllCourse = c.prepareStatement(query);
+        
+        query = "SELECT * from prereqs";
+        psSelectAllPreReq = c.prepareStatement(query);
+        
+        query = "SELECT * from section";
+        psSelectAllSection = c.prepareStatement(query);
+        
+        query = "SELECT * from finalcourseassignment";
+        psSelectAllFinalCourseAssignment = c.prepareStatement(query);
         
         
     }
@@ -176,14 +185,14 @@ public class SQLStorage {
     private static PreparedStatement psInsertSection;
     private static PreparedStatement psInsertFinalCourseAssignment;
     
-    //Select
-    private static PreparedStatement psSelectFaculty;
-    private static PreparedStatement psSelectFacultyTimePref;
-    private static PreparedStatement psSelectTimePeriod;
-    private static PreparedStatement psSelectRoom;
-    private static PreparedStatement psSelectCourse;
-    private static PreparedStatement psSelectPreReq;
-    private static PreparedStatement psSelectSection;
-    private static PreparedStatement psSelectFinalCourseAssignment;
+    //Select All
+    private static PreparedStatement psSelectAllFaculty;
+    private static PreparedStatement psSelectAllFacultyTimePref;
+    private static PreparedStatement psSelectAllTimePeriod;
+    private static PreparedStatement psSelectAllRoom;
+    private static PreparedStatement psSelectAllCourse;
+    private static PreparedStatement psSelectAllPreReq;
+    private static PreparedStatement psSelectAllSection;
+    private static PreparedStatement psSelectAllFinalCourseAssignment;
     
 }
