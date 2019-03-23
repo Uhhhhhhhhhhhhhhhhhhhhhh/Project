@@ -48,6 +48,9 @@ public class SQLStorage {
         query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
+        query = "";
+        psInsertFinalCourseAssignmentWIthSelects = c.prepareStatement(query);
+        
         query = "SELECT * from faculty";
         psSelectAllFaculty = c.prepareStatement(query);
         
@@ -324,11 +327,34 @@ public class SQLStorage {
             success = false;
         }
         
-        
         return success;
     }
     
-    
+    public static boolean addNewFCA(String room_room_id, String room_building, String section_class_num, String course_course_id, String faculty_psu_id, int time_period, int days, int class_capacity, int enrollment, String course_type) {
+        boolean success;
+        
+        try {
+            psInsertFinalCourseAssignment.setString(1, room_room_id);
+            psInsertFinalCourseAssignment.setString(2, room_building);
+            psInsertFinalCourseAssignment.setString(3, section_class_num);
+            psInsertFinalCourseAssignment.setString(4, course_course_id);
+            psInsertFinalCourseAssignment.setString(5, faculty_psu_id);
+            psInsertFinalCourseAssignment.setInt(6, time_period);
+            psInsertFinalCourseAssignment.setInt(7, days);
+            psInsertFinalCourseAssignment.setInt(8, class_capacity);
+            psInsertFinalCourseAssignment.setInt(9, enrollment);
+            psInsertFinalCourseAssignment.setString(10, course_type);
+            
+            success = psInsertFinalCourseAssignment.execute();
+            JOptionPane.showMessageDialog(null, course_course_id + " " + section_class_num + "" + " as a FCA.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
     
     private static Connection c;
     
@@ -342,6 +368,7 @@ public class SQLStorage {
     private static PreparedStatement psInsertPreReqWithSelects;
     private static PreparedStatement psInsertSection;
     private static PreparedStatement psInsertFinalCourseAssignment;
+    private static PreparedStatement psInsertFinalCourseAssignmentWIthSelects;
     
     //Select All
     private static PreparedStatement psSelectAllFaculty;
