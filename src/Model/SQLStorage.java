@@ -264,7 +264,7 @@ public class SQLStorage {
             psInsertCourse.setString(4, description);
             psInsertCourse.setInt(5, units);
             
-            success = psInsertRoom.execute();
+            success = psInsertCourse.execute();
             JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
@@ -281,7 +281,7 @@ public class SQLStorage {
             psInsertPreReq.setString(1, course_id);
             psInsertPreReq.setString(2, prereq_course_id);
             
-            success = psInsertRoom.execute();
+            success = psInsertPreReq.execute();
             JOptionPane.showMessageDialog(null, course_id + " has been given " + prereq_course_id + " as a prereq.", "MySQL: prereq", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: prereq", JOptionPane.ERROR_MESSAGE);
@@ -291,7 +291,24 @@ public class SQLStorage {
         return success;
     }
     
-    
+    public static boolean addNewPreReq(String course_sub, String course_num, String prereq_course_sub, String prereq_course_num) {
+        boolean success;
+        
+        try {
+            psInsertPreReqWithSelects.setString(1, course_sub);
+            psInsertPreReqWithSelects.setString(2, course_num);
+            psInsertPreReqWithSelects.setString(1, prereq_course_sub);
+            psInsertPreReqWithSelects.setString(2, prereq_course_num);
+            
+            success = psInsertPreReqWithSelects.execute();
+            JOptionPane.showMessageDialog(null, course_sub + " " + course_num + " has been given " + prereq_course_sub + " " + prereq_course_num + " as a prereq.", "MySQL: prereq", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: prereq", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
     
     
     
