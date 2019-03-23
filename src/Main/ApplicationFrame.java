@@ -35,8 +35,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jmiNewSection = new javax.swing.JMenuItem();
-        jmiDataSection = new javax.swing.JMenuItem();
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
@@ -66,20 +64,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmiCVCLFCA = new javax.swing.JMenuItem();
         jmiCVCLCourse = new javax.swing.JMenuItem();
         jmiCVCLSections = new javax.swing.JMenuItem();
-
-        jmiNewSection.setText("Section");
-        jmiNewSection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiNewSectionActionPerformed(evt);
-            }
-        });
-
-        jmiDataSection.setText("Section");
-        jmiDataSection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiDataSectionActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -280,10 +264,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         createNewPanel(new CreateFacultyPanel(), "New: Faculty", 600, 455);
     }//GEN-LAST:event_jmiNewFacultyActionPerformed
 
-    private void jmiNewSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewSectionActionPerformed
-        createNewPanel(new CreateSectionPanel(), "New: Section", 465, 465);
-    }//GEN-LAST:event_jmiNewSectionActionPerformed
-
     private void jmiNewTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewTimeActionPerformed
         createNewPanel(new CreateTimePeriodPanel(), "New: Time", 300, 260);
     }//GEN-LAST:event_jmiNewTimeActionPerformed
@@ -319,10 +299,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private void jmiCVFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVFacultyActionPerformed
         // TODO Find Courses Teacher is in, Make Events, Place in Weekly View and show
     }//GEN-LAST:event_jmiCVFacultyActionPerformed
-
-    private void jmiDataSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataSectionActionPerformed
-        createNewPanel(new DataSectionPanel(), "Data: Section", 700, 720);
-    }//GEN-LAST:event_jmiDataSectionActionPerformed
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
         createNewPanel(new SQLLoginPanel(), "SQL Connection", 330, 320);
@@ -419,13 +395,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiDataFCA;
     private javax.swing.JMenuItem jmiDataFaculty;
     private javax.swing.JMenuItem jmiDataRoom;
-    private javax.swing.JMenuItem jmiDataSection;
     private javax.swing.JMenuItem jmiDataTime;
     private javax.swing.JMenuItem jmiNewCourse;
     private javax.swing.JMenuItem jmiNewFCA;
     private javax.swing.JMenuItem jmiNewFaculty;
     private javax.swing.JMenuItem jmiNewRoom;
-    private javax.swing.JMenuItem jmiNewSection;
     private javax.swing.JMenuItem jmiNewTime;
     private javax.swing.JMenuItem jmiSQLConnection;
     // End of variables declaration//GEN-END:variables
