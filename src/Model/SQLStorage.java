@@ -39,6 +39,9 @@ public class SQLStorage {
         query = "INSERT into prereqs(course_id, prereq_course_id) values(?, ?)";
         psInsertPreReq = c.prepareStatement(query);
         
+        query = "INSERT into prereqs(course_id, prereq_course_id) values(select course_id from course where sub like ? and course_num like ?, select course_id from course where sub like ? and course_num like ?)";
+        psInsertPreReqWithSelects = c.prepareStatement(query);
+        
         query = "INSERT into section(course_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
@@ -261,7 +264,8 @@ public class SQLStorage {
             psInsertCourse.setString(4, description);
             psInsertCourse.setInt(5, units);
             
-            
+            success = psInsertRoom.execute();
+            JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
             success = false;
@@ -269,6 +273,24 @@ public class SQLStorage {
         
         return success;
     }
+    
+    public static boolean addNewPreReq(String course_id, String prereq_course_id) {
+        boolean success;
+        
+        try {
+            psInsertPreReq.setString(1, course_id);
+            psInsertPreReq.setString(2, prereq_course_id);
+            
+            success = psInsertRoom.execute();
+            JOptionPane.showMessageDialog(null, course_id + " has been given " + prereq_course_id + " as a prereq.", "MySQL: prereq", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: prereq", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
+    
     
     
     
@@ -282,6 +304,7 @@ public class SQLStorage {
     private static PreparedStatement psInsertRoom;
     private static PreparedStatement psInsertCourse;
     private static PreparedStatement psInsertPreReq;
+    private static PreparedStatement psInsertPreReqWithSelects;
     private static PreparedStatement psInsertSection;
     private static PreparedStatement psInsertFinalCourseAssignment;
     
