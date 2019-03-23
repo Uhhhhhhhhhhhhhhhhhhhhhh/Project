@@ -6,6 +6,7 @@
 package Model;
 
 import java.sql.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,40 @@ public class SQLStorage {
         psInsertFaculty = c.prepareStatement(query);
         
         query = "INSERT into ProfessorTimePref(Faculty_PSU_ID, TimePeriod_Period) values (?, ?)";
+        psInsertFacultyTimePref = c.prepareStatement(query);
+        
+        query = "INSERT into timeperiod(period, start_time, end_time) values(?, ?, ?)";
+        psInsertTimePeriod = c.prepareStatement(query);
+        
+        query = "INSERT into room(room_id, building, occupancy, num_of_computers, lab_type) values (?, ?, ?, ?, ?)";
+        psInsertRoom = c.prepareStatement(query);
+        
+        query = "INSERT into course(course_id, sub, course_num, description, units) values(?, ?, ?, ?, ?)";
+        psInsertCourse = c.prepareStatement(query);
+        
+        query = "INSERT into prereqs(course_id, prereq_course_id) values(?, ?)";
+        psInsertPreReq = c.prepareStatement(query);
+        
+        query = "INSERT into section(course_num, course_course_id) values(?, ?)";
+        psInsertSection = c.prepareStatement(query);
+        
+        query = "INSERT into Select(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        psInsertFinalCourseAssignment = c.prepareStatement(query);
+        
+        query = "SELECT * from faculty";
+        psSelectFaculty = c.prepareStatement(query);
+        
+        query = "SELECT * from professortimepref";
+        psSelectFacultyTimePref = c.prepareStatement(query);
+        
+        query = "SELECT * from timeperiod";
+        psSelectTimePeriod = c.prepareStatement(query);
+        
+        query = "SELECT * from room";
+        psSelectRoom = c.prepareStatement(query);
+        
+        query = "SELECT * from course";
+        psSelectCourse = c.prepareStatement(query);
         
         
     }
@@ -33,6 +68,7 @@ public class SQLStorage {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             c = DriverManager.getConnection("jdbc:mysql://" + ip + "/" + db, username, password);
             JOptionPane.showMessageDialog(null, "Connection to db successful!", "DB Storage Connection", JOptionPane.INFORMATION_MESSAGE);
+            createPreparedStatements();
             return true;
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, "Connection to db unsuccessful!", "DB Storage Connection", JOptionPane.ERROR_MESSAGE);
@@ -72,7 +108,7 @@ public class SQLStorage {
             for(int i:timePref){ 
                 psInsertFacultyTimePref.setString(1, psu_id);
                 psInsertFacultyTimePref.setInt(1, i);
-                psInsertFaculty.execute();
+                psInsertFacultyTimePref.execute();
             }
             
         } catch (SQLException e) {
@@ -82,11 +118,72 @@ public class SQLStorage {
         
         return success;
     }
+    
+    public static boolean addNewTimePeriod(int period, LocalTime start_time, LocalTime end_time) {
+        boolean success;
+        
+        try {
+            psInsertTimePeriod.setInt(1, period);
+            psInsertTimePeriod.setTime(2, java.sql.Time.valueOf(start_time));
+            psInsertTimePeriod.setTime(3, java.sql.Time.valueOf(end_time));
+            
+            success = psInsertTimePeriod.execute();
+            JOptionPane.showMessageDialog(null, start_time.toString() + " - " + end_time.toString() + "'s information is saved.", "MySQL: Time", JOptionPane.INFORMATION_MESSAGE);
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! TIME NOT CREATED!\n" + e.getMessage(), "MySQL: Time", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
+    
+    public static boolean addNewRoom(String building, String number, int occupancy, int num_comp, String lab) {
+        boolean success;
+        
+        try {
+            
+            psInsertRoom.setString(1, number);
+            psInsertRoom.setString(2, building);
+            psInsertRoom.setInt(3, occupancy);
+            psInsertRoom.setInt(4, num_comp);
+            psInsertRoom.setString(5, lab);
+            
+            success = psInsertRoom.execute();
+            JOptionPane.showMessageDialog(null, building + " " + number + "'s information is saved.", "MySQL: Room", JOptionPane.INFORMATION_MESSAGE);
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Room NOT CREATED!\n" + e.getMessage(), "MySQL: Room", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
 
     
     
     private static Connection c;
+    
+    //Insert
     private static PreparedStatement psInsertFaculty;
     private static PreparedStatement psInsertFacultyTimePref;
+    private static PreparedStatement psInsertTimePeriod;
+    private static PreparedStatement psInsertRoom;
+    private static PreparedStatement psInsertCourse;
+    private static PreparedStatement psInsertPreReq;
+    private static PreparedStatement psInsertSection;
+    private static PreparedStatement psInsertFinalCourseAssignment;
+    
+    //Select
+    private static PreparedStatement psSelectFaculty;
+    private static PreparedStatement psSelectFacultyTimePref;
+    private static PreparedStatement psSelectTimePeriod;
+    private static PreparedStatement psSelectRoom;
+    private static PreparedStatement psSelectCourse;
+    private static PreparedStatement psSelectPreReq;
+    private static PreparedStatement psSelectSection;
+    private static PreparedStatement psSelectFinalCourseAssignment;
     
 }

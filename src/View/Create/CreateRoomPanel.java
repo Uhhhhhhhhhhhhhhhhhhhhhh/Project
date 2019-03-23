@@ -5,6 +5,7 @@
  */
 package View.Create;
 
+import Controller.StorageController;
 import Model.Storage;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -187,7 +188,7 @@ public class CreateRoomPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Storage.addNewRoom(jcbBuilding.getSelectedItem().toString(), jtfRoomId.getText(), (int) jsOccupancy.getValue(), (int) jsComputers.getValue(), jcbLabType.getSelectedItem().toString());
+        StorageController.addNewRoom(jcbBuilding.getSelectedItem().toString(), jtfRoomId.getText(), (int) jsOccupancy.getValue(), (int) jsComputers.getValue(), jcbLabType.getSelectedItem().toString());
         clearItems();
     }//GEN-LAST:event_jButton3ActionPerformed
 

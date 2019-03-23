@@ -279,7 +279,7 @@ public class DemonstrationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiNewRoomActionPerformed
 
     private void jmiNewFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFacultyActionPerformed
-        createNewPanel(new CreateFacultyPanel(), "New: Faculty", 430, 370);
+        createNewPanel(new CreateFacultyPanel(), "New: Faculty", 600, 455);
     }//GEN-LAST:event_jmiNewFacultyActionPerformed
 
     private void jmiNewSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewSectionActionPerformed

@@ -5,6 +5,7 @@
  */
 package View.Create;
 
+import Controller.StorageController;
 import Model.Storage;
 import java.time.LocalTime;
 import javax.swing.ComboBoxModel;
@@ -16,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class CreateTimePeriodPanel extends javax.swing.JPanel {
 
+    private static int i = 0;
     /**
      * Creates new form CreateTimePeriodPanel
      */
@@ -66,9 +68,9 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Time Period Information");
 
-        jsEndMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jsEndMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
-        jsStartMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        jsStartMin.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
 
         jsStartHr.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
@@ -134,7 +136,7 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Storage.addNewTime_Period(LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
+        StorageController.addNewTimePeriod(i++, LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
         clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 

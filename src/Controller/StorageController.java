@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.*;
+import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,14 +52,24 @@ public class StorageController {
             Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
     }
     
-    public static void addNewRoom(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days) {
+    public static void addNewTimePeriod(int period, LocalTime start_time, LocalTime end_time){
         if(!dbConnection)
             tryConnectionToDB();
         
-        //if(dbConnection)
-            //SQLStorage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
-        //else
-            //Storage.addNewFaculty(psu_id, first_name, last_name, major_college, preferred_days);
+        if(dbConnection)
+            SQLStorage.addNewTimePeriod(period, start_time, end_time);
+        else
+            Storage.addNewTime_Period(start_time, end_time);
+    }
+    
+    public static void addNewRoom(String building, String number, int occupancy, int num_comp, String lab) {
+        if(!dbConnection)
+            tryConnectionToDB();
+        
+        if(dbConnection)
+            SQLStorage.addNewRoom(building, number, occupancy, num_comp, lab);
+        else
+            Storage.addNewRoom(building, number, occupancy, num_comp, lab);
     }
     
 }
