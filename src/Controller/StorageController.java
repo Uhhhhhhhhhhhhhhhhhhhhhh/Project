@@ -72,4 +72,14 @@ public class StorageController {
             Storage.addNewRoom(building, number, occupancy, num_comp, lab);
     }
     
+    public static void addNewCourse(String course_id, String subject, String course_num, String name, String description, double units) {
+        if(!dbConnection)
+            tryConnectionToDB();
+        
+        if(dbConnection)
+            SQLStorage.addNewCourse(course_id, subject, course_num, name, description, units);
+        else
+            Storage.addNewCourse(building, number, occupancy, num_comp, lab);
+    }
+    
 }

@@ -257,7 +257,7 @@ public class SQLStorage {
         return success;
     }
 
-    public static boolean addNewCourse(String course_id, String sub, String num, String description, int units) {
+    public static boolean addNewCourse(String course_id, String sub, String num, String name, String description, double units) {
         boolean success;
         
         try {
@@ -265,7 +265,7 @@ public class SQLStorage {
             psInsertCourse.setString(2, sub);
             psInsertCourse.setString(3, num);
             psInsertCourse.setString(4, description);
-            psInsertCourse.setInt(5, units);
+            psInsertCourse.setDouble(5, units);
             
             success = psInsertCourse.execute();
             JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);

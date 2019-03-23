@@ -89,50 +89,8 @@ public class Storage {
         return alRoom.get(index);
     }
     
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units){
-        Course c = new Course(course_id, subject, course_num, session, name, description, units);
-        boolean add = alCourse.add(c);
-        String message;
-        if(add) {
-            message = c.toEventString() + " saved.";
-            Collections.sort(alCourse);
-        } else {
-            message = "ERROR! COURSE NOT CREATED!";
-        }
-        JOptionPane.showMessageDialog(null, message, "Course", JOptionPane.INFORMATION_MESSAGE);
-        return true;
-    }
-    
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority){
-        Course c = new Course(course_id, subject, course_num, session, name, description, units, recommended_academic_planner_priority);
-        boolean add = alCourse.add(c);
-        String message;
-        if(add) {
-            message = c.toEventString() + " saved.";
-            Collections.sort(alCourse);
-        } else {
-            message = "ERROR! COURSE NOT CREATED!";
-        }
-        JOptionPane.showMessageDialog(null, message, "Course", JOptionPane.INFORMATION_MESSAGE);
-        return true;
-    }
-    
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units, Course[] prereqs){
-        Course c = new Course(course_id, subject, course_num, session, name, description, units, prereqs);
-        boolean add = alCourse.add(c);
-        String message;
-        if(add) {
-            message = c.toEventString() + " saved.";
-            Collections.sort(alCourse);
-        } else {
-            message = "ERROR! COURSE NOT CREATED!";
-        }
-        JOptionPane.showMessageDialog(null, message, "Course", JOptionPane.INFORMATION_MESSAGE);
-        return true;
-    }
-    
-    public static boolean addNewCourse(String course_id, String subject, String course_num, char session, String name, String description, double units, int recommended_academic_planner_priority, Course[] prereqs){
-        Course c = new Course(course_id, subject, course_num, session, name, description, units, recommended_academic_planner_priority, prereqs);
+    public static boolean addNewCourse(String course_id, String subject, String course_num, String name, String description, double units){
+        Course c = new Course(course_id, subject, course_num, name, description, units);
         boolean add = alCourse.add(c);
         String message;
         if(add) {
