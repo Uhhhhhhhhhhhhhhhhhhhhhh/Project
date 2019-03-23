@@ -69,7 +69,77 @@ public class SQLStorage {
         query = "SELECT * from finalcourseassignment";
         psSelectAllFinalCourseAssignment = c.prepareStatement(query);
         
+        query = "";
+        psSelectFacultyByPsuID = c.prepareStatement(query);
         
+        query = "";
+        psSelectFacultyByFirstName = c.prepareStatement(query);
+        
+        query = "";
+        psSelectFacultyByLastName = c.prepareStatement(query);
+        
+        query = "";
+        psSelectFacultyByLastAndFirstName = c.prepareStatement(query);
+        
+        query = "";
+        psSelectFacultyTimeByPsuID = c.prepareStatement(query);
+        
+        query = "";
+        psSelectTimePeriodByID = c.prepareStatement(query);
+        
+        query = "";
+        psSelectRoomByBuilding = c.prepareStatement(query);
+        
+        query = "";
+        psSelectRoomByNumber = c.prepareStatement(query);
+        
+        query = "";
+        psSelectRoomByBuildingAndNumber = c.prepareStatement(query);
+        
+        query = "";
+        psSelectRoomByLabType = c.prepareStatement(query);
+        
+        query = "";
+        psSelectCourseByID = c.prepareStatement(query);
+        
+        query = "";
+        psSelectCourseBySubject = c.prepareStatement(query);
+        
+        query = "";
+        psSelectCourseBySubjectAndNumber = c.prepareStatement(query);
+        
+        query = "";
+        psSelectCourseByNumber = c.prepareStatement(query);
+        
+        query = "";
+        psSelectCourseByDescription = c.prepareStatement(query);
+        
+        query = "";
+        psSelectCourseByUnits = c.prepareStatement(query);
+        
+        query = "";
+        psSelectPreReqByCourseID = c.prepareStatement(query);
+        
+        query = "";
+        psSelectPreReqByCourseSubjectAndNumber = c.prepareStatement(query);
+           
+        query = "";
+        psSelectPreReqByPreReqCourseID = c.prepareStatement(query);
+        
+        query = "";
+        psSelectPreReqByPreReqSubjectAndNumber = c.prepareStatement(query);
+        
+        query = "";
+        psSelectSectionByCourseID = c.prepareStatement(query);
+        
+        query = "";
+        psSelectFCAByBuildingAndRoom = c.prepareStatement(query);
+        
+        query = "";
+        psSelectFCAByCourseSubjectAndSection = c.prepareStatement(query);
+        
+        query = "";
+        psSelectFCAByCourseFacultyPSUID = c.prepareStatement(query);
     }
     
     public static boolean ConnectSQLStorage(String ip, String db, String username, String password){
@@ -171,6 +241,20 @@ public class SQLStorage {
         return success;
     }
 
+    public static boolean addNewCourse() {
+        boolean success;
+        
+        try {
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
+    }
+    
+    
     
     
     private static Connection c;
@@ -200,6 +284,7 @@ public class SQLStorage {
     private static PreparedStatement psSelectFacultyByPsuID;
     private static PreparedStatement psSelectFacultyByFirstName;
     private static PreparedStatement psSelectFacultyByLastName;
+    private static PreparedStatement psSelectFacultyByLastAndFirstName;
     
     //Faculty Time
     private static PreparedStatement psSelectFacultyTimeByPsuID;
@@ -210,6 +295,7 @@ public class SQLStorage {
     //Room
     private static PreparedStatement psSelectRoomByBuilding;
     private static PreparedStatement psSelectRoomByNumber;
+    private static PreparedStatement psSelectRoomByBuildingAndNumber;
     private static PreparedStatement psSelectRoomByLabType;
     
     //Course
