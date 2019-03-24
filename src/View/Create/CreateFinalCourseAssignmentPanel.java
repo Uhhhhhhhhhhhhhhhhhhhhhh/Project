@@ -326,7 +326,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         }
         
         // TODO - Need to Update to use StorageController
-        SQLPreparedStatements.addNewFCA(room_num, room_bldg, jtfSectionNumber.getText(), course_id, fac_id, time_period, SQLPreparedStatements.daysToInt(days), (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
+        SQLPreparedStatements.addNewFCA(room_num, room_bldg, jtfSectionNumber.getText(), course_id, fac_id, time_period, SQLPreparedStatements.daysToInt(days), startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
         
         clearItems();
         

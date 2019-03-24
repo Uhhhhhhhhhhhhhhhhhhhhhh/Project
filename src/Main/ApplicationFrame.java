@@ -3,6 +3,7 @@ package Main;
 import View.Create.*;
 import View.Data.*;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -38,9 +39,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
-        jmiSQLConnection = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -64,6 +62,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmiCVCLFCA = new javax.swing.JMenuItem();
         jmiCVCLCourse = new javax.swing.JMenuItem();
         jmiCVCLSections = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmiSQLConnection = new javax.swing.JMenuItem();
+        jmiDisconnect = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jmiReset = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,23 +82,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         );
 
         jmFile.setText("File");
-
-        jmiSQLConnection.setText("SQL Connection");
-        jmiSQLConnection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiSQLConnectionActionPerformed(evt);
-            }
-        });
-        jmFile.add(jmiSQLConnection);
-
-        jMenuItem3.setText("SQL Disconnect");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jmFile.add(jMenuItem3);
-        jmFile.add(jSeparator1);
 
         jMenuItem1.setText("Import");
         jmFile.add(jMenuItem1);
@@ -235,6 +221,35 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jmCalView);
 
+        jMenu1.setText("SQL");
+
+        jmiSQLConnection.setText("SQL Connection");
+        jmiSQLConnection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSQLConnectionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiSQLConnection);
+
+        jmiDisconnect.setText("SQL Disconnect");
+        jmiDisconnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDisconnectActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiDisconnect);
+        jMenu1.add(jSeparator1);
+
+        jmiReset.setText("Reset Tables and Data");
+        jmiReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiResetActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiReset);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,13 +323,22 @@ public class ApplicationFrame extends javax.swing.JFrame {
         createNewPanel(new AboutPanel(), "About LionPlanner", 310, 279);
     }//GEN-LAST:event_jmiAboutActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmiDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDisconnectActionPerformed
         SQLPreparedStatements.disconnectFromDB();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmiDisconnectActionPerformed
 
     private void jmiCVCLFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVCLFCAActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiCVCLFCAActionPerformed
+
+    private void jmiResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiResetActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the SQL DB?", "WARNING",
+        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            SQLPreparedStatements.resetDB();
+        } else {
+            JOptionPane.showMessageDialog(null, "DB not reset!", "MySQL: Reset", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jmiResetActionPerformed
 
     
     public static void createNewPanel(JPanel p, String title, int x, int y) {
@@ -374,10 +398,10 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktop;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmCVCL;
@@ -396,11 +420,13 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiDataFaculty;
     private javax.swing.JMenuItem jmiDataRoom;
     private javax.swing.JMenuItem jmiDataTime;
+    private javax.swing.JMenuItem jmiDisconnect;
     private javax.swing.JMenuItem jmiNewCourse;
     private javax.swing.JMenuItem jmiNewFCA;
     private javax.swing.JMenuItem jmiNewFaculty;
     private javax.swing.JMenuItem jmiNewRoom;
     private javax.swing.JMenuItem jmiNewTime;
+    private javax.swing.JMenuItem jmiReset;
     private javax.swing.JMenuItem jmiSQLConnection;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,12 +6,17 @@
 package Main;
 
 import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -345,9 +350,9 @@ public class SQLPreparedStatements {
             ResultSet rsSelectAllTime = psSelectAllTimePeriod.executeQuery();
 
             ArrayList<ArrayList> times = new ArrayList<>();
-            times.add(new ArrayList<Integer>());
-            times.add(new ArrayList<LocalTime>());
-            times.add(new ArrayList<LocalTime>());
+            times.add(new ArrayList<>());
+            times.add(new ArrayList<>());
+            times.add(new ArrayList<>());
             
             while(rsSelectAllTime.next()) {
                 times.get(0).add(rsSelectAllTime.getInt("period"));
@@ -367,9 +372,9 @@ public class SQLPreparedStatements {
             ResultSet rsSelectAllFaculty = psSelectAllFaculty.executeQuery();
 
             ArrayList<ArrayList> faculties = new ArrayList<>();
-            faculties.add(new ArrayList<String>());
-            faculties.add(new ArrayList<String>());
-            faculties.add(new ArrayList<String>());
+            faculties.add(new ArrayList<>());
+            faculties.add(new ArrayList<>());
+            faculties.add(new ArrayList<>());
             
             while(rsSelectAllFaculty.next()) {
                 faculties.get(0).add(rsSelectAllFaculty.getString("psu_id"));
@@ -389,10 +394,10 @@ public class SQLPreparedStatements {
             ResultSet rsSelectAllRooms = psSelectAllRoom.executeQuery();
 
             ArrayList<ArrayList> rooms = new ArrayList<>();
-            rooms.add(new ArrayList<String>());
-            rooms.add(new ArrayList<String>());
-            rooms.add(new ArrayList<String>());
-            rooms.add(new ArrayList<Integer>());
+            rooms.add(new ArrayList<>());
+            rooms.add(new ArrayList<>());
+            rooms.add(new ArrayList<>());
+            rooms.add(new ArrayList<>());
             
             while(rsSelectAllRooms.next()) {
                 rooms.get(0).add(rsSelectAllRooms.getString("building"));
@@ -408,19 +413,49 @@ public class SQLPreparedStatements {
         }
     }
     
+    public static ArrayList<Object> getSingleCourse(String course_id) {
+        try {
+            psSelectCourseByID.setString(1, course_id);
+            
+            ResultSet rsSelectAllCourses = psSelectCourseByID.executeQuery();
+
+            ArrayList<Object> courses = new ArrayList<>();
+            
+            while(rsSelectAllCourses.next()) {
+                courses.add(rsSelectAllCourses.getString("sub"));
+                courses.add(rsSelectAllCourses.getString("course_num"));
+                courses.add(rsSelectAllCourses.getString("course_id"));
+                courses.add(rsSelectAllCourses.getString("course_name"));
+                courses.add(rsSelectAllCourses.getString("Description"));
+                courses.add(rsSelectAllCourses.getDouble("Units"));
+            }
+            
+            return courses;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
     public static ArrayList<ArrayList> getCourses() {
         try {
             ResultSet rsSelectAllCourses = psSelectAllCourse.executeQuery();
 
             ArrayList<ArrayList> courses = new ArrayList<>();
-            courses.add(new ArrayList<String>());
-            courses.add(new ArrayList<String>());
-            courses.add(new ArrayList<String>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
             
             while(rsSelectAllCourses.next()) {
                 courses.get(0).add(rsSelectAllCourses.getString("sub"));
                 courses.get(1).add(rsSelectAllCourses.getString("course_num"));
                 courses.get(2).add(rsSelectAllCourses.getString("course_id"));
+                courses.get(3).add(rsSelectAllCourses.getString("course_name"));
+                courses.get(4).add(rsSelectAllCourses.getString("Description"));
+                courses.get(5).add(rsSelectAllCourses.getDouble("Units"));
             }
             
             return courses;
@@ -460,6 +495,59 @@ public class SQLPreparedStatements {
         
         return success;
     }
+    
+    
+    
+    public static void resetDB() {
+        String s = "";
+        StringBuffer sb = new StringBuffer();
+        try {
+            FileReader fr = new FileReader(new File("IST261DBTables.sql"));
+
+            BufferedReader br = new BufferedReader(fr);
+
+            while((s = br.readLine()) != null) {
+                sb.append(s);
+            }
+            
+            br.close();
+            
+            String[] inst = sb.toString().split(";");
+            
+            Statement st = c.createStatement();
+ 
+            for(int i = 0; i<inst.length; i++) {
+                if(!inst[i].trim().equals("")) {
+                    st.executeUpdate(inst[i]);
+                    //System.out.println(">>"+inst[i]);
+                }
+            }
+   
+            JOptionPane.showMessageDialog(null, "DB reset!", "MySQL: Reset", JOptionPane.INFORMATION_MESSAGE);
+        } catch(HeadlessException | IOException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! DB not reset!\n" + e.getMessage(), "MySQL: Reset", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static ArrayList<String> getCoursePrereqs(String course_id) {
+        try {
+            psSelectPreReqByCourseID.setString(1, course_id);
+            ArrayList<String> prereqs = new ArrayList<>();
+            
+            ResultSet rsPreReqs = psSelectPreReqByCourseID.executeQuery();
+            
+            while(rsPreReqs.next()) {
+                prereqs.add(rsPreReqs.getString("prereq_course_id"));
+            }
+            return prereqs;
+            
+        } catch (SQLException e) {
+            Logger.getLogger(SQLPreparedStatements.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
+    
+    
     
     
     public static int daysToInt(boolean[] days) {
@@ -577,4 +665,6 @@ public class SQLPreparedStatements {
     private static PreparedStatement psSelectFCAByFacultyLastName;
     private static PreparedStatement psSelectFCAByFacultyFirstName;
     private static PreparedStatement psSelectFCAByFacultyLastAndFirstName;
+
+    
 }
