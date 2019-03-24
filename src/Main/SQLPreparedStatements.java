@@ -428,8 +428,29 @@ public class SQLPreparedStatements {
         }
     }
     
-    public static boolean addNewFCA() {
+    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, int days, int capacity, int enrollment, String type) {
+        boolean success;
         
+        try {
+            psInsertFinalCourseAssignment.setString(1, room_num);
+            psInsertFinalCourseAssignment.setString(2, room_building);
+            psInsertFinalCourseAssignment.setString(3, session_num);
+            psInsertFinalCourseAssignment.setString(4, course_id);
+            psInsertFinalCourseAssignment.setString(5, faculty_id);
+            psInsertFinalCourseAssignment.setInt(6, time_period);
+            psInsertFinalCourseAssignment.setInt(7, days);
+            psInsertFinalCourseAssignment.setInt(8, capacity);
+            psInsertFinalCourseAssignment.setInt(9, enrollment);
+            psInsertFinalCourseAssignment.setString(10, type);
+            
+            success = psInsertFinalCourseAssignment.execute();
+            JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        return success;
     }
     
     

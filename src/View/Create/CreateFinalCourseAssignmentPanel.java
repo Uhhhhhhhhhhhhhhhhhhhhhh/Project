@@ -95,7 +95,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jlRoom = new javax.swing.JList<>();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jlSection = new javax.swing.JList<>();
+        jlCourse = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jsStartDate = new javax.swing.JSpinner();
@@ -111,7 +111,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jtfSectionNumber = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbType = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Final Course Assignment Information");
@@ -136,9 +136,9 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Course");
 
-        jlSection.setModel(createCourseList());
-        jlSection.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane4.setViewportView(jlSection);
+        jlCourse.setModel(createCourseList());
+        jlCourse.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(jlCourse);
 
         jButton1.setText("Create Final Course Assignment");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +176,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jLabel12.setText("Type of Course");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In-Person", "Online", "Hybrid" }));
+        jcbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In-Person", "Online", "Hybrid" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -223,7 +223,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel2)
                                 .addComponent(jtfSectionNumber)
                                 .addComponent(jLabel12)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jcbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
@@ -284,7 +284,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
 
@@ -293,7 +293,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean[] days = {false, false, false, false, false};
+        boolean[] days = {false, false, false, false, false, false, false};
         
         for(int day:jlDays.getSelectedIndices()){
             days[day] = true;
@@ -305,8 +305,28 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         LocalDate startDate = start.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate endDate = end.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
+        ArrayList<ArrayList> rooms = SQLPreparedStatements.getRooms();
+        String room_num = (String) rooms.get(1).get(jlRoom.getSelectedIndex());
+        String room_bldg = (String) rooms.get(0).get(jlRoom.getSelectedIndex());
+        
+        ArrayList<ArrayList> courses = SQLPreparedStatements.getCourses();
+        String course_id = (String) courses.get(2).get(jlCourse.getSelectedIndex());
+
+        ArrayList<ArrayList> faculty = SQLPreparedStatements.getFaculty();
+        String fac_id = (String) faculty.get(0).get(jlFaculty.getSelectedIndex());
+        
+        ArrayList<ArrayList> times = SQLPreparedStatements.getTimePeriods();
+        int time_period = (int) times.get(0).get(jlTime.getSelectedIndex());
+        
+        String type = ""; 
+        switch(jcbType.toString()) {
+            case "In-Person": type = "P"; break;
+            case "Hybrid": type = "H"; break;
+            case "Online": type = "W"; break;  
+        }
+        
         // TODO - Need to Update to use StorageController
-        //SQLPreparedStatements.addNewFCA(jlFaculty.getSelectedValue(), jlTime.getSelectedValue(), jlRoom.getSelectedValue(), jlSection.getSelectedValue(), jtfSectionNumber.getText(), startDate, endDate, days, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue());
+        SQLPreparedStatements.addNewFCA(room_num, room_bldg, jtfSectionNumber.getText(), course_id, fac_id, time_period, SQLPreparedStatements.daysToInt(days), (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
         
         clearItems();
         
@@ -315,7 +335,6 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -333,10 +352,11 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JComboBox<String> jcbType;
+    private javax.swing.JList<String> jlCourse;
     private javax.swing.JList<String> jlDays;
     private javax.swing.JList<String> jlFaculty;
     private javax.swing.JList<String> jlRoom;
-    private javax.swing.JList<String> jlSection;
     private javax.swing.JList<String> jlTime;
     private javax.swing.JSpinner jsCapacity;
     private javax.swing.JSpinner jsEndDate;
@@ -348,7 +368,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     private void clearItems() {
         jlFaculty.clearSelection();
         jlRoom.clearSelection();
-        jlSection.clearSelection();
+        jlCourse.clearSelection();
         jlTime.clearSelection();
         jlDays.clearSelection();
         jsStartDate.setModel(new javax.swing.SpinnerDateModel());
