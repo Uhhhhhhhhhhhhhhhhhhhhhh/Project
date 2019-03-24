@@ -8,6 +8,7 @@ package View.Create;
 import Main.SQLPreparedStatements;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -28,10 +29,14 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     }
     
     public DefaultListModel createFacultyList(){
+        ArrayList<ArrayList> faculty = SQLPreparedStatements.getTimePeriods();
+        
         DefaultListModel faculty = new DefaultListModel();
-        //Storage.copyFaculty().forEach((f) -> {
-            //faculty.addElement(f.toEventString());  // TODO - Need to Update to use StorageController
-        //});
+        
+        for(int i = 0; i < times.get(1).size(); i++) {
+            time.addElement(times.get(1).get(i) + " - " + times.get(2).get(i));
+        }
+        return time;
         return faculty;
     }
     

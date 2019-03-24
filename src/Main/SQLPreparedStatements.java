@@ -360,7 +360,31 @@ public class SQLPreparedStatements {
         }
     }
     
+    public static ArrayList<ArrayList> getFaculty() {
+        try {
+            ResultSet rsSelectAllFaculty = psSelectAllFaculty.executeQuery();
+
+            ArrayList<ArrayList> faculties = new ArrayList<>();
+            faculties.add(new ArrayList<String>());
+            faculties.add(new ArrayList<String>());
+            faculties.add(new ArrayList<String>());
+            
+            while(rsSelectAllFaculty.next()) {
+                faculties.get(0).add(rsSelectAllFaculty.getInt("ps_id"));
+                faculties.get(1).add(rsSelectAllFaculty.getTime("last_name"));
+                faculties.get(2).add(rsSelectAllFaculty.getTime("first_name"));
+            }
+            
+            return faculties;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
     
+    public static boolean addNewFCA() {
+        
+    }
     
     
     public static int daysToInt(boolean[] days) {
