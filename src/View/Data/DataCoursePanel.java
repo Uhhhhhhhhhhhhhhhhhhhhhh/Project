@@ -102,7 +102,6 @@ public class DataCoursePanel extends javax.swing.JPanel {
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
-            
         }
     }//GEN-LAST:event_jList1MouseClicked
 

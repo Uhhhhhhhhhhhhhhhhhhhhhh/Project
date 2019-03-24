@@ -5,7 +5,8 @@
  */
 package View.Item;
 
-import Model.Faculty;
+import Main.SQLPreparedStatements;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 /**
@@ -14,32 +15,33 @@ import javax.swing.DefaultListModel;
  */
 public class ItemFacultyPanel extends javax.swing.JPanel {
 
-    Faculty f;
+    ArrayList<Object> info;
     
     /**
      * Creates new form ItemFacultyPanel
      * @param f
      */
-    public ItemFacultyPanel(Faculty f) {
-        this.f = f;
+    public ItemFacultyPanel(ArrayList<Object> info) {
+        this.info = info;
         initComponents();
     }
     
     public DefaultListModel createPreferredDayList() {
         DefaultListModel preferredDays = new DefaultListModel();
-        if(f.getPreferred_days()[0])
+        boolean[] days = SQLPreparedStatements.intToArray((int) info.get(4));
+        if(days[0])
             preferredDays.addElement("Monday");
-        if(f.getPreferred_days()[1])
+        if(days[1])
             preferredDays.addElement("Tuesday");
-        if(f.getPreferred_days()[2])
+        if(days[2])
             preferredDays.addElement("Wednesday");
-        if(f.getPreferred_days()[3])
+        if(days[3])
             preferredDays.addElement("Thursday");
-        if(f.getPreferred_days()[4])
+        if(days[4])
             preferredDays.addElement("Friday");
-        if(f.getPreferred_days()[5])
+        if(days[5])
             preferredDays.addElement("Saturday");
-        if(f.getPreferred_days()[6])
+        if(days[6])
             preferredDays.addElement("Sunday");
         if(preferredDays.isEmpty())
             preferredDays.addElement("No Preference.");
@@ -77,15 +79,15 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
 
         jLabel4.setText("PSU ID:");
 
-        jLabel5.setText(f.getPsu_id());
+        jLabel5.setText((String) info.get(0));
 
-        jLabel6.setText(f.getFirst_name());
+        jLabel6.setText((String) info.get(2));
 
-        jLabel7.setText(f.getLast_name());
+        jLabel7.setText((String) info.get(1));
 
         jLabel8.setText("Major College:");
 
-        jLabel9.setText(f.getMajor_college());
+        jLabel9.setText((String) info.get(3));
 
         jLabel10.setText("Preferred Days:");
 
@@ -100,31 +102,26 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9)))
-                        .addContainerGap())
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34))))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel9))
+                    .addComponent(jLabel10)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

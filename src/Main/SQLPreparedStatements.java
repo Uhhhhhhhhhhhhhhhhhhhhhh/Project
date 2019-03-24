@@ -547,6 +547,28 @@ public class SQLPreparedStatements {
         return null;
     }
     
+    public static ArrayList<Object> getSingleFaculty(String psu_id) {
+        try {
+            psSelectFacultyByPsuID.setString(1, psu_id);
+            
+            ResultSet rsSelectSingleFaculty = psSelectFacultyByPsuID.executeQuery();
+
+            ArrayList<Object> courses = new ArrayList<>();
+            
+            while(rsSelectSingleFaculty.next()) {
+                courses.add(rsSelectSingleFaculty.getString("psu_id"));
+                courses.add(rsSelectSingleFaculty.getString("last_name"));
+                courses.add(rsSelectSingleFaculty.getString("first_name"));
+                courses.add(rsSelectSingleFaculty.getString("major_college"));
+                courses.add(rsSelectSingleFaculty.getInt("preferred_days"));
+            }
+            
+            return courses;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
     
     
     
