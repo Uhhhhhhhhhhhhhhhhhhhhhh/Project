@@ -370,12 +370,36 @@ public class SQLPreparedStatements {
             faculties.add(new ArrayList<String>());
             
             while(rsSelectAllFaculty.next()) {
-                faculties.get(0).add(rsSelectAllFaculty.getInt("ps_id"));
-                faculties.get(1).add(rsSelectAllFaculty.getTime("last_name"));
-                faculties.get(2).add(rsSelectAllFaculty.getTime("first_name"));
+                faculties.get(0).add(rsSelectAllFaculty.getString("psu_id"));
+                faculties.get(1).add(rsSelectAllFaculty.getString("last_name"));
+                faculties.get(2).add(rsSelectAllFaculty.getString("first_name"));
             }
             
             return faculties;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public static ArrayList<ArrayList> getRooms() {
+        try {
+            ResultSet rsSelectAllRooms = psSelectAllRoom.executeQuery();
+
+            ArrayList<ArrayList> rooms = new ArrayList<>();
+            rooms.add(new ArrayList<String>());
+            rooms.add(new ArrayList<String>());
+            rooms.add(new ArrayList<String>());
+            rooms.add(new ArrayList<Integer>());
+            
+            while(rsSelectAllRooms.next()) {
+                rooms.get(0).add(rsSelectAllRooms.getString("building"));
+                rooms.get(1).add(rsSelectAllRooms.getString("room_id"));
+                rooms.get(2).add(rsSelectAllRooms.getString("Lab_Type"));
+                rooms.get(3).add(rsSelectAllRooms.getString("occupancy"));                
+            }
+            
+            return rooms;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
             return null;
