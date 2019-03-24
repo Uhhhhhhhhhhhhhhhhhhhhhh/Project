@@ -7,10 +7,12 @@ package Main;
 
 import java.awt.HeadlessException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,10 +83,10 @@ public class SQLPreparedStatements {
         query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignmentWIthSelects = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
@@ -428,7 +430,7 @@ public class SQLPreparedStatements {
         }
     }
     
-    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, int days, int capacity, int enrollment, String type) {
+    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, int days, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
         boolean success;
         
         try {
@@ -439,9 +441,11 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setString(5, faculty_id);
             psInsertFinalCourseAssignment.setInt(6, time_period);
             psInsertFinalCourseAssignment.setInt(7, days);
-            psInsertFinalCourseAssignment.setInt(8, capacity);
-            psInsertFinalCourseAssignment.setInt(9, enrollment);
-            psInsertFinalCourseAssignment.setString(10, type);
+            psInsertFinalCourseAssignment.setDate(8, Date.valueOf(start_date));
+            psInsertFinalCourseAssignment.setDate(9, Date.valueOf(end_date));
+            psInsertFinalCourseAssignment.setInt(10, capacity);
+            psInsertFinalCourseAssignment.setInt(11, enrollment);
+            psInsertFinalCourseAssignment.setString(12, type);
             
             psInsertSection.setString(1,session_num);
             psInsertSection.setString(2, course_id);
