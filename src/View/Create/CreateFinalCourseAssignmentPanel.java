@@ -62,10 +62,13 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     }
     
     public DefaultListModel createCourseList(){
+        ArrayList<ArrayList> courses = SQLPreparedStatements.getCourses();
+        
         DefaultListModel course = new DefaultListModel();
-        //Storage.copySection().forEach((s) -> {
-            //course.addElement(s.toEventString());  // TODO - Need to Update to use StorageController
-        //});
+        
+        for(int i = 0; i < courses.get(0).size(); i++) {
+            course.addElement(courses.get(0).get(i) + " " + courses.get(1).get(i));
+        }
         return course;
     }
     

@@ -29,10 +29,13 @@ public class CreateCoursePanel extends javax.swing.JPanel {
     }
     
     public DefaultListModel createCourseList(){
+        ArrayList<ArrayList> courses = SQLPreparedStatements.getCourses();
+        
         DefaultListModel course = new DefaultListModel();
-        //Storage.copyCourse().forEach((c) -> {
-            //course.addElement(c.toEventString());
-        //});
+        
+        for(int i = 0; i < courses.get(0).size(); i++) {
+            course.addElement(courses.get(0).get(i) + " " + courses.get(1).get(i));
+        }
         return course;
     }
     
@@ -83,8 +86,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton3 = new javax.swing.JButton();
-        jbAddPreReq = new javax.swing.JButton();
 
         jcbSubject.setModel(getCBCourseSubjectModel());
 
@@ -126,22 +127,8 @@ public class CreateCoursePanel extends javax.swing.JPanel {
 
         jLabel9.setText("Credits");
 
-        jList1.setModel(prereqList);
+        jList1.setModel(createCourseList());
         jScrollPane2.setViewportView(jList1);
-
-        jButton3.setText("Remove Selected Course");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jbAddPreReq.setText("Add Selected Course");
-        jbAddPreReq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAddPreReqActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -178,16 +165,14 @@ public class CreateCoursePanel extends javax.swing.JPanel {
                                 .addGap(19, 19, 19)
                                 .addComponent(jButton2)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jbAddPreReq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
@@ -217,14 +202,10 @@ public class CreateCoursePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jtfCourse_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addComponent(jbAddPreReq, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -240,7 +221,13 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         if(jList1.getSelectedIndices().length == 0)
             SQLPreparedStatements.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue());
         else {
-            SQLPreparedStatements.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue(), jList1.getSelectedValuesList());
+            ArrayList<String> prereqs = new ArrayList<>();
+            ArrayList<ArrayList> courses = SQLPreparedStatements.getCourses();
+            
+            for(int i:jList1.getSelectedIndices()){
+                prereqs.add((String) courses.get(2).get(i));
+            }
+            SQLPreparedStatements.addNewCourse(jtfCourse_id.getText(), jcbSubject.getSelectedItem().toString(), jtfCourse_num.getText(), jtfName.getText(), jtaDescription.getText(), (double) jsUnits.getValue(), prereqs);
         }
         clearItems();
         
@@ -252,22 +239,10 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         subjects.addElement(newSubject);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jList1.clearSelection();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jbAddPreReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAddPreReqActionPerformed
-        String sub = JOptionPane.showInputDialog(null, "Enter Course Subject");
-        String num = JOptionPane.showInputDialog(null, "Enter Course Number");
-        
-       prereqList.addElement(SQLPreparedStatements.getCourseBySubAndNum(sub, num));
-    }//GEN-LAST:event_jbAddPreReqActionPerformed
-
     DefaultListModel prereqList =  new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -279,7 +254,6 @@ public class CreateCoursePanel extends javax.swing.JPanel {
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton jbAddPreReq;
     private javax.swing.JComboBox<String> jcbSubject;
     private javax.swing.JSpinner jsUnits;
     private javax.swing.JTextArea jtaDescription;

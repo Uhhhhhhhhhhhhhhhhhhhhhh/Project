@@ -406,6 +406,28 @@ public class SQLPreparedStatements {
         }
     }
     
+    public static ArrayList<ArrayList> getCourses() {
+        try {
+            ResultSet rsSelectAllCourses = psSelectAllCourse.executeQuery();
+
+            ArrayList<ArrayList> courses = new ArrayList<>();
+            courses.add(new ArrayList<String>());
+            courses.add(new ArrayList<String>());
+            courses.add(new ArrayList<String>());
+            
+            while(rsSelectAllCourses.next()) {
+                courses.get(0).add(rsSelectAllCourses.getString("sub"));
+                courses.get(1).add(rsSelectAllCourses.getString("course_num"));
+                courses.get(2).add(rsSelectAllCourses.getString("course_id"));
+            }
+            
+            return courses;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
     public static boolean addNewFCA() {
         
     }
