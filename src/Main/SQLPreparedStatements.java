@@ -9,8 +9,10 @@ import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,7 +69,7 @@ public class SQLPreparedStatements {
         query = "INSERT into room(room_id, building, occupancy, num_of_computers, lab_type) values (?, ?, ?, ?, ?)";
         psInsertRoom = c.prepareStatement(query);
         
-        query = "INSERT into course(course_id, sub, course_num, description, units) values(?, ?, ?, ?, ?)";
+        query = "INSERT into course(course_id, sub, course_num, course_name, description, units) values(?, ?, ?, ?, ?, ?)";
         psInsertCourse = c.prepareStatement(query);
         
         query = "INSERT into prereqs(course_id, prereq_course_id) values(?, ?)";
@@ -207,14 +209,19 @@ public class SQLPreparedStatements {
             success = psInsertFaculty.execute();
             JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "MySQL: Faculty", JOptionPane.INFORMATION_MESSAGE);
             
-            for(int i:timePref){ 
-                psInsertFacultyTimePref.setString(1, psu_id);
-                psInsertFacultyTimePref.setInt(1, i);
-                psInsertFacultyTimePref.execute();
-            }
-            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        try {
+            for(int i:timePref){ 
+                psInsertFacultyTimePref.setString(1, psu_id);
+                psInsertFacultyTimePref.setInt(2, i + 1);
+                psInsertFacultyTimePref.execute();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! FACULTY TIME NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty Time", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
         
@@ -266,8 +273,9 @@ public class SQLPreparedStatements {
             psInsertCourse.setString(1, course_id);
             psInsertCourse.setString(2, sub);
             psInsertCourse.setString(3, num);
-            psInsertCourse.setString(4, description);
-            psInsertCourse.setDouble(5, units);
+            psInsertCourse.setString(4, name);
+            psInsertCourse.setString(5, description);
+            psInsertCourse.setDouble(6, units);
             
             success = psInsertCourse.execute();
             JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
@@ -286,29 +294,71 @@ public class SQLPreparedStatements {
             psInsertCourse.setString(1, course_id);
             psInsertCourse.setString(2, sub);
             psInsertCourse.setString(3, num);
-            psInsertCourse.setString(4, description);
-            psInsertCourse.setDouble(5, units);
+            psInsertCourse.setString(4, name);
+            psInsertCourse.setString(5, description);
+            psInsertCourse.setDouble(6, units);
             
             success = psInsertCourse.execute();
             JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
-            
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
+            success = false;
+        }
+        
+        try {
             for(String pr:prereqs){ 
                 psInsertPreReq.setString(1, course_id);
                 psInsertPreReq.setString(2, pr);
                 psInsertPreReq.execute();
             }
-            
-            
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: PreReq", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
         
         return success;
     }
     
+    public static String getCourseBySubAndNum(String sub, String num) {
+        try {
+            psSelectCourseBySubjectAndNumber.setString(1, sub);
+            psSelectCourseBySubjectAndNumber.setString(2, num);
+            
+            ResultSet rsSelectCourseBySubAndNum = psSelectCourseBySubjectAndNumber.executeQuery();
+            
+            rsSelectCourseBySubAndNum.beforeFirst();
+            rsSelectCourseBySubAndNum.next();
+            
+            return rsSelectCourseBySubAndNum.getString("course_id");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Course not found!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+    }
     
-    
+    public static ArrayList<ArrayList> getTimePeriods() {
+        try {
+            ResultSet rsSelectAllTime = psSelectAllTimePeriod.executeQuery();
+
+            ArrayList<ArrayList> times = new ArrayList<>();
+            times.add(new ArrayList<Integer>());
+            times.add(new ArrayList<LocalTime>());
+            times.add(new ArrayList<LocalTime>());
+            
+            while(rsSelectAllTime.next()) {
+                times.get(0).add(rsSelectAllTime.getInt("period"));
+                times.get(1).add(rsSelectAllTime.getTime("start_time").toLocalTime());
+                times.get(2).add(rsSelectAllTime.getTime("end_time").toLocalTime());
+            }
+            
+            return times;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Course not found!\n" + e.getMessage(), "MySQL: Time", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
     
     
     

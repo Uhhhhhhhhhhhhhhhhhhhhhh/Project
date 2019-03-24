@@ -6,6 +6,7 @@
 package View.Create;
 
 import Main.SQLPreparedStatements;
+import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -27,10 +28,13 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
     }
     
     public DefaultListModel createTimeList(){
+        ArrayList<ArrayList> times = SQLPreparedStatements.getTimePeriods();
+        
         DefaultListModel time = new DefaultListModel();
-        //Storage.copyTime().forEach((c) -> {
-            //time.addElement(c.toEventString());
-        //});
+        
+        for(int i = 0; i < times.get(1).size(); i++) {
+            time.addElement(times.get(1).get(i) + " - " + times.get(2).get(i));
+        }
         return time;
     }
     
@@ -150,7 +154,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))))
-                .addGap(57, 57, 57))
+                .addGap(65, 65, 65))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,10 +166,10 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                         .addGap(130, 130, 130))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

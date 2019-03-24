@@ -84,6 +84,7 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jButton3 = new javax.swing.JButton();
+        jbAddPreReq = new javax.swing.JButton();
 
         jcbSubject.setModel(getCBCourseSubjectModel());
 
@@ -125,13 +126,20 @@ public class CreateCoursePanel extends javax.swing.JPanel {
 
         jLabel9.setText("Credits");
 
-        jList1.setModel(createCourseList());
+        jList1.setModel(prereqList);
         jScrollPane2.setViewportView(jList1);
 
-        jButton3.setText("Deselect All PreReqs");
+        jButton3.setText("Remove Selected Course");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jbAddPreReq.setText("Add Selected Course");
+        jbAddPreReq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAddPreReqActionPerformed(evt);
             }
         });
 
@@ -171,13 +179,15 @@ public class CreateCoursePanel extends javax.swing.JPanel {
                                 .addComponent(jButton2)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3))
-                            .addComponent(jLabel7)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jScrollPane2))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jbAddPreReq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
@@ -207,17 +217,19 @@ public class CreateCoursePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jtfCourse_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(9, 9, 9)
+                .addComponent(jbAddPreReq, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jsUnits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
@@ -244,7 +256,14 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jList1.clearSelection();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jbAddPreReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAddPreReqActionPerformed
+        String sub = JOptionPane.showInputDialog(null, "Enter Course Subject");
+        String num = JOptionPane.showInputDialog(null, "Enter Course Number");
+        
+       prereqList.addElement(SQLPreparedStatements.getCourseBySubAndNum(sub, num));
+    }//GEN-LAST:event_jbAddPreReqActionPerformed
 
+    DefaultListModel prereqList =  new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -260,6 +279,7 @@ public class CreateCoursePanel extends javax.swing.JPanel {
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbAddPreReq;
     private javax.swing.JComboBox<String> jcbSubject;
     private javax.swing.JSpinner jsUnits;
     private javax.swing.JTextArea jtaDescription;

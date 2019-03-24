@@ -1,6 +1,5 @@
 package Calendar;
 
-import Model.Final_Course_Assignment;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,19 +13,17 @@ public class CalendarEvent {
     private LocalTime end;
     private String text;
     private Color color;
-    private Final_Course_Assignment fca;
 
-    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, Final_Course_Assignment fca) {
-        this(date, start, end, text, DEFAULT_COLOR, fca);
+    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text) {
+        this(date, start, end, text, DEFAULT_COLOR);
     }
 
-    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, Color color, Final_Course_Assignment fca) {
+    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, Color color) {
         this.date = date;
         this.start = start;
         this.end = end;
         this.text = text;
         this.color = color;
-        this.fca = fca;
     }
 
     public LocalDate getDate() {
@@ -69,14 +66,6 @@ public class CalendarEvent {
         return color;
     }
     
-    public void setFCA(Final_Course_Assignment fca){
-        this.fca = fca;
-    }
-    
-    public Final_Course_Assignment getFCA() {
-        return fca;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
