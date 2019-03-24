@@ -443,6 +443,10 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setInt(9, enrollment);
             psInsertFinalCourseAssignment.setString(10, type);
             
+            psInsertSection.setString(1,session_num);
+            psInsertSection.setString(2, course_id);
+            
+            psInsertSection.execute();
             success = psInsertFinalCourseAssignment.execute();
             JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
