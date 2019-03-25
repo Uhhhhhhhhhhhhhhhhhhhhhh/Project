@@ -88,7 +88,7 @@ public class SQLPreparedStatements {
         query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
         query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
@@ -314,17 +314,17 @@ public class SQLPreparedStatements {
             JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
-        
-        try {
-            for(String pr:prereqs){ 
-                psInsertPreReq.setString(1, course_id);
-                psInsertPreReq.setString(2, pr);
-                psInsertPreReq.execute();
+        if(success)
+            try {
+                for(String pr:prereqs){ 
+                    psInsertPreReq.setString(1, course_id);
+                    psInsertPreReq.setString(2, pr);
+                    psInsertPreReq.execute();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: PreReq", JOptionPane.ERROR_MESSAGE);
+                success = false;
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: PreReq", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
         
         return success;
     }
@@ -484,10 +484,6 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setInt(11, enrollment);
             psInsertFinalCourseAssignment.setString(12, type);
             
-            psInsertSection.setString(1,session_num);
-            psInsertSection.setString(2, course_id);
-            
-            psInsertSection.execute();
             success = psInsertFinalCourseAssignment.execute();
             JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
@@ -617,6 +613,39 @@ public class SQLPreparedStatements {
             return null;
         }
     }
+    
+    public static ArrayList<ArrayList> getFCA() {
+        try {
+            ResultSet rsSelectAllFaculty = psSelectAllFinalCourseAssignment.executeQuery();
+
+            ArrayList<ArrayList> fcas = new ArrayList<>();
+            for(int i = 0; i < 12; i++)
+                fcas.add(new ArrayList<>());
+            
+            
+            
+            while(rsSelectAllFaculty.next()) {
+                fcas.get(0).add(rsSelectAllFaculty.getString("room_room_id"));
+                fcas.get(1).add(rsSelectAllFaculty.getString("room_building"));
+                fcas.get(2).add(rsSelectAllFaculty.getString("section_num"));
+                fcas.get(3).add(rsSelectAllFaculty.getString("course_course_id"));
+                fcas.get(4).add(rsSelectAllFaculty.getString("faculty_psu_id"));
+                fcas.get(5).add(rsSelectAllFaculty.getInt("time_period"));
+                fcas.get(6).add(rsSelectAllFaculty.getDate("start_date"));
+                fcas.get(7).add(rsSelectAllFaculty.getDate("end_date"));
+                fcas.get(8).add(rsSelectAllFaculty.getInt("days"));
+                fcas.get(9).add(rsSelectAllFaculty.getInt("class_capacity"));
+                fcas.get(10).add(rsSelectAllFaculty.getInt("enrollment"));
+                fcas.get(11).add(rsSelectAllFaculty.getString("course_type"));
+            }
+            
+            return fcas;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! FCA not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
     
     
     public static int daysToInt(boolean[] days) {

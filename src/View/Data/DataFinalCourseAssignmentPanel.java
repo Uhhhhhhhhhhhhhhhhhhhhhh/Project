@@ -5,9 +5,13 @@
  */
 package View.Data;
 
-import Controller.StorageController;
-import Model.Storage;
+import Main.ApplicationFrame;
+import Main.SQLPreparedStatements;
+import View.Item.ItemTimePanel;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -24,10 +28,13 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
     
     
     public DefaultListModel createFCAList(){
+        ArrayList<ArrayList> fcas = SQLPreparedStatements.getFCA();
+        
         DefaultListModel fca = new DefaultListModel();
-        StorageController.selectAllFCA().forEach((a) -> {
-            fca.addElement(a.toEventString());
-        });
+        
+        for(int i = 0; i < fcas.get(1).size(); i++) {
+            fca.addElement(fcas.get(2).get(i) + " " + fcas.get(3).get(i));
+        }
         return fca;
     }
 
@@ -49,6 +56,11 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jList1.setModel(createFCAList());
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -76,6 +88,23 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(evt.getClickCount() == 2) {
+            ArrayList<ArrayList> fca = SQLPreparedStatements.getFCA();
+            String course_id = (String) fca.get(3).get(jList1.getSelectedIndex());
+            String section_num = (String) fca.get(2).get(jList1.getSelectedIndex());
+            
+            JInternalFrame jif = new JInternalFrame("Item: FCA " + course_id + " - " + section_num, true, true, true, true);
+            jif.setBounds(0, 0, 225, 150);
+            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+            ApplicationFrame.openFrameCount++;
+            jif.add((new ItemFinalCourseAssignmentPanel(SQLPreparedStatements.getSingleFCA(course_id, section_num))));
+            jif.setVisible(true);
+            ApplicationFrame.jDesktop.add(jif);
+            jif.toFront();
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
