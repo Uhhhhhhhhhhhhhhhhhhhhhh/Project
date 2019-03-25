@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS FinalCourseAssignment;
 DROP TABLE IF EXISTS ProfessorTimePref;
 DROP TABLE IF EXISTS TimePeriod;
-DROP TABLE IF EXISTS Section;
 DROP TABLE IF EXISTS Prereqs;
 DROP TABLE IF EXISTS Course;
 DROP TABLE IF EXISTS Room;
@@ -17,7 +16,7 @@ CREATE TABLE Faculty (
 
 CREATE TABLE Room (
 	Room_ID VARCHAR(5) NOT NULL,
-    Building VARCHAR(15) NOT NULL,
+    Building VARCHAR(35) NOT NULL,
     Occupancy SMALLINT NOT NULL,
     Num_of_Computers TINYINT,
     Lab_Type VARCHAR(15),
@@ -29,7 +28,7 @@ CREATE TABLE Course (
     Sub VARCHAR(20) NOT NULL,
     Course_Num VARCHAR(30) NOT NULL,
     course_name VARCHAR(100) NOT NULL,
-    Description VARCHAR(255) NOT NULL,
+    Description VARCHAR(1000) NOT NULL,
     Units DOUBLE NOT NULL
 );
 
@@ -39,12 +38,6 @@ CREATE TABLE Prereqs (
     PRIMARY KEY(Course_ID, Prereq_Course_ID),
     FOREIGN KEY (Course_ID) REFERENCES Course(Course_ID),
     FOREIGN KEY (Prereq_Course_ID) REFERENCES Course(Course_ID)
-);
-
-CREATE TABLE Section (
-	Class_Num VARCHAR(7) NOT NULL,
-    Course_Course_ID VARCHAR(6) NOT NULL REFERENCES Course(Course_Course_ID),
-    PRIMARY KEY(Class_Num, Course_Course_ID)
 );
 
 CREATE TABLE TimePeriod (
@@ -64,7 +57,7 @@ CREATE TABLE ProfessorTimePref (
 CREATE TABLE FinalCourseAssignment (
 	Room_Room_ID VARCHAR(5) NOT NULL REFERENCES Room(Room_ID),
     Room_Building VARCHAR(15) NOT NULL REFERENCES Room(Building),
-    Section_Class_Num VARCHAR(7) NOT NULL REFERENCES Section(Class_Num),
+    Section_Num VARCHAR(7) NOT NULL,
     Course_Course_ID VARCHAR(6) NOT NULL REFERENCES Course(Course_Course_ID),
     Faculty_PSU_ID VARCHAR(7) NOT NULL REFERENCES Faculty(PSU_ID),
     Time_Period INT NOT NULL,
@@ -74,5 +67,5 @@ CREATE TABLE FinalCourseAssignment (
     Class_Capacity int NOT NULL,
     Enrollment int NOT NULL,
     Course_Type VARCHAR(3) NOT NULL,
-    PRIMARY KEY(Course_Course_ID, Section_Class_Num)
+    PRIMARY KEY(Course_Course_ID, Section_Num)
 );
