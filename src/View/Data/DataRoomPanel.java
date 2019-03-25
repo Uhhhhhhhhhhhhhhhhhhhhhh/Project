@@ -91,12 +91,16 @@ public class DataRoomPanel extends javax.swing.JPanel {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount() == 2) {
-            Room r = Storage.getRoom(jList1.getSelectedIndex());
-            JInternalFrame jif = new JInternalFrame("Item: Room " + r.toEventString(), true, true, true, true);
-            jif.setBounds(0, 0, 350, 220);
+            ArrayList<ArrayList> room = SQLPreparedStatements.getRooms();
+            String building = (String) room.get(0).get(jList1.getSelectedIndex());
+            String num = (String) room.get(1).get(jList1.getSelectedIndex());
+            
+            JInternalFrame jif = new JInternalFrame("Item: Room " + building + " " + num, true, true, true, true);
+            
+            jif.setBounds(0, 0, 329, 410);
             jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
             ApplicationFrame.openFrameCount++;
-            jif.add((new ItemRoomPanel(r)));
+            jif.add((new ItemRoomPanel(SQLPreparedStatements.getSingleRoom(building, num))));
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();

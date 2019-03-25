@@ -570,6 +570,31 @@ public class SQLPreparedStatements {
         }
     }
     
+    public static ArrayList<Object> getSingleRoom(String building, String number) {
+        try {
+            psSelectRoomByBuildingAndNumber.setString(1, building);
+            psSelectRoomByBuildingAndNumber.setString(2, number);
+            
+            ResultSet rsSelectSingleRoom = psSelectRoomByBuildingAndNumber.executeQuery();
+            
+            ArrayList<Object> rooms = new ArrayList<>();
+            
+            while(rsSelectSingleRoom.next()) {
+                rooms.add(rsSelectSingleRoom.getString("building"));
+                rooms.add(rsSelectSingleRoom.getString("room_id"));
+                rooms.add(rsSelectSingleRoom.getInt("occupancy"));
+                rooms.add(rsSelectSingleRoom.getInt("num_of_computers"));
+                rooms.add(rsSelectSingleRoom.getString("lab_type"));
+            }
+            
+            return rooms;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Room not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+    }
+    
     
     
     public static int daysToInt(boolean[] days) {
