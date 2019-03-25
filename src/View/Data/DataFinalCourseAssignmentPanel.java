@@ -7,8 +7,7 @@ package View.Data;
 
 import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
-import View.Item.ItemTimePanel;
-import java.time.LocalTime;
+import View.Item.ItemFinalCourseAssignmentPanel;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;

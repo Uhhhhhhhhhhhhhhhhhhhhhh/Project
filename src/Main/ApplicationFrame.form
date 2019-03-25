@@ -9,14 +9,16 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiImport">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Import"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiExport">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Export"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
@@ -34,6 +36,7 @@
         <Menu class="javax.swing.JMenu" name="jmNew">
           <Properties>
             <Property name="text" type="java.lang.String" value="New"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiNewFaculty">
@@ -81,6 +84,7 @@
         <Menu class="javax.swing.JMenu" name="jmData">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiDataFaculty">
@@ -128,6 +132,7 @@
         <Menu class="javax.swing.JMenu" name="jmCalView">
           <Properties>
             <Property name="text" type="java.lang.String" value="Calendar View"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiCVFaculty">
@@ -186,6 +191,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmiDisconnect">
               <Properties>
                 <Property name="text" type="java.lang.String" value="SQL Disconnect"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiDisconnectActionPerformed"/>
@@ -196,6 +202,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmiReset">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reset Tables and Data"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiResetActionPerformed"/>

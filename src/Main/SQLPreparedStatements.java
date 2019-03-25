@@ -35,7 +35,11 @@ public class SQLPreparedStatements {
     
     
     public static boolean checkConnection(){
-        return c == null;
+        try {
+            return !c.isClosed();
+        } catch (SQLException ex) {
+            return false;
+        }
     }
     
     public static void connectToDB(String ip, String db, String username, String password) {

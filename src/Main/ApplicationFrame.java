@@ -39,8 +39,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmiImport = new javax.swing.JMenuItem();
+        jmiExport = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiAbout = new javax.swing.JMenuItem();
         jmNew = new javax.swing.JMenu();
@@ -83,11 +83,13 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         jmFile.setText("File");
 
-        jMenuItem1.setText("Import");
-        jmFile.add(jMenuItem1);
+        jmiImport.setText("Import");
+        jmiImport.setEnabled(false);
+        jmFile.add(jmiImport);
 
-        jMenuItem2.setText("Export");
-        jmFile.add(jMenuItem2);
+        jmiExport.setText("Export");
+        jmiExport.setEnabled(false);
+        jmFile.add(jmiExport);
         jmFile.add(jSeparator2);
 
         jmiAbout.setText("About");
@@ -101,6 +103,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jMenuBar1.add(jmFile);
 
         jmNew.setText("New");
+        jmNew.setEnabled(false);
 
         jmiNewFaculty.setText("Faculty");
         jmiNewFaculty.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +148,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jMenuBar1.add(jmNew);
 
         jmData.setText("Data");
+        jmData.setEnabled(false);
 
         jmiDataFaculty.setText("Faculty");
         jmiDataFaculty.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +193,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jMenuBar1.add(jmData);
 
         jmCalView.setText("Calendar View");
+        jmCalView.setEnabled(false);
 
         jmiCVFaculty.setText("By Faculty");
         jmiCVFaculty.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +237,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jMenu1.add(jmiSQLConnection);
 
         jmiDisconnect.setText("SQL Disconnect");
+        jmiDisconnect.setEnabled(false);
         jmiDisconnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiDisconnectActionPerformed(evt);
@@ -241,6 +247,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         jmiReset.setText("Reset Tables and Data");
+        jmiReset.setEnabled(false);
         jmiReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiResetActionPerformed(evt);
@@ -317,6 +324,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
         createNewPanel(new SQLLoginPanel(), "SQL Connection", 330, 320);
+        ToggleMenu(SQLPreparedStatements.checkConnection());
     }//GEN-LAST:event_jmiSQLConnectionActionPerformed
 
     private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
@@ -325,6 +333,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDisconnectActionPerformed
         SQLPreparedStatements.disconnectFromDB();
+        ToggleMenu(SQLPreparedStatements.checkConnection());
     }//GEN-LAST:event_jmiDisconnectActionPerformed
 
     private void jmiCVCLFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVCLFCAActionPerformed
@@ -352,6 +361,15 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jif.toFront();
     }
     
+    public void ToggleMenu(boolean toggle){
+        jmiImport.setEnabled(toggle);
+        jmiExport.setEnabled(toggle);
+        jmNew.setEnabled(toggle);
+        jmData.setEnabled(toggle);
+        jmCalView.setEnabled(toggle);
+        jmiDisconnect.setEnabled(SQLPreparedStatements.checkConnection());
+        jmiReset.setEnabled(SQLPreparedStatements.checkConnection());
+    }
     
     
     
@@ -400,8 +418,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmCVCL;
@@ -421,6 +437,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiDataRoom;
     private javax.swing.JMenuItem jmiDataTime;
     private javax.swing.JMenuItem jmiDisconnect;
+    private javax.swing.JMenuItem jmiExport;
+    private javax.swing.JMenuItem jmiImport;
     private javax.swing.JMenuItem jmiNewCourse;
     private javax.swing.JMenuItem jmiNewFCA;
     private javax.swing.JMenuItem jmiNewFaculty;
