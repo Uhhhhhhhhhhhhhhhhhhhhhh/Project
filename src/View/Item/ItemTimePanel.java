@@ -5,8 +5,9 @@
  */
 package View.Item;
 
-import Model.Time_Period;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,15 +15,14 @@ import java.time.format.DateTimeFormatter;
  */
 public class ItemTimePanel extends javax.swing.JPanel {
 
-    Time_Period t;
+    ArrayList<Object> info;
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
     
     /**
      * Creates new form ItemTimePanel
-     * @param t
      */
-    public ItemTimePanel(Time_Period t) {
-        this.t = t;
+    public ItemTimePanel(ArrayList<Object> info) {
+        this.info = info;
         initComponents();
     }
 
@@ -48,13 +48,13 @@ public class ItemTimePanel extends javax.swing.JPanel {
 
         jLabel2.setText("Period:");
 
-        jLabel3.setText(Integer.toString(t.getPeriod()));
+        jLabel3.setText(Integer.toString((int) info.get(0)));
 
         jLabel4.setText("Start Time:");
 
-        jLabel5.setText(t.getStart_time().format(dateTimeFormatter));
+        jLabel5.setText(((java.sql.Time) info.get(1)).toLocalTime().format(dateTimeFormatter));
 
-        jLabel6.setText(t.getEnd_time().format(dateTimeFormatter));
+        jLabel6.setText(((java.sql.Time) info.get(2)).toLocalTime().format(dateTimeFormatter));
 
         jLabel7.setText("End Time:");
 

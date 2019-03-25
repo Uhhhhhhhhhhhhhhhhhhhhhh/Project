@@ -7,7 +7,6 @@ package View.Data;
 
 import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
-import View.Item.ItemCoursePanel;
 import View.Item.ItemFacultyPanel;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;

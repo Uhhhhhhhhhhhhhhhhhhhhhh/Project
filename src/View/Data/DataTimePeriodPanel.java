@@ -5,10 +5,11 @@
  */
 package View.Data;
 
-import Controller.StorageController;
-import Model.*;
 import Main.ApplicationFrame;
+import Main.SQLPreparedStatements;
 import View.Item.*;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import javax.swing.JInternalFrame;
 import javax.swing.DefaultListModel;
 
@@ -27,10 +28,13 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
     
     
     public DefaultListModel createTimeList(){
+        ArrayList<ArrayList> times = SQLPreparedStatements.getTimePeriods();
+        
         DefaultListModel time = new DefaultListModel();
-        StorageController.selectAllTime().forEach((t) -> {
-            time.addElement(t.toEventString());
-        });
+        
+        for(int i = 0; i < times.get(1).size(); i++) {
+            time.addElement(times.get(1).get(i) + " - " + times.get(2).get(i));
+        }
         return time;
     }
 
@@ -87,12 +91,15 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount() == 2) {
-            Time_Period t = Storage.getTime_Period(jList1.getSelectedIndex());
-            JInternalFrame jif = new JInternalFrame("Item: Time " + t.toEventString(), true, true, true, true);
+            ArrayList<ArrayList> times = SQLPreparedStatements.getTimePeriods();
+            int period = (int) times.get(0).get(jList1.getSelectedIndex());
+            LocalTime start = (LocalTime) times.get(1).get(jList1.getSelectedIndex());
+            LocalTime end = (LocalTime) times.get(1).get(jList1.getSelectedIndex());
+            JInternalFrame jif = new JInternalFrame("Item: Time " + start.toString() + " - " + end.toString(), true, true, true, true);
             jif.setBounds(0, 0, 225, 150);
             jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
             ApplicationFrame.openFrameCount++;
-            jif.add((new ItemTimePanel(t)));
+            jif.add((new ItemTimePanel(SQLPreparedStatements.getSingleTime(period))));
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();

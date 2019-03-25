@@ -133,7 +133,7 @@ public class SQLPreparedStatements {
         query = "select * from ProfessorTimePref where faculty_psu_id like ?";
         psSelectFacultyTimeByPsuID = c.prepareStatement(query);
         
-        query = "select * from ProfessorTimePref where timeperiod_period = ?";
+        query = "select * from timeperiod where period = ?";
         psSelectTimePeriodByID = c.prepareStatement(query);
         
         query = "select * from room where building like ?";
@@ -201,6 +201,8 @@ public class SQLPreparedStatements {
         
         query = "select * from finalcourseassignment where faculty_psu_id like (select psu_id from faculty where last_name like ? and first_name like ?)";
         psSelectFCAByFacultyLastAndFirstName = c.prepareStatement(query);
+        
+        
     }
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref){
@@ -595,6 +597,26 @@ public class SQLPreparedStatements {
         
     }
     
+    public static ArrayList<Object> getSingleTime(int period) {
+        try {
+            psSelectTimePeriodByID.setInt(1, period);
+            
+            ResultSet rsSelectSingleTime = psSelectTimePeriodByID.executeQuery();
+            
+            ArrayList<Object> times = new ArrayList<>();
+            
+            while(rsSelectSingleTime.next()) {
+                times.add(rsSelectSingleTime.getInt("period"));
+                times.add(rsSelectSingleTime.getTime("start_time"));
+                times.add(rsSelectSingleTime.getTime("end_time"));
+            }
+            
+            return times;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Time not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
     
     
     public static int daysToInt(boolean[] days) {

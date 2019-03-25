@@ -82,7 +82,7 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Integer.toString(t.getPeriod())" type="code"/>
+          <Connection code="Integer.toString((int) info.get(0))" type="code"/>
         </Property>
       </Properties>
     </Component>
@@ -94,14 +94,14 @@
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="t.getStart_time().format(dateTimeFormatter)" type="code"/>
+          <Connection code="((java.sql.Time) info.get(1)).toLocalTime().format(dateTimeFormatter)" type="code"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="t.getEnd_time().format(dateTimeFormatter)" type="code"/>
+          <Connection code="((java.sql.Time) info.get(2)).toLocalTime().format(dateTimeFormatter)" type="code"/>
         </Property>
       </Properties>
     </Component>
