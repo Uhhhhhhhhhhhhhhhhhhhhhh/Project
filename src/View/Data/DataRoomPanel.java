@@ -5,10 +5,10 @@
  */
 package View.Data;
 
-import Controller.StorageController;
-import Model.*;
 import Main.ApplicationFrame;
+import Main.SQLPreparedStatements;
 import View.Item.*;
+import java.util.ArrayList;
 import javax.swing.JInternalFrame;
 import javax.swing.DefaultListModel;
 
@@ -27,11 +27,15 @@ public class DataRoomPanel extends javax.swing.JPanel {
     
     
     public DefaultListModel createRoomList(){
-        DefaultListModel room = new DefaultListModel();
-        StorageController.selectAllRoom().forEach((r) -> {
-            room.addElement(r.toEventString());
-        });
-        return room;
+        ArrayList<ArrayList> rooms = SQLPreparedStatements.getRooms();
+        
+        DefaultListModel lmroom = new DefaultListModel();
+        
+        for(int i = 0; i < rooms.get(0).size(); i++) {
+            lmroom.addElement(rooms.get(0).get(i) + " " + rooms.get(1).get(i) + " -   Lab: " + rooms.get(2).get(i) + "   Capacity: " + rooms.get(3).get(i));
+        }
+        
+        return lmroom;
     }
 
     /**
