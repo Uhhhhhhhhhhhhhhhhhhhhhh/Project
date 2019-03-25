@@ -5,7 +5,8 @@
  */
 package View.Item;
 
-import Model.*;
+import Main.SQLPreparedStatements;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 /**
@@ -14,33 +15,27 @@ import javax.swing.DefaultListModel;
  */
 public class ItemCoursePanel extends javax.swing.JPanel {
 
-    Course c;
+    ArrayList<Object> info;
     /**
      * Creates new form ItemCoursePanel
      * @param c Course
      */
-    public ItemCoursePanel(Course c) {
-        this.c = c;
+    public ItemCoursePanel(ArrayList<Object> info) {
+        this.info = (ArrayList<Object>) info.clone();
         initComponents();
-    }
-    
-    public String getSession(){
-        char s = c.getSession();
-        if(s == 'P')
-            return "In Person";
-        else if(s == 'H')
-            return "Hybrid";
-        else
-            return "Web";
     }
     
     public DefaultListModel createPreReqList(){
         DefaultListModel prereq = new DefaultListModel();
-        if(c.getPrereqs() == null)
+        ArrayList<String> pr = SQLPreparedStatements.getCoursePrereqs((String) info.get(2));
+        if(pr.isEmpty())
             prereq.addElement("No Prerequisites.");
         else
-            for(Course pr:c.getPrereqs())
-                prereq.addElement(pr.toEventString());
+            for(int i = 0; i < pr.size(); i++) {
+                ArrayList<Object> course = SQLPreparedStatements.getSingleCourse(pr.get(i));
+                prereq.addElement(course.get(0) + " " + course.get(1) + " - " + course.get(2));
+            }
+                
         return prereq;
     } // TODO - PreReq Clickable to show info of Pre Req Course
 
@@ -59,11 +54,9 @@ public class ItemCoursePanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -76,7 +69,7 @@ public class ItemCoursePanel extends javax.swing.JPanel {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText(c.getDescription());
+        jTextArea1.setText((String) info.get(4));
         jScrollPane2.setViewportView(jTextArea1);
         jTextArea1.setLineWrap(true);
 
@@ -89,25 +82,21 @@ public class ItemCoursePanel extends javax.swing.JPanel {
 
         jLabel4.setText("Course Number:");
 
-        jLabel5.setText("Session:");
-
         jLabel6.setText("Name:");
 
-        jLabel7.setText(c.getCourse_id());
+        jLabel7.setText((String) info.get(2));
 
-        jLabel8.setText(c.getSubject());
+        jLabel8.setText((String) info.get(0));
 
-        jLabel9.setText(getSession());
+        jLabel10.setText((String) info.get(1));
 
-        jLabel10.setText(c.getCourse_num());
-
-        jLabel11.setText(c.getName());
+        jLabel11.setText((String) info.get(3));
 
         jLabel12.setText("Description:");
 
         jLabel14.setText("Units:");
 
-        jLabel15.setText(Double.toString(c.getUnits()));
+        jLabel15.setText(Double.toString((double) info.get(5)));
 
         jLabel16.setText("Pre Reqs:");
 
@@ -138,10 +127,6 @@ public class ItemCoursePanel extends javax.swing.JPanel {
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel11))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9))
                             .addComponent(jLabel16)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -180,10 +165,6 @@ public class ItemCoursePanel extends javax.swing.JPanel {
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -211,11 +192,9 @@ public class ItemCoursePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

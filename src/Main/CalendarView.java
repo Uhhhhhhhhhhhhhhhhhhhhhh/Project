@@ -8,7 +8,6 @@ package Main;
 import Calendar.Calendar;
 import Calendar.CalendarEvent;
 import Calendar.WeekCalendar;
-import Model.Final_Course_Assignment;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.time.DayOfWeek;
@@ -66,6 +65,6 @@ public class CalendarView {
     }
     
     private static void createEventPopUp(CalendarEvent e){
-        ApplicationFrame.createNewPanel(new View.Item.ItemFinalCourseAssignmentPanel(e.getFCA()), "Item: Final Course Assignment", 10, 10);
+        ApplicationFrame.createNewPanel(new View.Item.ItemFinalCourseAssignmentPanel(), "Item: Final Course Assignment", 10, 10);
     }
 }

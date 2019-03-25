@@ -5,7 +5,7 @@
  */
 package View.Item;
 
-import Model.Final_Course_Assignment;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,10 +13,12 @@ import Model.Final_Course_Assignment;
  */
 public class ItemFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
+    ArrayList<Object> info;
     /**
      * Creates new form ItemFinalCourseAssignmentPanel
      */
-    public ItemFinalCourseAssignmentPanel(Final_Course_Assignment fca) {
+    public ItemFinalCourseAssignmentPanel(ArrayList<Object> info) {
+        this.info = info;
         initComponents();
     }
 

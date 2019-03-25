@@ -5,11 +5,10 @@
  */
 package View.Data;
 
-import Controller.StorageController;
-import Model.Course;
-import Model.Storage;
 import Main.ApplicationFrame;
+import Main.SQLPreparedStatements;
 import View.Item.ItemCoursePanel;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
 
@@ -28,10 +27,13 @@ public class DataCoursePanel extends javax.swing.JPanel {
     
     
     public DefaultListModel createCourseList(){
+        ArrayList<ArrayList> courses = SQLPreparedStatements.getCourses();
+        
         DefaultListModel course = new DefaultListModel();
-        StorageController.SelectAllCourse().forEach((c) -> {
-            course.addElement(c.toEventString());
-        });
+        
+        for(int i = 0; i < courses.get(0).size(); i++) {
+            course.addElement(courses.get(0).get(i) + " " + courses.get(1).get(i));
+        }
         return course;
     }
 
@@ -88,16 +90,18 @@ public class DataCoursePanel extends javax.swing.JPanel {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount() == 2) {
-            Course c = Storage.getCourse(jList1.getSelectedIndex());
-            JInternalFrame jif = new JInternalFrame("Item: Course " + c.toEventString(), true, true, true, true);
+            ArrayList<ArrayList> courses = SQLPreparedStatements.getCourses();
+            String course_id = (String) courses.get(2).get(jList1.getSelectedIndex());
+            String sub = (String) courses.get(0).get(jList1.getSelectedIndex());
+            String num = (String) courses.get(1).get(jList1.getSelectedIndex());
+            JInternalFrame jif = new JInternalFrame("Item: Course " + sub + " " + num, true, true, true, true);
             jif.setBounds(0, 0, 629, 410);
             jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
             ApplicationFrame.openFrameCount++;
-            jif.add((new ItemCoursePanel(c)));
+            jif.add((new ItemCoursePanel(SQLPreparedStatements.getSingleCourse(course_id))));
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
-            
         }
     }//GEN-LAST:event_jList1MouseClicked
 

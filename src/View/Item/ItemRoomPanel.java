@@ -5,7 +5,8 @@
  */
 package View.Item;
 
-import Model.Room;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -13,13 +14,13 @@ import Model.Room;
  */
 public class ItemRoomPanel extends javax.swing.JPanel {
 
-    Room r;
+    ArrayList<Object> info;
     
     /**
      * Creates new form ItemRoomPanel
      */
-    public ItemRoomPanel(Room r) {
-        this.r = r;
+    public ItemRoomPanel(ArrayList<Object> info) {
+        this.info = info;
         initComponents();
     }
 
@@ -49,23 +50,23 @@ public class ItemRoomPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Building:");
 
-        jLabel3.setText(r.getBuilding());
+        jLabel3.setText((String) info.get(0));
 
         jLabel4.setText("Room Number:");
 
-        jLabel5.setText(r.getRoom_id());
+        jLabel5.setText((String) info.get(1));
 
         jLabel6.setText("Occupancy:");
 
-        jLabel7.setText(Integer.toString(r.getOccupancy()));
+        jLabel7.setText(Integer.toString((int) info.get(2)));
 
         jLabel8.setText("Number of Computers:");
 
-        jLabel9.setText(Integer.toString(r.getComputers()));
+        jLabel9.setText(Integer.toString((int) info.get(3)));
 
         jLabel10.setText("Lab Type:");
 
-        jLabel11.setText(r.getLab_type());
+        jLabel11.setText((String) info.get(4));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

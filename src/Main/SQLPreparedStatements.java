@@ -6,11 +6,18 @@
 package Main;
 
 import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,10 +88,10 @@ public class SQLPreparedStatements {
         query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignmentWIthSelects = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
@@ -126,7 +133,7 @@ public class SQLPreparedStatements {
         query = "select * from ProfessorTimePref where faculty_psu_id like ?";
         psSelectFacultyTimeByPsuID = c.prepareStatement(query);
         
-        query = "select * from ProfessorTimePref where timeperiod_period = ?";
+        query = "select * from timeperiod where period = ?";
         psSelectTimePeriodByID = c.prepareStatement(query);
         
         query = "select * from room where building like ?";
@@ -194,6 +201,8 @@ public class SQLPreparedStatements {
         
         query = "select * from finalcourseassignment where faculty_psu_id like (select psu_id from faculty where last_name like ? and first_name like ?)";
         psSelectFCAByFacultyLastAndFirstName = c.prepareStatement(query);
+        
+        
     }
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref){
@@ -305,17 +314,17 @@ public class SQLPreparedStatements {
             JOptionPane.showMessageDialog(null, "ERROR! Course NOT CREATED!\n" + e.getMessage(), "MySQL: Course", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
-        
-        try {
-            for(String pr:prereqs){ 
-                psInsertPreReq.setString(1, course_id);
-                psInsertPreReq.setString(2, pr);
-                psInsertPreReq.execute();
+        if(success)
+            try {
+                for(String pr:prereqs){ 
+                    psInsertPreReq.setString(1, course_id);
+                    psInsertPreReq.setString(2, pr);
+                    psInsertPreReq.execute();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: PreReq", JOptionPane.ERROR_MESSAGE);
+                success = false;
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! PreReq NOT CREATED!\n" + e.getMessage(), "MySQL: PreReq", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
         
         return success;
     }
@@ -343,9 +352,9 @@ public class SQLPreparedStatements {
             ResultSet rsSelectAllTime = psSelectAllTimePeriod.executeQuery();
 
             ArrayList<ArrayList> times = new ArrayList<>();
-            times.add(new ArrayList<Integer>());
-            times.add(new ArrayList<LocalTime>());
-            times.add(new ArrayList<LocalTime>());
+            times.add(new ArrayList<>());
+            times.add(new ArrayList<>());
+            times.add(new ArrayList<>());
             
             while(rsSelectAllTime.next()) {
                 times.get(0).add(rsSelectAllTime.getInt("period"));
@@ -365,9 +374,9 @@ public class SQLPreparedStatements {
             ResultSet rsSelectAllFaculty = psSelectAllFaculty.executeQuery();
 
             ArrayList<ArrayList> faculties = new ArrayList<>();
-            faculties.add(new ArrayList<String>());
-            faculties.add(new ArrayList<String>());
-            faculties.add(new ArrayList<String>());
+            faculties.add(new ArrayList<>());
+            faculties.add(new ArrayList<>());
+            faculties.add(new ArrayList<>());
             
             while(rsSelectAllFaculty.next()) {
                 faculties.get(0).add(rsSelectAllFaculty.getString("psu_id"));
@@ -387,10 +396,10 @@ public class SQLPreparedStatements {
             ResultSet rsSelectAllRooms = psSelectAllRoom.executeQuery();
 
             ArrayList<ArrayList> rooms = new ArrayList<>();
-            rooms.add(new ArrayList<String>());
-            rooms.add(new ArrayList<String>());
-            rooms.add(new ArrayList<String>());
-            rooms.add(new ArrayList<Integer>());
+            rooms.add(new ArrayList<>());
+            rooms.add(new ArrayList<>());
+            rooms.add(new ArrayList<>());
+            rooms.add(new ArrayList<>());
             
             while(rsSelectAllRooms.next()) {
                 rooms.get(0).add(rsSelectAllRooms.getString("building"));
@@ -406,19 +415,21 @@ public class SQLPreparedStatements {
         }
     }
     
-    public static ArrayList<ArrayList> getCourses() {
+    public static ArrayList<Object> getSingleCourse(String course_id) {
         try {
-            ResultSet rsSelectAllCourses = psSelectAllCourse.executeQuery();
+            psSelectCourseByID.setString(1, course_id);
+            
+            ResultSet rsSelectAllCourses = psSelectCourseByID.executeQuery();
 
-            ArrayList<ArrayList> courses = new ArrayList<>();
-            courses.add(new ArrayList<String>());
-            courses.add(new ArrayList<String>());
-            courses.add(new ArrayList<String>());
+            ArrayList<Object> courses = new ArrayList<>();
             
             while(rsSelectAllCourses.next()) {
-                courses.get(0).add(rsSelectAllCourses.getString("sub"));
-                courses.get(1).add(rsSelectAllCourses.getString("course_num"));
-                courses.get(2).add(rsSelectAllCourses.getString("course_id"));
+                courses.add(rsSelectAllCourses.getString("sub"));
+                courses.add(rsSelectAllCourses.getString("course_num"));
+                courses.add(rsSelectAllCourses.getString("course_id"));
+                courses.add(rsSelectAllCourses.getString("course_name"));
+                courses.add(rsSelectAllCourses.getString("Description"));
+                courses.add(rsSelectAllCourses.getDouble("Units"));
             }
             
             return courses;
@@ -428,7 +439,35 @@ public class SQLPreparedStatements {
         }
     }
     
-    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, int days, int capacity, int enrollment, String type) {
+    public static ArrayList<ArrayList> getCourses() {
+        try {
+            ResultSet rsSelectAllCourses = psSelectAllCourse.executeQuery();
+
+            ArrayList<ArrayList> courses = new ArrayList<>();
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            courses.add(new ArrayList<>());
+            
+            while(rsSelectAllCourses.next()) {
+                courses.get(0).add(rsSelectAllCourses.getString("sub"));
+                courses.get(1).add(rsSelectAllCourses.getString("course_num"));
+                courses.get(2).add(rsSelectAllCourses.getString("course_id"));
+                courses.get(3).add(rsSelectAllCourses.getString("course_name"));
+                courses.get(4).add(rsSelectAllCourses.getString("Description"));
+                courses.get(5).add(rsSelectAllCourses.getDouble("Units"));
+            }
+            
+            return courses;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, int days, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
         boolean success;
         
         try {
@@ -439,14 +478,12 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setString(5, faculty_id);
             psInsertFinalCourseAssignment.setInt(6, time_period);
             psInsertFinalCourseAssignment.setInt(7, days);
-            psInsertFinalCourseAssignment.setInt(8, capacity);
-            psInsertFinalCourseAssignment.setInt(9, enrollment);
-            psInsertFinalCourseAssignment.setString(10, type);
+            psInsertFinalCourseAssignment.setDate(8, Date.valueOf(start_date));
+            psInsertFinalCourseAssignment.setDate(9, Date.valueOf(end_date));
+            psInsertFinalCourseAssignment.setInt(10, capacity);
+            psInsertFinalCourseAssignment.setInt(11, enrollment);
+            psInsertFinalCourseAssignment.setString(12, type);
             
-            psInsertSection.setString(1,session_num);
-            psInsertSection.setString(2, course_id);
-            
-            psInsertSection.execute();
             success = psInsertFinalCourseAssignment.execute();
             JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
@@ -456,6 +493,159 @@ public class SQLPreparedStatements {
         
         return success;
     }
+    
+    
+    
+    public static void resetDB() {
+        String s = "";
+        StringBuffer sb = new StringBuffer();
+        try {
+            FileReader fr = new FileReader(new File("IST261DBTables.sql"));
+
+            BufferedReader br = new BufferedReader(fr);
+
+            while((s = br.readLine()) != null) {
+                sb.append(s);
+            }
+            
+            br.close();
+            
+            String[] inst = sb.toString().split(";");
+            
+            Statement st = c.createStatement();
+ 
+            for(int i = 0; i<inst.length; i++) {
+                if(!inst[i].trim().equals("")) {
+                    st.executeUpdate(inst[i]);
+                    //System.out.println(">>"+inst[i]);
+                }
+            }
+   
+            JOptionPane.showMessageDialog(null, "DB reset!", "MySQL: Reset", JOptionPane.INFORMATION_MESSAGE);
+        } catch(HeadlessException | IOException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! DB not reset!\n" + e.getMessage(), "MySQL: Reset", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static ArrayList<String> getCoursePrereqs(String course_id) {
+        try {
+            psSelectPreReqByCourseID.setString(1, course_id);
+            ArrayList<String> prereqs = new ArrayList<>();
+            
+            ResultSet rsPreReqs = psSelectPreReqByCourseID.executeQuery();
+            
+            while(rsPreReqs.next()) {
+                prereqs.add(rsPreReqs.getString("prereq_course_id"));
+            }
+            return prereqs;
+            
+        } catch (SQLException e) {
+            Logger.getLogger(SQLPreparedStatements.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
+    
+    public static ArrayList<Object> getSingleFaculty(String psu_id) {
+        try {
+            psSelectFacultyByPsuID.setString(1, psu_id);
+            
+            ResultSet rsSelectSingleFaculty = psSelectFacultyByPsuID.executeQuery();
+
+            ArrayList<Object> courses = new ArrayList<>();
+            
+            while(rsSelectSingleFaculty.next()) {
+                courses.add(rsSelectSingleFaculty.getString("psu_id"));
+                courses.add(rsSelectSingleFaculty.getString("last_name"));
+                courses.add(rsSelectSingleFaculty.getString("first_name"));
+                courses.add(rsSelectSingleFaculty.getString("major_college"));
+                courses.add(rsSelectSingleFaculty.getInt("preferred_days"));
+            }
+            
+            return courses;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public static ArrayList<Object> getSingleRoom(String building, String number) {
+        try {
+            psSelectRoomByBuildingAndNumber.setString(1, building);
+            psSelectRoomByBuildingAndNumber.setString(2, number);
+            
+            ResultSet rsSelectSingleRoom = psSelectRoomByBuildingAndNumber.executeQuery();
+            
+            ArrayList<Object> rooms = new ArrayList<>();
+            
+            while(rsSelectSingleRoom.next()) {
+                rooms.add(rsSelectSingleRoom.getString("building"));
+                rooms.add(rsSelectSingleRoom.getString("room_id"));
+                rooms.add(rsSelectSingleRoom.getInt("occupancy"));
+                rooms.add(rsSelectSingleRoom.getInt("num_of_computers"));
+                rooms.add(rsSelectSingleRoom.getString("lab_type"));
+            }
+            
+            return rooms;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Room not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+    }
+    
+    public static ArrayList<Object> getSingleTime(int period) {
+        try {
+            psSelectTimePeriodByID.setInt(1, period);
+            
+            ResultSet rsSelectSingleTime = psSelectTimePeriodByID.executeQuery();
+            
+            ArrayList<Object> times = new ArrayList<>();
+            
+            while(rsSelectSingleTime.next()) {
+                times.add(rsSelectSingleTime.getInt("period"));
+                times.add(rsSelectSingleTime.getTime("start_time"));
+                times.add(rsSelectSingleTime.getTime("end_time"));
+            }
+            
+            return times;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Time not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public static ArrayList<ArrayList> getFCA() {
+        try {
+            ResultSet rsSelectAllFaculty = psSelectAllFinalCourseAssignment.executeQuery();
+
+            ArrayList<ArrayList> fcas = new ArrayList<>();
+            for(int i = 0; i < 12; i++)
+                fcas.add(new ArrayList<>());
+            
+            
+            
+            while(rsSelectAllFaculty.next()) {
+                fcas.get(0).add(rsSelectAllFaculty.getString("room_room_id"));
+                fcas.get(1).add(rsSelectAllFaculty.getString("room_building"));
+                fcas.get(2).add(rsSelectAllFaculty.getString("section_num"));
+                fcas.get(3).add(rsSelectAllFaculty.getString("course_course_id"));
+                fcas.get(4).add(rsSelectAllFaculty.getString("faculty_psu_id"));
+                fcas.get(5).add(rsSelectAllFaculty.getInt("time_period"));
+                fcas.get(6).add(rsSelectAllFaculty.getDate("start_date"));
+                fcas.get(7).add(rsSelectAllFaculty.getDate("end_date"));
+                fcas.get(8).add(rsSelectAllFaculty.getInt("days"));
+                fcas.get(9).add(rsSelectAllFaculty.getInt("class_capacity"));
+                fcas.get(10).add(rsSelectAllFaculty.getInt("enrollment"));
+                fcas.get(11).add(rsSelectAllFaculty.getString("course_type"));
+            }
+            
+            return fcas;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! FCA not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
     
     
     public static int daysToInt(boolean[] days) {
@@ -573,4 +763,6 @@ public class SQLPreparedStatements {
     private static PreparedStatement psSelectFCAByFacultyLastName;
     private static PreparedStatement psSelectFCAByFacultyFirstName;
     private static PreparedStatement psSelectFCAByFacultyLastAndFirstName;
+
+    
 }

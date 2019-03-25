@@ -5,10 +5,10 @@
  */
 package View.Data;
 
-import Model.Faculty;
-import Model.Storage;
 import Main.ApplicationFrame;
+import Main.SQLPreparedStatements;
 import View.Item.ItemFacultyPanel;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
 
@@ -27,11 +27,15 @@ public class DataFacultyPanel extends javax.swing.JPanel {
     
     
     public DefaultListModel createFacultyList(){
-        DefaultListModel faculty = new DefaultListModel();
-        StorageController.selectAllFaculty().forEach((f) -> {
-            faculty.addElement(f.toEventString());
-        });
-        return faculty;
+        ArrayList<ArrayList> faculty = SQLPreparedStatements.getFaculty();
+        
+        DefaultListModel lmfaculty = new DefaultListModel();
+        
+        for(int i = 0; i < faculty.get(1).size(); i++) {
+            lmfaculty.addElement(faculty.get(2).get(i) + ", " + faculty.get(1).get(i));
+        }
+        
+        return lmfaculty;
     }
 
     /**
@@ -87,12 +91,15 @@ public class DataFacultyPanel extends javax.swing.JPanel {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount() == 2) {
-            Faculty f = Storage.getFaculty(jList1.getSelectedIndex());
-            JInternalFrame jif = new JInternalFrame("Item: Faculty " + f.toEventString(), true, true, true, true);
-            jif.setBounds(0, 0, 285, 400);
+            ArrayList<ArrayList> faculty = SQLPreparedStatements.getFaculty();
+            String psu_id = (String) faculty.get(0).get(jList1.getSelectedIndex());
+            String first = (String) faculty.get(2).get(jList1.getSelectedIndex());
+            String last = (String) faculty.get(1).get(jList1.getSelectedIndex());
+            JInternalFrame jif = new JInternalFrame("Item: Faculty " + last + ", " + first + " - " + psu_id, true, true, true, true);
+            jif.setBounds(0, 0, 329, 410);
             jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
             ApplicationFrame.openFrameCount++;
-            jif.add((new ItemFacultyPanel(f)));
+            jif.add((new ItemFacultyPanel(SQLPreparedStatements.getSingleFaculty(psu_id))));
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
