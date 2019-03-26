@@ -333,6 +333,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDisconnectActionPerformed
         SQLPreparedStatements.disconnectFromDB();
+        
         ToggleMenu(SQLPreparedStatements.checkConnection());
     }//GEN-LAST:event_jmiDisconnectActionPerformed
 
