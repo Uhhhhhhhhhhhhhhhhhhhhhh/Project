@@ -5,10 +5,13 @@
  */
 package View.Item;
 
+import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultListModel;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -52,6 +55,8 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
     public DefaultListModel createPreferredTimeList() {
         DefaultListModel preferredTimes = new DefaultListModel();
         
+        for(Object i : SQLPreparedStatements.getProfPrefTimes((String) info.get(0)))
+            preferredTimes.addElement((int) i);
         
         
         return preferredTimes;
@@ -111,6 +116,11 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
 
         jList2.setModel(createPreferredTimeList());
         jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jList2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -179,6 +189,23 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
+        if(evt.getClickCount() == 2) {  //TODO FINISH THIS STUFF
+            ArrayList<ArrayList> times = SQLPreparedStatements.getTimePeriods();
+            int period = (int) times.get(0).get(jList1.getSelectedIndex());
+            LocalTime start = (LocalTime) times.get(1).get(jList1.getSelectedIndex());
+            LocalTime end = (LocalTime) times.get(1).get(jList1.getSelectedIndex());
+            JInternalFrame jif = new JInternalFrame("Item: Time " + start.toString() + " - " + end.toString(), true, true, true, true);
+            jif.setBounds(0, 0, 225, 150);
+            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+            ApplicationFrame.openFrameCount++;
+            jif.add((new ItemTimePanel(SQLPreparedStatements.getSingleTime(period))));
+            jif.setVisible(true);
+            ApplicationFrame.jDesktop.add(jif);
+            jif.toFront();
+        }
+    }//GEN-LAST:event_jList2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
