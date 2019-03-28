@@ -37,7 +37,7 @@ public class SQLPreparedStatements {
     public static boolean checkConnection(){
         try {
             return !c.isClosed();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             return false;
         }
     }
