@@ -204,6 +204,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmCalView.add(jmiCVFaculty);
 
         jmiCVRoom.setText("By Room");
+        jmiCVRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCVRoomActionPerformed(evt);
+            }
+        });
         jmCalView.add(jmiCVRoom);
 
         jmCVCL.setText("By Custom List");
@@ -324,7 +329,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
         createNewPanel(new SQLLoginPanel(), "SQL Connection", 330, 320);
-        ToggleMenu(SQLPreparedStatements.checkConnection());
     }//GEN-LAST:event_jmiSQLConnectionActionPerformed
 
     private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
@@ -333,8 +337,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDisconnectActionPerformed
         SQLPreparedStatements.disconnectFromDB();
-        
-        ToggleMenu(SQLPreparedStatements.checkConnection());
+        toggleMenu(SQLPreparedStatements.checkConnection());
     }//GEN-LAST:event_jmiDisconnectActionPerformed
 
     private void jmiCVCLFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVCLFCAActionPerformed
@@ -350,6 +353,10 @@ public class ApplicationFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiResetActionPerformed
 
+    private void jmiCVRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVRoomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiCVRoomActionPerformed
+
     
     public static void createNewPanel(JPanel p, String title, int x, int y) {
         JInternalFrame jif = new JInternalFrame(title, true, true, true, true);
@@ -362,14 +369,16 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jif.toFront();
     }
     
-    public void ToggleMenu(boolean toggle){
-        jmiImport.setEnabled(toggle);
-        jmiExport.setEnabled(toggle);
-        jmNew.setEnabled(toggle);
-        jmData.setEnabled(toggle);
-        jmCalView.setEnabled(toggle);
-        jmiDisconnect.setEnabled(SQLPreparedStatements.checkConnection());
-        jmiReset.setEnabled(SQLPreparedStatements.checkConnection());
+    public static void toggleMenu(boolean toggle){
+        try {
+            jmiImport.setEnabled(toggle);
+            jmiExport.setEnabled(toggle);
+            jmNew.setEnabled(toggle);
+            jmData.setEnabled(toggle);
+            jmCalView.setEnabled(toggle);
+            jmiDisconnect.setEnabled(SQLPreparedStatements.checkConnection());
+            jmiReset.setEnabled(SQLPreparedStatements.checkConnection());
+        }catch(Exception e){}
     }
     
     
@@ -413,6 +422,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new ApplicationFrame().setVisible(true);
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -421,31 +432,31 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JMenu jmCVCL;
-    private javax.swing.JMenu jmCalView;
-    private javax.swing.JMenu jmData;
-    private javax.swing.JMenu jmFile;
-    private javax.swing.JMenu jmNew;
-    private javax.swing.JMenuItem jmiAbout;
-    private javax.swing.JMenuItem jmiCVCLCourse;
-    private javax.swing.JMenuItem jmiCVCLFCA;
-    private javax.swing.JMenuItem jmiCVCLSections;
-    private javax.swing.JMenuItem jmiCVFaculty;
-    private javax.swing.JMenuItem jmiCVRoom;
-    private javax.swing.JMenuItem jmiDataCourse;
-    private javax.swing.JMenuItem jmiDataFCA;
-    private javax.swing.JMenuItem jmiDataFaculty;
-    private javax.swing.JMenuItem jmiDataRoom;
-    private javax.swing.JMenuItem jmiDataTime;
-    private javax.swing.JMenuItem jmiDisconnect;
-    private javax.swing.JMenuItem jmiExport;
-    private javax.swing.JMenuItem jmiImport;
-    private javax.swing.JMenuItem jmiNewCourse;
-    private javax.swing.JMenuItem jmiNewFCA;
-    private javax.swing.JMenuItem jmiNewFaculty;
-    private javax.swing.JMenuItem jmiNewRoom;
-    private javax.swing.JMenuItem jmiNewTime;
-    private javax.swing.JMenuItem jmiReset;
-    private javax.swing.JMenuItem jmiSQLConnection;
+    private static javax.swing.JMenu jmCVCL;
+    private static javax.swing.JMenu jmCalView;
+    private static javax.swing.JMenu jmData;
+    private static javax.swing.JMenu jmFile;
+    private static javax.swing.JMenu jmNew;
+    private static javax.swing.JMenuItem jmiAbout;
+    private static javax.swing.JMenuItem jmiCVCLCourse;
+    private static javax.swing.JMenuItem jmiCVCLFCA;
+    private static javax.swing.JMenuItem jmiCVCLSections;
+    private static javax.swing.JMenuItem jmiCVFaculty;
+    private static javax.swing.JMenuItem jmiCVRoom;
+    private static javax.swing.JMenuItem jmiDataCourse;
+    private static javax.swing.JMenuItem jmiDataFCA;
+    private static javax.swing.JMenuItem jmiDataFaculty;
+    private static javax.swing.JMenuItem jmiDataRoom;
+    private static javax.swing.JMenuItem jmiDataTime;
+    private static javax.swing.JMenuItem jmiDisconnect;
+    private static javax.swing.JMenuItem jmiExport;
+    private static javax.swing.JMenuItem jmiImport;
+    private static javax.swing.JMenuItem jmiNewCourse;
+    private static javax.swing.JMenuItem jmiNewFCA;
+    private static javax.swing.JMenuItem jmiNewFaculty;
+    private static javax.swing.JMenuItem jmiNewRoom;
+    private static javax.swing.JMenuItem jmiNewTime;
+    private static javax.swing.JMenuItem jmiReset;
+    private static javax.swing.JMenuItem jmiSQLConnection;
     // End of variables declaration//GEN-END:variables
 }

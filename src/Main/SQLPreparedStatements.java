@@ -501,6 +501,24 @@ public class SQLPreparedStatements {
         return success;
     }
     
+    public static ArrayList<Object> getProfPrefTimes(String psu_id) {
+        try {
+            psSelectFacultyTimeByPsuID.setString(1, psu_id);
+            ResultSet rsTimesOfFaculty = psSelectFacultyTimeByPsuID.executeQuery();
+            
+            ArrayList<Object> times = new ArrayList<>();
+            
+            while(rsTimesOfFaculty.next()) {
+                times.add(rsTimesOfFaculty.getInt("TimePeriod_Period"));                
+            }
+            
+            return times;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! Time not found!\n" + e.getMessage(), "MySQL: Time", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
     
     
     public static void resetDB() {
