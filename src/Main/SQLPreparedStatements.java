@@ -190,6 +190,9 @@ public class SQLPreparedStatements {
         query = "select * from finalcourseassignment where course_course_id like (select course_id from course where sub like ? and course_num like ?)";
         psSelectFCAByCourseSubjectAndSection = c.prepareStatement(query);
         
+        query = "select * from finalcourseassignment where course_course_id like ? AND Section_Num like ?";
+        psSelectFCAByCourseAndSection = c.prepareStatement(query);
+        
         query = "select * from finalcourseassignment where faculty_psu_id like ?";
         psSelectFCAByCourseFacultyPSUID = c.prepareStatement(query);
         
@@ -641,7 +644,36 @@ public class SQLPreparedStatements {
             
             return fcas;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! FCA not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR! FCA not found!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public static ArrayList<Object> getSingleFCA(String course_id, String section_num) {
+        try {
+            psSelectFCAByCourseAndSection.setString(1, course_id);
+            psSelectFCAByCourseAndSection.setString(2, section_num);
+            ResultSet rsSelectSingleFCA = psSelectFCAByCourseAndSection.executeQuery();
+            ArrayList<Object> fca = new ArrayList<>();
+            while(rsSelectSingleFCA.next()) {
+                fca.add(rsSelectSingleFCA.getString("Room_Room_ID"));
+                fca.add(rsSelectSingleFCA.getString("Room_building"));
+                fca.add(rsSelectSingleFCA.getString("section_num"));
+                fca.add(rsSelectSingleFCA.getString("course_course_id"));
+                fca.add(rsSelectSingleFCA.getString("faculy_psu_id"));
+                fca.add(rsSelectSingleFCA.getInt("time_period"));
+                fca.add(rsSelectSingleFCA.getDate("start_date"));
+                fca.add(rsSelectSingleFCA.getDate("end_date"));
+                fca.add(rsSelectSingleFCA.getInt("days"));
+                fca.add(rsSelectSingleFCA.getInt("class_capacity"));
+                fca.add(rsSelectSingleFCA.getInt("enrollment"));
+                fca.add(rsSelectSingleFCA.getString("course_type"));
+            }
+            
+            return fca;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR! FCA not found!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
@@ -763,6 +795,7 @@ public class SQLPreparedStatements {
     private static PreparedStatement psSelectFCAByFacultyLastName;
     private static PreparedStatement psSelectFCAByFacultyFirstName;
     private static PreparedStatement psSelectFCAByFacultyLastAndFirstName;
+    private static PreparedStatement psSelectFCAByCourseAndSection;
 
     
 }
