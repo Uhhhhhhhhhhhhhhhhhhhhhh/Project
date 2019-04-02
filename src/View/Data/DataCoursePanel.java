@@ -18,11 +18,15 @@ import javax.swing.JInternalFrame;
  */
 public class DataCoursePanel extends javax.swing.JPanel {
 
+    int visual;
+    
     /**
      * Creates new form DataFacultyPanel
      */
-    public DataCoursePanel() {
+    public DataCoursePanel(int visual) {
+        this.visual = visual;
         initComponents();
+        
     }
     
     
@@ -89,7 +93,7 @@ public class DataCoursePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        if(evt.getClickCount() == 2) {
+        if(visual == 0 && evt.getClickCount() == 2) {
             ArrayList<ArrayList> courses = SQLPreparedStatements.getCourses();
             String course_id = (String) courses.get(2).get(jList1.getSelectedIndex());
             String sub = (String) courses.get(0).get(jList1.getSelectedIndex());
@@ -102,6 +106,8 @@ public class DataCoursePanel extends javax.swing.JPanel {
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
+        } else if(visual == 1 && evt.getClickCount() == 2) {
+            
         }
     }//GEN-LAST:event_jList1MouseClicked
 
