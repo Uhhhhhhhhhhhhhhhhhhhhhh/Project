@@ -209,6 +209,8 @@ public class SQLPreparedStatements {
         query = "select * from finalcourseassignment where faculty_psu_id like (select psu_id from faculty where last_name like ? and first_name like ?)";
         psSelectFCAByFacultyLastAndFirstName = c.prepareStatement(query);
         
+        query = "select sub, course_num from course where course_id like ?";
+        psSelectSubNumByCourseId = c.prepareStatement(query);
         
     }
     
@@ -682,7 +684,7 @@ public class SQLPreparedStatements {
                 fca.add(rsSelectSingleFCA.getString("Room_building"));
                 fca.add(rsSelectSingleFCA.getString("section_num"));
                 fca.add(rsSelectSingleFCA.getString("course_course_id"));
-                fca.add(rsSelectSingleFCA.getString("faculy_psu_id"));
+                fca.add(rsSelectSingleFCA.getString("faculty_psu_id"));
                 fca.add(rsSelectSingleFCA.getInt("time_period"));
                 fca.add(rsSelectSingleFCA.getDate("start_date"));
                 fca.add(rsSelectSingleFCA.getDate("end_date"));
@@ -698,6 +700,29 @@ public class SQLPreparedStatements {
             JOptionPane.showMessageDialog(null, "ERROR! FCA not found!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
             return null;
         }
+    }
+    
+    public static String getSubNameByCourseId(String course_id) {
+        String courseInfo = "";
+        
+        try {
+            psSelectSubNumByCourseId.setString(1, course_id);
+            
+            ResultSet rsSelectSubNum = psSelectSubNumByCourseId.executeQuery();
+            ArrayList<Object> course = new ArrayList<>();
+            while(rsSelectSubNum.next()) {
+                course.add(rsSelectSubNum.getString("sub"));
+                course.add(rsSelectSubNum.getString("course_num"));
+            }
+            
+            courseInfo = course.get(0) + " " + course.get(1);
+            
+            return courseInfo;
+        } catch (SQLException ex) {
+            Logger.getLogger(SQLPreparedStatements.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return courseInfo;
     }
     
     
@@ -819,5 +844,6 @@ public class SQLPreparedStatements {
     private static PreparedStatement psSelectFCAByFacultyLastAndFirstName;
     private static PreparedStatement psSelectFCAByCourseAndSection;
 
-    
+    //Other
+    private static PreparedStatement psSelectSubNumByCourseId;
 }
