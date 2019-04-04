@@ -7,8 +7,7 @@ package View.Data;
 
 import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
-import View.Item.ItemTimePanel;
-import java.time.LocalTime;
+import View.Item.ItemFinalCourseAssignmentPanel;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
@@ -18,11 +17,14 @@ import javax.swing.JInternalFrame;
  * @author Derek
  */
 public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
-
+    
+    int visual;
+    
     /**
      * Creates new form DataFacultyPanel
      */
-    public DataFinalCourseAssignmentPanel() {
+    public DataFinalCourseAssignmentPanel(int visual) {
+        this.visual = visual;
         initComponents();
     }
     

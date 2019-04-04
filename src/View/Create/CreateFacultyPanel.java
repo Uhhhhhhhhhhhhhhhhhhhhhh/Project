@@ -44,6 +44,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
         jtfLastname.setText("");
         jcbSubject.setSelectedIndex(0);
         jlDays.clearSelection();
+        jlTimes.clearSelection();
     }
     
      private ComboBoxModel getCBCourseSubjectModel() {

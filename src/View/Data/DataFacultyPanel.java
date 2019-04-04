@@ -96,7 +96,7 @@ public class DataFacultyPanel extends javax.swing.JPanel {
             String first = (String) faculty.get(2).get(jList1.getSelectedIndex());
             String last = (String) faculty.get(1).get(jList1.getSelectedIndex());
             JInternalFrame jif = new JInternalFrame("Item: Faculty " + last + ", " + first + " - " + psu_id, true, true, true, true);
-            jif.setBounds(0, 0, 329, 410);
+            jif.setBounds(0, 0, 529, 410);
             jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
             ApplicationFrame.openFrameCount++;
             jif.add((new ItemFacultyPanel(SQLPreparedStatements.getSingleFaculty(psu_id))));

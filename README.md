@@ -6,4 +6,3 @@ Getting Started:
 Below are the instructions to install and run LionPlanner. 
 
 System Prerequisites: 
-
