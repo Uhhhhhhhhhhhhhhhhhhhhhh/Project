@@ -116,7 +116,7 @@ public class ItemFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jLabel24.setText("Type:");
 
-        jLabel25.setText((char) info.get(11));
+        jLabel25.setText((String) info.get(11));
 
         jLabel26.setText("Days:");
 

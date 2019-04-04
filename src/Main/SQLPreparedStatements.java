@@ -212,12 +212,26 @@ public class SQLPreparedStatements {
         query = "select sub, course_num from course where course_id like ?";
         psSelectSubNumByCourseId = c.prepareStatement(query);
         
+        query = "select exists(select * from faculty where Last_Name like ? and first_name like ?) as result";
+        psConflictFaculty = c.prepareStatement(query);
+        
     }
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref){
         boolean success;
 
         try {
+            
+            //Conflict Detection w/ First & Last Name
+            psConflictFaculty.setString(1, last_name);
+            psConflictFaculty.setString(2, first_name);
+            
+            ResultSet rsConflict = psConflictFaculty.executeQuery();
+            
+            int result = rsConflict.getInt(0);
+            if(result > 0)
+                throw new Exception("Data already found");
+            
             psInsertFaculty.setString (1, psu_id);
             psInsertFaculty.setString (2, last_name);
             psInsertFaculty.setString (3, first_name);
@@ -230,19 +244,23 @@ public class SQLPreparedStatements {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
             success = false;
-        }
-        
-        try {
-            for(int i:timePref){ 
-                psInsertFacultyTimePref.setString(1, psu_id);
-                psInsertFacultyTimePref.setInt(2, i + 1);
-                psInsertFacultyTimePref.execute();
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! FACULTY TIME NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty Time", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!\n" + e.getMessage(), "Duplicate: Faculty", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
         
+        if(success) {
+            try {
+                for(int i:timePref){ 
+                    psInsertFacultyTimePref.setString(1, psu_id);
+                    psInsertFacultyTimePref.setInt(2, i + 1);
+                    psInsertFacultyTimePref.execute();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR! FACULTY TIME NOT CREATED!\n" + e.getMessage(), "MySQL: Faculty Time", JOptionPane.ERROR_MESSAGE);
+                success = false;
+            }
+        }
         return success;
     }
     
@@ -250,6 +268,9 @@ public class SQLPreparedStatements {
         boolean success;
         
         try {
+            
+            // Conflict Detection with Time Period
+            
             psInsertTimePeriod.setTime(1, java.sql.Time.valueOf(start));
             psInsertTimePeriod.setTime(2, java.sql.Time.valueOf(end));
             
@@ -266,8 +287,7 @@ public class SQLPreparedStatements {
     public static boolean addNewRoom(String building, String number, int occupancy, int num_comp, String lab) {
         boolean success;
         
-        try {
-            
+        try { //No Conflict Detection Needed            
             psInsertRoom.setString(1, number);
             psInsertRoom.setString(2, building);
             psInsertRoom.setInt(3, occupancy);
@@ -288,6 +308,9 @@ public class SQLPreparedStatements {
         boolean success;
         
         try {
+            
+            //Conflict Detection
+            
             psInsertCourse.setString(1, course_id);
             psInsertCourse.setString(2, sub);
             psInsertCourse.setString(3, num);
@@ -309,6 +332,9 @@ public class SQLPreparedStatements {
         boolean success;
         
         try {
+            
+            //Conflict Detection with Sub & Num
+            
             psInsertCourse.setString(1, course_id);
             psInsertCourse.setString(2, sub);
             psInsertCourse.setString(3, num);
@@ -846,4 +872,8 @@ public class SQLPreparedStatements {
 
     //Other
     private static PreparedStatement psSelectSubNumByCourseId;
+    
+    
+    //Conflict
+    private static PreparedStatement psConflictFaculty;
 }

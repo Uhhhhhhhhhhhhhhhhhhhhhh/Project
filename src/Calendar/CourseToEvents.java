@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class CourseToEvents {
     
-    public static ArrayList<CalendarEvent> fcaToCalendarEvent(Final_Course_Assignment fca, Color course_color, LocalDate semester_start, LocalDate semester_end){
+    public static ArrayList<CalendarEvent> fcaToCalendarEvent(ArrayList<Object> fca, Color course_color, LocalDate semester_start, LocalDate semester_end){
         ArrayList<CalendarEvent> classes = new ArrayList<>();
         semester_end = semester_end.plusDays(1);
         
