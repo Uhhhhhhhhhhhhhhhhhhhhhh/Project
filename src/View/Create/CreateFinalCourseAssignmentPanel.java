@@ -319,7 +319,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         int time_period = (int) times.get(0).get(jlTime.getSelectedIndex());
         
         String type = ""; 
-        switch(jcbType.toString()) {
+        switch(jcbType.getItemAt(jcbType.getSelectedIndex())) {
             case "In-Person": type = "P"; break;
             case "Hybrid": type = "H"; break;
             case "Online": type = "W"; break;  
