@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class CourseToEvents {
     
     public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, int dates){
-        return fcaToCalendarEvent(course_id, section_num, text, start_date, end_date, start_time, end_time, dates, Color.CYAN);
+        return fcaToCalendarEvent(course_id, section_num, text, start_date, end_date, start_time, end_time, dates, new Color((int) (Math.random() * 180) + 75,(int)  (Math.random() * 180) + 75,(int)  (Math.random() * 180) + 75));
     }
     
     public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, int dates, Color course_color){

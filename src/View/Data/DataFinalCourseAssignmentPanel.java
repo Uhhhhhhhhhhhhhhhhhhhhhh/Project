@@ -51,7 +51,8 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
         DefaultListModel fca = new DefaultListModel();
 
         for (int i = 0; i < fcas.get(1).size(); i++) {
-            fca.addElement(fcas.get(2).get(i) + " " + fcas.get(3).get(i));
+            ArrayList<Object> course = SQLPreparedStatements.getSingleCourse((String) fcas.get(3).get(i));
+            fca.addElement(course.get(0) + " " + course.get(1) + " " + fcas.get(2).get(i));
         }
         return fca;
     }

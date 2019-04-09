@@ -33,7 +33,6 @@ public class SQLPreparedStatements {
     
     private static Connection c;
     
-    
     public static boolean checkConnection(){
         try {
             return !c.isClosed();

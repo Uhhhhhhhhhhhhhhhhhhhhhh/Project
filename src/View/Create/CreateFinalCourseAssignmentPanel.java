@@ -147,11 +147,11 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setText("Start Date");
+        jLabel7.setText("Start Date (MM/DD/YYYY)");
 
         jsStartDate.setModel(new javax.swing.SpinnerDateModel());
 
-        jLabel10.setText("End Date");
+        jLabel10.setText("End Date (MM/DD/YYYY)");
 
         jsEndDate.setModel(new javax.swing.SpinnerDateModel());
 
