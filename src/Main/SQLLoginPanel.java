@@ -115,6 +115,8 @@ public class SQLLoginPanel extends javax.swing.JPanel {
         for(char c:jpf.getPassword())
             password += c;
         SQLPreparedStatements.connectToDB(jtfIPAddress.getText(), jtfDB.getText(), jtfUsername.getText(), password);
+        
+        ApplicationFrame.toggleMenu(SQLPreparedStatements.checkConnection());
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

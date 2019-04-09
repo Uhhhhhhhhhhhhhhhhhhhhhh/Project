@@ -17,11 +17,14 @@ import javax.swing.JInternalFrame;
  * @author Derek
  */
 public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
-
+    
+    int visual;
+    
     /**
      * Creates new form DataFacultyPanel
      */
-    public DataFinalCourseAssignmentPanel() {
+    public DataFinalCourseAssignmentPanel(int visual) {
+        this.visual = visual;
         initComponents();
     }
     
