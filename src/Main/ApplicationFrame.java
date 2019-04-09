@@ -2,6 +2,11 @@ package Main;
 
 import View.Create.*;
 import View.Data.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,6 +30,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
      */
     public ApplicationFrame() {
         initComponents();
+        try {
+            this.setIconImage(ImageIO.read(new File("img/icon.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -422,10 +432,10 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new ApplicationFrame().setVisible(true);
+            
+        new ApplicationFrame().setVisible(true);
+            
         });
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
