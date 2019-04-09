@@ -5,12 +5,22 @@
  */
 package View.Data;
 
+import Calendar.CourseToEvents;
+import Calendar.CreatePanels;
+import Calendar.WeekCalendar;
 import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
 import View.Item.ItemFinalCourseAssignmentPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -93,18 +103,48 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(evt.getClickCount() == 2) {
-            ArrayList<ArrayList> fca = SQLPreparedStatements.getFCA();
-            String course_id = (String) fca.get(3).get(jList1.getSelectedIndex());
-            String section_num = (String) fca.get(2).get(jList1.getSelectedIndex());
-            
-            JInternalFrame jif = new JInternalFrame("Item: FCA " + course_id + " - " + section_num, true, true, true, true);
-            jif.setBounds(0, 0, 225, 150);
-            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
-            ApplicationFrame.openFrameCount++;
-            jif.add((new ItemFinalCourseAssignmentPanel(SQLPreparedStatements.getSingleFCA(course_id, section_num))));
-            jif.setVisible(true);
-            ApplicationFrame.jDesktop.add(jif);
-            jif.toFront();
+            if(visual == 0) {
+                jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                
+                ArrayList<ArrayList> fca = SQLPreparedStatements.getFCA();
+                String course_id = (String) fca.get(3).get(jList1.getSelectedIndex());
+                String section_num = (String) fca.get(2).get(jList1.getSelectedIndex());
+
+                JInternalFrame jif = new JInternalFrame("Item: FCA " + course_id + " - " + section_num, true, true, true, true);
+                jif.setBounds(0, 0, 400, 300);
+                jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+                ApplicationFrame.openFrameCount++;
+                jif.add((new ItemFinalCourseAssignmentPanel(SQLPreparedStatements.getSingleFCA(course_id, section_num))));
+                jif.setVisible(true);
+                ApplicationFrame.jDesktop.add(jif);
+                jif.toFront();
+            } else if(visual == 1) {
+                jList1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                
+                ArrayList<ArrayList> fca = SQLPreparedStatements.getFCA();
+                String course_id = (String) fca.get(3).get(jList1.getSelectedIndex());
+                String section_num = (String) fca.get(2).get(jList1.getSelectedIndex());
+                Date start_date = (Date) fca.get(6).get(jList1.getSelectedIndex());
+                Date end_date = (Date) fca.get(7).get(jList1.getSelectedIndex());
+                int days = (int) fca.get(8).get(jList1.getSelectedIndex());
+                Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(jList1.getSelectedIndex())).get(1);
+                Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(jList1.getSelectedIndex())).get(2);
+                
+                JInternalFrame jif = new JInternalFrame("Calendar: FCA " + course_id + " - " + section_num, true, true, true, true);
+                jif.setBounds(0, 0, 1000, 900);
+                jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+                ApplicationFrame.openFrameCount++;
+
+                WeekCalendar cal = CreatePanels.createWeekCalendarPanel(CourseToEvents.fcaToCalendarEvent(course_id, section_num, "COURSE SUB - NUM - SECTION", start_date.toLocalDate(), end_date.toLocalDate(), start_time.toLocalTime(), end_time.toLocalTime(), days));
+                
+                
+                jif.add(CreatePanels.createWeekControlPanel(cal), BorderLayout.NORTH);
+                jif.add(cal, BorderLayout.CENTER);
+                jif.setVisible(true);
+                ApplicationFrame.jDesktop.add(jif);
+                jif.toFront();
+                
+            }
         }
     }//GEN-LAST:event_jList1MouseClicked
 

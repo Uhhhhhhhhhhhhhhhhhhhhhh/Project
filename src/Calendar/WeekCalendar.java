@@ -8,6 +8,11 @@ public class WeekCalendar extends Calendar {
 
     private Week week;
 
+    public WeekCalendar() {
+        super();
+        week = new Week(LocalDate.now());
+    }
+    
     public WeekCalendar(ArrayList<CalendarEvent> events) {
         super(events);
         week = new Week(LocalDate.now());

@@ -65,6 +65,7 @@ public class CalendarView {
     }
     
     private static void createEventPopUp(CalendarEvent e){
-        ApplicationFrame.createNewPanel(new View.Item.ItemFinalCourseAssignmentPanel(), "Item: Final Course Assignment", 10, 10);
+        ArrayList<Object> fca = SQLPreparedStatements.getSingleFCA(e.getCourseId(), e.getSectionNum());
+        ApplicationFrame.createNewPanel(new View.Item.ItemFinalCourseAssignmentPanel(fca), "Item: Final Course Assignment", 10, 10);
     }
 }

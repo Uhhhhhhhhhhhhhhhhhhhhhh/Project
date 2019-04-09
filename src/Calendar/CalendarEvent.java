@@ -12,17 +12,29 @@ public class CalendarEvent {
     private LocalTime start;
     private LocalTime end;
     private String text;
+    private String course_id;
+    private String section_num;
     private Color color;
 
     public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text) {
-        this(date, start, end, text, DEFAULT_COLOR);
+        this(date, start, end, text, "", "", DEFAULT_COLOR);
+    }
+    
+    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, Color color) {
+        this(date, start, end, text, "", "", color);
+    }
+    
+    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, String course_id, String section_num) {
+        this(date, start, end, text, course_id, section_num, DEFAULT_COLOR);
     }
 
-    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, Color color) {
+    public CalendarEvent(LocalDate date, LocalTime start, LocalTime end, String text, String course_id, String section_num, Color color) {
         this.date = date;
         this.start = start;
         this.end = end;
         this.text = text;
+        this.course_id = course_id;
+        this.section_num = section_num;
         this.color = color;
     }
 
@@ -56,6 +68,22 @@ public class CalendarEvent {
 
     public void setText(String text) {
         this.text = text;
+    }
+    
+    public String getCourseId() {
+        return course_id;
+    }
+    
+    public void setCourseId(String course_id) {
+        this.course_id = course_id;
+    }
+    
+    public String getSectionNum() {
+        return section_num;
+    }
+    
+    public void setSectionNum(String section_num) {
+        this.section_num = section_num;
     }
 
     public String toString() {

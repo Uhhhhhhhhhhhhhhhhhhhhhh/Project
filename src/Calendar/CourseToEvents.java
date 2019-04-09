@@ -5,10 +5,11 @@
  */
 package Calendar;
 
-import Model.Final_Course_Assignment;
+import Main.SQLPreparedStatements;
 import java.awt.Color;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -17,84 +18,90 @@ import java.util.ArrayList;
  */
 public class CourseToEvents {
     
-    public static ArrayList<CalendarEvent> fcaToCalendarEvent(ArrayList<Object> fca, Color course_color, LocalDate semester_start, LocalDate semester_end){
+    public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, int dates){
+        return fcaToCalendarEvent(course_id, section_num, text, start_date, end_date, start_time, end_time, dates, Color.CYAN);
+    }
+    
+    public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, int dates, Color course_color){
         ArrayList<CalendarEvent> classes = new ArrayList<>();
-        semester_end = semester_end.plusDays(1);
+        end_date = end_date.plusDays(1);
         
-        if(fca.getDays()[0]) {
-            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+        boolean[] days = SQLPreparedStatements.intToArray(dates);
+        
+        if(days[0]) {
+            LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.MONDAY) {
                 tempLD = tempLD.plusDays(1);
             }
-            while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+            while(tempLD.isBefore(end_date)){
+                classes.add(new CalendarEvent(tempLD, start_time, end_time, text, course_id, section_num, course_color));
                 tempLD = tempLD.plusDays(7);
             }
         }
         
-        if(fca.getDays()[1]) {
-            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+        if(days[1]) {
+            LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.TUESDAY) {
                 tempLD = tempLD.plusDays(1);
             }
-            while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+            while(tempLD.isBefore(end_date)){
+                classes.add(new CalendarEvent(tempLD, start_time, end_time, text, course_id, section_num, course_color));
                 tempLD = tempLD.plusDays(7);
             }
         }
         
-        if(fca.getDays()[2]) {
-            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+        if(days[2]) {
+            LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.WEDNESDAY) {
                 tempLD = tempLD.plusDays(1);
             }
-            while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+            while(tempLD.isBefore(end_date)){
+                classes.add(new CalendarEvent(tempLD, start_time, end_time, text, course_id, section_num, course_color));
                 tempLD = tempLD.plusDays(7);
             }
         }
         
-        if(fca.getDays()[3]) {
-            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+        if(days[3]) {
+            LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.THURSDAY) {
                 tempLD = tempLD.plusDays(1);
             }
-            while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+            while(tempLD.isBefore(end_date)){
+                classes.add(new CalendarEvent(tempLD, start_time, end_time, text, course_id, section_num, course_color));
                 tempLD = tempLD.plusDays(7);
             }
         }
         
-        if(fca.getDays()[4]) {
-            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+        if(days[4]) {
+            LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.FRIDAY) {
                 tempLD = tempLD.plusDays(1);
             }
-            while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+            while(tempLD.isBefore(end_date)){
+                classes.add(new CalendarEvent(tempLD, start_time, end_time, text, course_id, section_num, course_color));
                 tempLD = tempLD.plusDays(7);
             }
         }
         
-        if(fca.getDays()[5]) {
-            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+        if(days[5]) {
+            LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.SATURDAY) {
                 tempLD = tempLD.plusDays(1);
             }
-            while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+            while(tempLD.isBefore(end_date)){
+                classes.add(new CalendarEvent(tempLD, start_time, end_time, text, course_id, section_num, course_color));
                 tempLD = tempLD.plusDays(7);
             }
         }
         
         
-        if(fca.getDays()[6]) {
-            LocalDate tempLD = LocalDate.of(semester_start.getYear(), semester_start.getMonth(), semester_start.getDayOfMonth());
+        if(days[6]) {
+            LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());
             while(tempLD.getDayOfWeek() != DayOfWeek.SUNDAY) {
                 tempLD = tempLD.plusDays(1);
             }
-            while(tempLD.isBefore(semester_end)){
-                classes.add(new CalendarEvent(tempLD, fca.getPeriod().getStart_time(), fca.getPeriod().getEnd_time(), fca.toEventString(), course_color, fca));
+            while(tempLD.isBefore(end_date)){
+                classes.add(new CalendarEvent(tempLD, start_time, end_time, text, course_id, section_num, course_color));
                 tempLD = tempLD.plusDays(7);
             }
         }

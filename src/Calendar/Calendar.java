@@ -357,7 +357,7 @@ public abstract class Calendar extends JComponent {
 
             // Draw the event's text
             g2.drawString(event.getText(), (int) x + 5, (int) y0 + 23);
-
+            //TODO: Modify text to not go far
             //TODO: EVENT DRAW ON CALENDAR
             
             // Reset font

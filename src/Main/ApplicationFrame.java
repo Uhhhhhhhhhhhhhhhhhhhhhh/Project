@@ -341,7 +341,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiDisconnectActionPerformed
 
     private void jmiCVCLFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVCLFCAActionPerformed
-        //CALENDAR OF FCA
+        createNewPanel(new DataFinalCourseAssignmentPanel(1), "Calendar: Final Course Assignment", 700, 720);
         
         
     }//GEN-LAST:event_jmiCVCLFCAActionPerformed
