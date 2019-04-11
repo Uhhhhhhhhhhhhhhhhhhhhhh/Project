@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 public class ApplicationFrame extends javax.swing.JFrame {
 
     public static int openFrameCount = 0;
-    public static final int XOFFSET = 30, YOFFSET = 30;
+    public static int XOFFSET = 30, YOFFSET = 30;
 
     /**
      * Creates new form TestFrame
@@ -46,6 +46,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
@@ -77,6 +79,10 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmiDisconnect = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiReset = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -371,9 +377,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     
     public static void createNewPanel(JPanel p, String title, int x, int y) {
+        int x_val = (int) (Math.random() * (jDesktop.getWidth() - 100 - x)) + 50;
+        int y_val = (int) (Math.random() * (jDesktop.getHeight() - 100 - y)) + 50;
         JInternalFrame jif = new JInternalFrame(title, true, true, true, true);
         jif.setBounds(0, 0, x, y);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        jif.setLocation(x_val, y_val);
         openFrameCount++;
         jif.add(p);
         jif.setVisible(true);
@@ -442,6 +450,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private static javax.swing.JMenu jmCVCL;
