@@ -2,6 +2,11 @@ package Main;
 
 import View.Create.*;
 import View.Data.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,13 +23,18 @@ import javax.swing.JPanel;
 public class ApplicationFrame extends javax.swing.JFrame {
 
     public static int openFrameCount = 0;
-    public static final int XOFFSET = 30, YOFFSET = 30;
+    public static int XOFFSET = 30, YOFFSET = 30;
 
     /**
      * Creates new form TestFrame
      */
     public ApplicationFrame() {
         initComponents();
+        try {
+            this.setIconImage(ImageIO.read(new File("img/icon.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -36,6 +46,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
@@ -67,6 +79,10 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmiDisconnect = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiReset = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -332,7 +348,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiSQLConnectionActionPerformed
 
     private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
-        createNewPanel(new AboutPanel(), "About LionPlanner", 310, 279);
+        //for(int i = 0; i < 1000; i++)
+            createNewPanel(new AboutPanel(), "About LionPlanner", 310, 279);
     }//GEN-LAST:event_jmiAboutActionPerformed
 
     private void jmiDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDisconnectActionPerformed
@@ -361,9 +378,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     
     public static void createNewPanel(JPanel p, String title, int x, int y) {
+        int x_val = (int) (Math.random() * (jDesktop.getWidth() - 100 - x)) + 50;
+        int y_val = (int) (Math.random() * (jDesktop.getHeight() - 100 - y)) + 50;
         JInternalFrame jif = new JInternalFrame(title, true, true, true, true);
         jif.setBounds(0, 0, x, y);
-        jif.setLocation(XOFFSET * openFrameCount, YOFFSET * openFrameCount);
+        jif.setLocation(x_val, y_val);
         openFrameCount++;
         jif.add(p);
         jif.setVisible(true);
@@ -422,16 +441,18 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new ApplicationFrame().setVisible(true);
+            
+        new ApplicationFrame().setVisible(true);
+            
         });
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane jDesktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private static javax.swing.JMenu jmCVCL;

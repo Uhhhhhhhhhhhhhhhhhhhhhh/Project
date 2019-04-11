@@ -3,33 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Item/ItemTimePanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Create/CreateTimePeriodPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Data/DataFinalCourseAssignmentPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Item/ItemFinalCourseAssignmentPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Create/CreateFacultyPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/Main/ApplicationFrame.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Create/CreateFinalCourseAssignmentPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Item/ItemFacultyPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Create/CreateRoomPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Create/CreateCoursePanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Data/DataTimePeriodPanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/Calendar/CalendarEvent.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Item/ItemCoursePanel.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/Main/CalendarView.java</file>
-            <file>file:/C:/Users/Derek/Documents/NetBeansProjects/IST%20261%20Project/src/View/Data/DataCoursePanel.java</file>
-=======
-            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Item/ItemFinalCourseAssignmentPanel.java</file>
             <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/WeekCalendarTest.java</file>
-            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Calendar/CalendarEventClickListener.java</file>
-            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Calendar/CalendarEventClickEvent.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Create/CreateFinalCourseAssignmentPanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Main/SQLLoginPanel.java</file>
             <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Calendar/CourseToEvents.java</file>
-            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Main/SQLPreparedStatements.java</file>
             <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Calendar/CalendarEmptyClickEvent.java</file>
             <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Create/CreateCoursePanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Data/DataFinalCourseAssignmentPanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/View/Item/ItemFinalCourseAssignmentPanel.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Calendar/CalendarEventClickListener.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Calendar/CalendarEventClickEvent.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Main/ApplicationFrame.java</file>
+            <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Main/SQLPreparedStatements.java</file>
             <file>file:/X:/My%20Documents/NetBeansProjects/Project/Project/src/Main/CalendarView.java</file>
->>>>>>> 765727501e4da392d630d6fe1588632341648f6b
         </group>
     </open-files>
 </project-private>

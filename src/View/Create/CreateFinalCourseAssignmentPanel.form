@@ -268,7 +268,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Start Date"/>
+        <Property name="text" type="java.lang.String" value="Start Date (MM/DD/YYYY)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="jsStartDate">
@@ -283,7 +283,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="End Date"/>
+        <Property name="text" type="java.lang.String" value="End Date (MM/DD/YYYY)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="jsEndDate">
