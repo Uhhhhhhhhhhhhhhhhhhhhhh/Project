@@ -348,8 +348,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiSQLConnectionActionPerformed
 
     private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
-        //for(int i = 0; i < 1000; i++)
-            createNewPanel(new AboutPanel(), "About LionPlanner", 310, 279);
+        createNewPanel(new AboutPanel(), "About LionPlanner", 310, 279);
     }//GEN-LAST:event_jmiAboutActionPerformed
 
     private void jmiDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDisconnectActionPerformed
