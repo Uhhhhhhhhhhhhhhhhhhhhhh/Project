@@ -344,6 +344,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCVFacultyActionPerformed
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
+        //if() if Dat file Exists
         createNewPanel(new SQLLoginPanel(), "SQL Connection", 330, 320);
     }//GEN-LAST:event_jmiSQLConnectionActionPerformed
 
