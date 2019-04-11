@@ -11,7 +11,8 @@ CREATE TABLE Faculty (
     Last_Name VARCHAR(30) NOT NULL,
     First_Name VARCHAR(30) NOT NULL,
     Major_College VARCHAR(45),
-    Preferred_Days int
+    Preferred_Days int,
+	Employment_Type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Room (
