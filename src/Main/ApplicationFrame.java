@@ -3,7 +3,9 @@ package Main;
 import View.Create.*;
 import View.Data.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -267,8 +269,8 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jMenu1.add(jmiDisconnect);
         jMenu1.add(jSeparator1);
 
-        jmiReset.setText("Reset Tables and Data");
-        jmiReset.setEnabled(false);
+        jmiReset.setText("Reset Stored Login");
+        jmiReset.setEnabled(true);
         jmiReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiResetActionPerformed(evt);
@@ -345,7 +347,33 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
         //if() if Dat file Exists
-        createNewPanel(new SQLLoginPanel(), "SQL Connection", 330, 320);
+        File dbInfo = new File("C:\\Users\\dsd5227\\AppData\\Local\\Temp\\261DBLogin.dat");
+        if(dbInfo.exists()){
+            String ip = "", db = "", username = "", password = "";
+            try {
+                Scanner inFile = new Scanner(dbInfo);
+                while(inFile.hasNextLine()){
+                    String line = inFile.nextLine();
+                    if(line.substring(0,2).equals("ip"))
+                        ip = line.substring(3);
+                    if(line.substring(0,2).equals("db"))
+                        db = line.substring(3);
+                    if(line.substring(0,2).equals("un"))
+                        username = line.substring(3);
+                    if(line.substring(0,2).equals("pw"))
+                        password = line.substring(3);
+                }
+                inFile.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ApplicationFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            SQLPreparedStatements.connectToDB(ip, db, username, password);
+            ApplicationFrame.toggleMenu(SQLPreparedStatements.checkConnection());
+        } else {
+            createNewPanel(new SQLLoginPanel(), "SQL Connection", 330, 320);
+        }
     }//GEN-LAST:event_jmiSQLConnectionActionPerformed
 
     private void jmiAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutActionPerformed
@@ -364,9 +392,13 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiCVCLFCAActionPerformed
 
     private void jmiResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiResetActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the SQL DB?", "WARNING",
+        if (JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the stored login info?", "WARNING",
         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            SQLPreparedStatements.resetDB();
+            try {
+                SQLPreparedStatements.resetDB();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "DB not reset!", "MySQL: Reset", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "DB not reset!", "MySQL: Reset", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -398,7 +430,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
             jmData.setEnabled(toggle);
             jmCalView.setEnabled(toggle);
             jmiDisconnect.setEnabled(SQLPreparedStatements.checkConnection());
-            jmiReset.setEnabled(SQLPreparedStatements.checkConnection());
+            //jmiReset.setEnabled(SQLPreparedStatements.checkConnection());
         }catch(Exception e){}
     }
     

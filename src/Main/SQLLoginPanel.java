@@ -5,6 +5,12 @@
  */
 package Main;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Derek
@@ -115,7 +121,16 @@ public class SQLLoginPanel extends javax.swing.JPanel {
         for(char c:jpf.getPassword())
             password += c;
         SQLPreparedStatements.connectToDB(jtfIPAddress.getText(), jtfDB.getText(), jtfUsername.getText(), password);
-        
+        if(SQLPreparedStatements.checkConnection()){
+            File dbInfo = new File("C:\\Users\\dsd5227\\AppData\\Local\\Temp\\261DBLogin.dat");
+            try { 
+                try (FileWriter writer = new FileWriter(dbInfo)) {
+                    writer.write("ip " + jtfIPAddress.getText() + "\ndb " + jtfDB.getText() + "\nun " + jtfUsername.getText() + "\npw " + password);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(SQLLoginPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         ApplicationFrame.toggleMenu(SQLPreparedStatements.checkConnection());
     }//GEN-LAST:event_jButton1ActionPerformed
 

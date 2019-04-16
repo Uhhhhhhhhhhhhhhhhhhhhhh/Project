@@ -7,8 +7,10 @@ package Main;
 
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -548,35 +550,14 @@ public class SQLPreparedStatements {
     }
     
     
-    public static void resetDB() {
-        String s = "";
-        StringBuffer sb = new StringBuffer();
-        try {
-            FileReader fr = new FileReader(new File("IST261DBTables.sql"));
-
-            BufferedReader br = new BufferedReader(fr);
-
-            while((s = br.readLine()) != null) {
-                sb.append(s);
-            }
-            
-            br.close();
-            
-            String[] inst = sb.toString().split(";");
-            
-            Statement st = c.createStatement();
- 
-            for(int i = 0; i<inst.length; i++) {
-                if(!inst[i].trim().equals("")) {
-                    st.executeUpdate(inst[i]);
-                    //System.out.println(">>"+inst[i]);
-                }
-            }
-   
-            JOptionPane.showMessageDialog(null, "DB reset!", "MySQL: Reset", JOptionPane.INFORMATION_MESSAGE);
-        } catch(HeadlessException | IOException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! DB not reset!\n" + e.getMessage(), "MySQL: Reset", JOptionPane.ERROR_MESSAGE);
+    public static void resetDB() throws IOException {
+        File dbInfo = new File("C:\\Users\\dsd5227\\AppData\\Local\\Temp\\261DBLogin.dat");
+        if(dbInfo.delete()){
+            JOptionPane.showMessageDialog(null, "Login Reset", "MySQL: DB Login Reset", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "File not found", "MySQL: DB Login Reset", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
     
     public static ArrayList<String> getCoursePrereqs(String course_id) {
