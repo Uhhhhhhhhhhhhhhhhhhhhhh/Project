@@ -69,13 +69,13 @@ public class SQLPreparedStatements {
     }
     
     private static void createPreparedStatements() throws SQLException {
-        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major_College, Preferred_Days) values(?, ?, ?, ?, ?)";
+        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major_College) values(?, ?, ?, ?)";
         psInsertFaculty = c.prepareStatement(query);
         
         query = "INSERT into ProfessorTimePref(Faculty_PSU_ID, TimePeriod_Period) values (?, ?)";
         psInsertFacultyTimePref = c.prepareStatement(query);
         
-        query = "INSERT into timeperiod(start_time, end_time) values(?, ?)";
+        query = "INSERT into timeperiod(days, start_time, end_time) values(?, ?, ?)";
         psInsertTimePeriod = c.prepareStatement(query);
         
         query = "INSERT into room(room_id, building, occupancy, num_of_computers, lab_type) values (?, ?, ?, ?, ?)";
@@ -218,7 +218,7 @@ public class SQLPreparedStatements {
         
     }
     
-    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref){
+    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, int[] timePref){
         boolean success;
 
         try {
@@ -237,7 +237,6 @@ public class SQLPreparedStatements {
             psInsertFaculty.setString (2, last_name);
             psInsertFaculty.setString (3, first_name);
             psInsertFaculty.setString (4, major_college);
-            psInsertFaculty.setInt    (5, daysToInt(preferred_days));
             
             success = psInsertFaculty.execute();
             JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "MySQL: Faculty", JOptionPane.INFORMATION_MESSAGE);
@@ -265,7 +264,8 @@ public class SQLPreparedStatements {
         return success;
     }
     
-    public static boolean addNewTime(LocalTime start, LocalTime end) {
+    @Deprecated
+    public static boolean addNewTime(boolean[] days, LocalTime start, LocalTime end) {
         boolean success;
         
         try {
@@ -394,8 +394,9 @@ public class SQLPreparedStatements {
             
             while(rsSelectAllTime.next()) {
                 times.get(0).add(rsSelectAllTime.getInt("period"));
-                times.get(1).add(rsSelectAllTime.getTime("start_time").toLocalTime());
-                times.get(2).add(rsSelectAllTime.getTime("end_time").toLocalTime());
+                times.get(1).add(rsSelectAllTime.getInt("Days"));
+                times.get(2).add(rsSelectAllTime.getTime("start_time").toLocalTime());
+                times.get(3).add(rsSelectAllTime.getTime("end_time").toLocalTime());
             }
             
             return times;
@@ -503,7 +504,7 @@ public class SQLPreparedStatements {
         }
     }
     
-    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, int days, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
+    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
         boolean success;
         
         try {
@@ -513,12 +514,12 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setString(4, course_id);
             psInsertFinalCourseAssignment.setString(5, faculty_id);
             psInsertFinalCourseAssignment.setInt(6, time_period);
-            psInsertFinalCourseAssignment.setInt(7, days);
-            psInsertFinalCourseAssignment.setDate(8, Date.valueOf(start_date));
-            psInsertFinalCourseAssignment.setDate(9, Date.valueOf(end_date));
-            psInsertFinalCourseAssignment.setInt(10, capacity);
-            psInsertFinalCourseAssignment.setInt(11, enrollment);
-            psInsertFinalCourseAssignment.setString(12, type);
+            
+            psInsertFinalCourseAssignment.setDate(7, Date.valueOf(start_date));
+            psInsertFinalCourseAssignment.setDate(8, Date.valueOf(end_date));
+            psInsertFinalCourseAssignment.setInt(9, capacity);
+            psInsertFinalCourseAssignment.setInt(10, enrollment);
+            psInsertFinalCourseAssignment.setString(11, type);
             
             success = psInsertFinalCourseAssignment.execute();
             JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
@@ -551,7 +552,7 @@ public class SQLPreparedStatements {
     
     
     public static void resetDB() throws IOException {
-        File dbInfo = new File("C:\\Users\\dsd5227\\AppData\\Local\\Temp\\261DBLogin.dat");
+        File dbInfo = new File("261DBLogin.dat");
         if(dbInfo.delete()){
             JOptionPane.showMessageDialog(null, "Login Reset", "MySQL: DB Login Reset", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -591,7 +592,6 @@ public class SQLPreparedStatements {
                 courses.add(rsSelectSingleFaculty.getString("last_name"));
                 courses.add(rsSelectSingleFaculty.getString("first_name"));
                 courses.add(rsSelectSingleFaculty.getString("major_college"));
-                courses.add(rsSelectSingleFaculty.getInt("preferred_days"));
             }
             
             return courses;
@@ -733,53 +733,50 @@ public class SQLPreparedStatements {
     
     
     
-    public static int daysToInt(boolean[] days) {
+    public static String daysToString(boolean[] days) {
         //MTWTFSS
-        int mon, tues, wed, thurs, fri, sat, sun;
-        mon = tues = wed = thurs = fri = sat = sun = 0;
+        String dates = "";
         
         if(days[0])
-            mon = 1000000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[1])
-            tues = 100000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[2])
-            wed = 10000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[3])
-            thurs = 1000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[4])
-            fri = 100;
+            dates += "1";
+        else
+            dates += "0";
         if(days[5])
-            sat = 10;
+            dates += "1";
+        else
+            dates += "0";
         if(days[6])
-            sun = 1;
+            dates += "1";
+        else
+            dates += "0";
         
-        return mon + tues + wed + thurs + fri + sat + sun;
+        return dates;
     }
     
-    public static boolean[] intToArray(int days) {
+    public static boolean[] stringToArray(String days) {
+        boolean[] dates = new boolean[]{false, false, false, false, false, false, false}; 
         
-        int sun = days % 10;
-        days /= 10;
+        for(int i = 0; i < days.length(); i++)
+            dates[i] = days.charAt(i) == '1';
         
-        int sat = days % 10;
-        days /= 10;
         
-        int fri = days % 10;
-        days /= 10;
-        
-        int thurs = days % 10;
-        days /= 10;
-        
-        int wed = days % 10;
-        days /= 10;
-        
-        int tues = days % 10;
-        days /= 10;
-        
-        int mon = days % 10;
-        days /= 10;
-        
-        return new boolean[]{mon == 1, tues  == 1, wed  == 1, thurs  == 1, fri  == 1, sat  == 1, sun  == 1};
+        return dates;
     }
     
     //Insert

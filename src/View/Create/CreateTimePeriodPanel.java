@@ -14,6 +14,7 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Derek
  */
+@Deprecated
 public class CreateTimePeriodPanel extends javax.swing.JPanel {
 
     /**
@@ -134,7 +135,7 @@ public class CreateTimePeriodPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        SQLPreparedStatements.addNewTime(LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
+        //SQLPreparedStatements.addNewTime(LocalTime.of((int) jsStartHr.getValue(), (int) jsStartMin.getValue()), LocalTime.of((int) jsEndHr.getValue(), (int) jsEndMin.getValue()));
         clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 
