@@ -122,7 +122,7 @@ public class SQLLoginPanel extends javax.swing.JPanel {
             password += c;
         SQLPreparedStatements.connectToDB(jtfIPAddress.getText(), jtfDB.getText(), jtfUsername.getText(), password);
         if(SQLPreparedStatements.checkConnection()){
-            File dbInfo = new File("261DBLogin.dat");
+            File dbInfo = new File("C:\\Users\\dsd5227\\AppData\\Local\\Temp261DBLogin.dat");
             try { 
                 try (FileWriter writer = new FileWriter(dbInfo)) {
                     writer.write("ip " + jtfIPAddress.getText() + "\ndb " + jtfDB.getText() + "\nun " + jtfUsername.getText() + "\npw " + password);

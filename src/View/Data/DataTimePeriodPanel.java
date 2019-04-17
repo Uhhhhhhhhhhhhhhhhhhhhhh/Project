@@ -33,9 +33,33 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            time.addElement(times.get(1).get(i) + " - " + times.get(2).get(i));
+            time.addElement(stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
         }
         return time;
+    }
+    
+    public String stringDaysToString(String dates) {
+        String days = "";
+        boolean[] booldays = SQLPreparedStatements.stringToArray(dates);
+        
+        if(booldays[0])
+            days += "Mon, ";
+        if(booldays[1])
+            days += "Tues, ";
+        if(booldays[2])
+            days += "Wed, ";
+        if(booldays[3])
+            days += "Thurs, ";
+        if(booldays[4])
+            days += "Fri, ";
+        if(booldays[5])
+            days += "Sat, ";
+        if(booldays[6])
+            days += "Sun, ";
+        
+        
+        
+        return days.substring(0, days.length() - 2);
     }
 
     /**

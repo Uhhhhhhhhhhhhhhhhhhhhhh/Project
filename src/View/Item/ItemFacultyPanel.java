@@ -32,7 +32,7 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
     
     public DefaultListModel createPreferredDayList() {
         DefaultListModel preferredDays = new DefaultListModel();
-        boolean[] days = SQLPreparedStatements.intToArray((int) info.get(4));
+        boolean[] days = SQLPreparedStatements.stringToArray((String) info.get(4));
         if(days[0])
             preferredDays.addElement("Monday");
         if(days[1])

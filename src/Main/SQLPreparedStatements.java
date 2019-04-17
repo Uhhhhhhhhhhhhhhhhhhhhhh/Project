@@ -391,10 +391,11 @@ public class SQLPreparedStatements {
             times.add(new ArrayList<>());
             times.add(new ArrayList<>());
             times.add(new ArrayList<>());
+            times.add(new ArrayList<>());
             
             while(rsSelectAllTime.next()) {
                 times.get(0).add(rsSelectAllTime.getInt("period"));
-                times.get(1).add(rsSelectAllTime.getInt("Days"));
+                times.get(1).add(rsSelectAllTime.getString("Days"));
                 times.get(2).add(rsSelectAllTime.getTime("start_time").toLocalTime());
                 times.get(3).add(rsSelectAllTime.getTime("end_time").toLocalTime());
             }

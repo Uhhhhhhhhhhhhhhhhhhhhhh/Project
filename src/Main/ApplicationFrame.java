@@ -347,7 +347,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
         //if() if Dat file Exists
-        File dbInfo = new File("C:\\Users\\dsd5227\\AppData\\Local\\Temp\\261DBLogin.dat");
+        File dbInfo = new File("261DBLogin.dat");
         if(dbInfo.exists()){
             String ip = "", db = "", username = "", password = "";
             try {
