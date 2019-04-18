@@ -33,34 +33,11 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            time.addElement(stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
         }
         return time;
     }
     
-    public String stringDaysToString(String dates) {
-        String days = "";
-        boolean[] booldays = SQLPreparedStatements.stringToArray(dates);
-        
-        if(booldays[0])
-            days += "Mon, ";
-        if(booldays[1])
-            days += "Tues, ";
-        if(booldays[2])
-            days += "Wed, ";
-        if(booldays[3])
-            days += "Thurs, ";
-        if(booldays[4])
-            days += "Fri, ";
-        if(booldays[5])
-            days += "Sat, ";
-        if(booldays[6])
-            days += "Sun, ";
-        
-        
-        
-        return days.substring(0, days.length() - 2);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,10 +94,8 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
         if(evt.getClickCount() == 2) {
             ArrayList<ArrayList> times = SQLPreparedStatements.getTimePeriods();
             int period = (int) times.get(0).get(jList1.getSelectedIndex());
-            LocalTime start = (LocalTime) times.get(1).get(jList1.getSelectedIndex());
-            LocalTime end = (LocalTime) times.get(1).get(jList1.getSelectedIndex());
-            JInternalFrame jif = new JInternalFrame("Item: Time " + start.toString() + " - " + end.toString(), true, true, true, true);
-            jif.setBounds(0, 0, 225, 150);
+            JInternalFrame jif = new JInternalFrame("Item: Time " + jList1.getSelectedValue(), true, true, true, true);
+            jif.setBounds(0, 0, 225, 200);
             jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
             ApplicationFrame.openFrameCount++;
             jif.add((new ItemTimePanel(SQLPreparedStatements.getSingleTime(period))));

@@ -289,11 +289,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
             days[day] = true;
         }
         
-        Date start = (Date) jsStartDate.getValue();
-        Date end = (Date) jsEndDate.getValue();
         
-        LocalDate startDate = start.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate endDate = end.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         ArrayList<ArrayList> rooms = SQLPreparedStatements.getRooms();
         String room_num = (String) rooms.get(1).get(jlRoom.getSelectedIndex());
@@ -317,7 +313,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         
         if((int) jsCapacity.getValue() > (int) jsEnrollment.getValue())
             // TODO - Need to Update to use StorageController
-            SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
+            SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
         else {
             int section = 1;
             int capacity = (int) jsCapacity.getValue();
@@ -328,7 +324,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                 String sect = null;
                 if(section < 10)
                     sect = "00" + section++;
-                SQLPreparedStatements.addNewFCA(room_num, room_bldg, sect, course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), class_enrollment, type);
+                SQLPreparedStatements.addNewFCA(room_num, room_bldg, sect, course_id, fac_id, time_period, (int) jsCapacity.getValue(), class_enrollment, type);
                 
             }
         }

@@ -50,6 +50,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jmiNewTime = new javax.swing.JMenuItem();
         jDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
@@ -59,7 +60,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmiAbout = new javax.swing.JMenuItem();
         jmNew = new javax.swing.JMenu();
         jmiNewFaculty = new javax.swing.JMenuItem();
-        jmiNewTime = new javax.swing.JMenuItem();
         jmiNewRoom = new javax.swing.JMenuItem();
         jmiNewCourse = new javax.swing.JMenuItem();
         jmiNewFCA = new javax.swing.JMenuItem();
@@ -85,6 +85,13 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         jMenuItem2.setText("jMenuItem2");
+
+        jmiNewTime.setText("Time");
+        jmiNewTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiNewTimeActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,14 +137,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
             }
         });
         jmNew.add(jmiNewFaculty);
-
-        jmiNewTime.setText("Time");
-        jmiNewTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiNewTimeActionPerformed(evt);
-            }
-        });
-        jmNew.add(jmiNewTime);
 
         jmiNewRoom.setText("Room");
         jmiNewRoom.addActionListener(new java.awt.event.ActionListener() {
@@ -301,26 +300,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiNewRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewRoomActionPerformed
-        createNewPanel(new CreateRoomPanel(), "New: Room", 427, 325);
-    }//GEN-LAST:event_jmiNewRoomActionPerformed
-
-    private void jmiNewFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFacultyActionPerformed
-        createNewPanel(new CreateFacultyPanel(), "New: Faculty", 600, 455);
-    }//GEN-LAST:event_jmiNewFacultyActionPerformed
-
-    private void jmiNewTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewTimeActionPerformed
-        createNewPanel(new CreateTimePeriodPanel(), "New: Time", 300, 260);
-    }//GEN-LAST:event_jmiNewTimeActionPerformed
-
-    private void jmiNewCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewCourseActionPerformed
-        createNewPanel(new CreateCoursePanel(), "New: Course", 475, 485);
-    }//GEN-LAST:event_jmiNewCourseActionPerformed
-
-    private void jmiNewFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFCAActionPerformed
-        createNewPanel(new CreateFinalCourseAssignmentPanel(), "New: Final Course Assignment", 835, 745);
-    }//GEN-LAST:event_jmiNewFCAActionPerformed
-
     private void jmiDataFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataFacultyActionPerformed
         createNewPanel(new DataFacultyPanel(), "Data: Faculty", 700, 720);
     }//GEN-LAST:event_jmiDataFacultyActionPerformed
@@ -407,6 +386,26 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private void jmiCVRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVRoomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiCVRoomActionPerformed
+
+    private void jmiNewFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFCAActionPerformed
+        createNewPanel(new CreateFinalCourseAssignmentPanel(), "New: Final Course Assignment", 835, 745);
+    }//GEN-LAST:event_jmiNewFCAActionPerformed
+
+    private void jmiNewCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewCourseActionPerformed
+        createNewPanel(new CreateCoursePanel(), "New: Course", 475, 485);
+    }//GEN-LAST:event_jmiNewCourseActionPerformed
+
+    private void jmiNewRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewRoomActionPerformed
+        createNewPanel(new CreateRoomPanel(), "New: Room", 427, 325);
+    }//GEN-LAST:event_jmiNewRoomActionPerformed
+
+    private void jmiNewTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewTimeActionPerformed
+        createNewPanel(new CreateTimePeriodPanel(), "New: Time", 300, 260);
+    }//GEN-LAST:event_jmiNewTimeActionPerformed
+
+    private void jmiNewFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFacultyActionPerformed
+        createNewPanel(new CreateFacultyPanel(), "New: Faculty", 600, 455);
+    }//GEN-LAST:event_jmiNewFacultyActionPerformed
 
     
     public static void createNewPanel(JPanel p, String title, int x, int y) {
@@ -506,11 +505,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private static javax.swing.JMenuItem jmiDisconnect;
     private static javax.swing.JMenuItem jmiExport;
     private static javax.swing.JMenuItem jmiImport;
-    private static javax.swing.JMenuItem jmiNewCourse;
-    private static javax.swing.JMenuItem jmiNewFCA;
-    private static javax.swing.JMenuItem jmiNewFaculty;
-    private static javax.swing.JMenuItem jmiNewRoom;
-    private static javax.swing.JMenuItem jmiNewTime;
+    private javax.swing.JMenuItem jmiNewCourse;
+    private javax.swing.JMenuItem jmiNewFCA;
+    private javax.swing.JMenuItem jmiNewFaculty;
+    private javax.swing.JMenuItem jmiNewRoom;
+    private javax.swing.JMenuItem jmiNewTime;
     private static javax.swing.JMenuItem jmiReset;
     private static javax.swing.JMenuItem jmiSQLConnection;
     // End of variables declaration//GEN-END:variables

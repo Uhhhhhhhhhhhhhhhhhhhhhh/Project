@@ -33,14 +33,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            String print_days = "";
-            String strDays = Integer.toString(((int) times.get(1).get(i)));
-            int days = Integer.parseInt(strDays.substring(1));
-            
-            
-            
-            
-            time.addElement(times.get(2).get(i) + " - " + times.get(3).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " " + times.get(2).get(i) + " - " + times.get(3).get(i));
         }
         return time;
     }
@@ -83,6 +76,8 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
         jcbSubject = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(430, 415));
 
@@ -118,6 +113,10 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel6.setText("Employment Type");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Part-Time", "Tenure", "Teaching Professor" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,6 +124,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,11 +140,12 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                             .addComponent(jtfPSU_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(jLabel6)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,8 +161,10 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(80, 80, 80))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jtfPSU_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -178,7 +181,9 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -188,7 +193,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        SQLPreparedStatements.addNewFaculty(jtfPSU_ID.getText(), jtfLastname.getText(), jtfFirstname.getText(), (String) jcbSubject.getSelectedItem(), jlTimes.getSelectedIndices());
+        SQLPreparedStatements.addNewFaculty(jtfPSU_ID.getText(), jtfLastname.getText(), jtfFirstname.getText(), (String) jcbSubject.getSelectedItem(), jlTimes.getSelectedIndices(), (String) jComboBox1.getSelectedItem());
         clearItems();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -196,11 +201,13 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> jcbSubject;
