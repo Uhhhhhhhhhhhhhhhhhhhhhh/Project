@@ -93,7 +93,7 @@ public class SQLPreparedStatements {
         query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
         query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
@@ -213,7 +213,7 @@ public class SQLPreparedStatements {
         query = "select sub, course_num from course where course_id like ?";
         psSelectSubNumByCourseId = c.prepareStatement(query);
         
-        query = "select exists(select * from faculty where Last_Name like ? and first_name like ?) as result";
+        query = "select exists(select * from faculty where (Last_Name like ? and first_name like ?) or psu_id like ?) as result";
         psConflictFaculty = c.prepareStatement(query);
         
     }
@@ -227,16 +227,18 @@ public class SQLPreparedStatements {
             psConflictFaculty.setString(1, last_name);
             psConflictFaculty.setString(2, first_name);
             
+            //Conflict Detection w/ PSU ID
+            psConflictFaculty.setString(3, psu_id);
+            
             ResultSet rsConflict = psConflictFaculty.executeQuery();
+            
+            rsConflict.beforeFirst();
+            rsConflict.next();
             
             int result = rsConflict.getInt("result");
             if(result > 0)
                 throw new Exception("Data already found");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR! Conflict Check Issue!\n" + e.getMessage(), "Duplicate: Faculty", JOptionPane.ERROR_MESSAGE);
-            //success = false;
-        }
-        try {
+        
             psInsertFaculty.setString (1, psu_id);
             psInsertFaculty.setString (2, last_name);
             psInsertFaculty.setString (3, first_name);

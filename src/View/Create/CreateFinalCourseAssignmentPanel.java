@@ -283,12 +283,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean[] days = {false, false, false, false, false, false, false};
-        
-        for(int day:jlDays.getSelectedIndices()){
-            days[day] = true;
-        }
-        
+ 
         Date start = (Date) jsStartDate.getValue();
         Date end = (Date) jsEndDate.getValue();
         
@@ -316,13 +311,12 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         }
         
         if((int) jsCapacity.getValue() > (int) jsEnrollment.getValue())
-            // TODO - Need to Update to use StorageController
             SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
         else {
             int section = 1;
             int capacity = (int) jsCapacity.getValue();
             int enrollment = (int) jsEnrollment.getValue();
-            while(capacity < enrollment) {
+            do {
                 int class_enrollment = enrollment / 2;
                 enrollment /= 2;
                 String sect = null;
@@ -330,7 +324,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                     sect = "00" + section++;
                 SQLPreparedStatements.addNewFCA(room_num, room_bldg, sect, course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), class_enrollment, type);
                 
-            }
+            } while(capacity < enrollment);
         }
         clearItems();
         
