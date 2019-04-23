@@ -18,15 +18,15 @@ import java.util.ArrayList;
  */
 public class CourseToEvents {
     
-    public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, int dates){
+    public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, String dates){
         return fcaToCalendarEvent(course_id, section_num, text, start_date, end_date, start_time, end_time, dates, new Color((int) (Math.random() * 180) + 75,(int)  (Math.random() * 180) + 75,(int)  (Math.random() * 180) + 75));
     }
     
-    public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, int dates, Color course_color){
+    public static ArrayList<CalendarEvent> fcaToCalendarEvent(String course_id, String section_num, String text, LocalDate start_date, LocalDate end_date, LocalTime start_time, LocalTime end_time, String dates, Color course_color){
         ArrayList<CalendarEvent> classes = new ArrayList<>();
         end_date = end_date.plusDays(1);
         
-        boolean[] days = SQLPreparedStatements.intToArray(dates);
+        boolean[] days = SQLPreparedStatements.stringToArray(dates);
         
         if(days[0]) {
             LocalDate tempLD = LocalDate.of(start_date.getYear(), start_date.getMonth(), start_date.getDayOfMonth());

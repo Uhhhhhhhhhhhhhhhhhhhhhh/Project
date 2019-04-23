@@ -137,7 +137,7 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
             String section_num = (String) fca.get(2).get(index);
             Date start_date = (Date) fca.get(6).get(index);
             Date end_date = (Date) fca.get(7).get(index);
-            int days = (int) fca.get(8).get(index);
+            String days = (String) fca.get(8).get(index);
             Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(1);
             Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(2);
 

@@ -7,8 +7,10 @@ package Main;
 
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -67,19 +69,19 @@ public class SQLPreparedStatements {
     }
     
     private static void createPreparedStatements() throws SQLException {
-        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major_College, Preferred_Days) values(?, ?, ?, ?, ?)";
+        String query = "INSERT into Faculty(PSU_ID, Last_Name, First_Name, Major_College, employment_type) values(?, ?, ?, ?, ?)";
         psInsertFaculty = c.prepareStatement(query);
         
         query = "INSERT into ProfessorTimePref(Faculty_PSU_ID, TimePeriod_Period) values (?, ?)";
         psInsertFacultyTimePref = c.prepareStatement(query);
         
-        query = "INSERT into timeperiod(start_time, end_time) values(?, ?)";
+        query = "INSERT into timeperiod(days, start_time, end_time) values(?, ?, ?)";
         psInsertTimePeriod = c.prepareStatement(query);
         
         query = "INSERT into room(room_id, building, occupancy, num_of_computers, lab_type) values (?, ?, ?, ?, ?)";
         psInsertRoom = c.prepareStatement(query);
         
-        query = "INSERT into course(course_id, sub, course_num, course_name, description, units) values(?, ?, ?, ?, ?, ?)";
+        query = "INSERT into course(sub, course_num, course_name, description, units) values(?, ?, ?, ?, ?)";
         psInsertCourse = c.prepareStatement(query);
         
         query = "INSERT into prereqs(course_id, prereq_course_id) values(?, ?)";
@@ -91,10 +93,10 @@ public class SQLPreparedStatements {
         query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignmentWIthSelects = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
@@ -211,12 +213,12 @@ public class SQLPreparedStatements {
         query = "select sub, course_num from course where course_id like ?";
         psSelectSubNumByCourseId = c.prepareStatement(query);
         
-        query = "select exists(select * from faculty where Last_Name like ? and first_name like ?) as result";
+        query = "select exists(select * from faculty where (Last_Name like ? and first_name like ?) or psu_id like ?) as result";
         psConflictFaculty = c.prepareStatement(query);
         
     }
     
-    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, boolean[] preferred_days, int[] timePref){
+    public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, int[] timePref, String employ){
         boolean success;
 
         try {
@@ -225,17 +227,23 @@ public class SQLPreparedStatements {
             psConflictFaculty.setString(1, last_name);
             psConflictFaculty.setString(2, first_name);
             
+            //Conflict Detection w/ PSU ID
+            psConflictFaculty.setString(3, psu_id);
+            
             ResultSet rsConflict = psConflictFaculty.executeQuery();
             
-            int result = rsConflict.getInt(0);
+            rsConflict.beforeFirst();
+            rsConflict.next();
+            
+            int result = rsConflict.getInt("result");
             if(result > 0)
                 throw new Exception("Data already found");
-            
+        
             psInsertFaculty.setString (1, psu_id);
             psInsertFaculty.setString (2, last_name);
             psInsertFaculty.setString (3, first_name);
             psInsertFaculty.setString (4, major_college);
-            psInsertFaculty.setInt    (5, daysToInt(preferred_days));
+            psInsertFaculty.setString(5, employ);
             
             success = psInsertFaculty.execute();
             JOptionPane.showMessageDialog(null, first_name + "'s information is saved.", "MySQL: Faculty", JOptionPane.INFORMATION_MESSAGE);
@@ -247,7 +255,7 @@ public class SQLPreparedStatements {
             JOptionPane.showMessageDialog(null, "ERROR! FACULTY NOT CREATED!\n" + e.getMessage(), "Duplicate: Faculty", JOptionPane.ERROR_MESSAGE);
             success = false;
         }
-        
+        //TODO: Time Period not showing
         if(success) {
             try {
                 for(int i:timePref){ 
@@ -263,7 +271,8 @@ public class SQLPreparedStatements {
         return success;
     }
     
-    public static boolean addNewTime(LocalTime start, LocalTime end) {
+    @Deprecated
+    public static boolean addNewTime(boolean[] days, LocalTime start, LocalTime end) {
         boolean success;
         
         try {
@@ -310,12 +319,12 @@ public class SQLPreparedStatements {
             
             //Conflict Detection
             
-            psInsertCourse.setString(1, course_id);
-            psInsertCourse.setString(2, sub);
-            psInsertCourse.setString(3, num);
-            psInsertCourse.setString(4, name);
-            psInsertCourse.setString(5, description);
-            psInsertCourse.setDouble(6, units);
+            //psInsertCourse.setString(1, course_id);
+            psInsertCourse.setString(1, sub);
+            psInsertCourse.setString(2, num);
+            psInsertCourse.setString(3, name);
+            psInsertCourse.setString(4, description);
+            psInsertCourse.setDouble(5, units);
             
             success = psInsertCourse.execute();
             JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
@@ -334,12 +343,12 @@ public class SQLPreparedStatements {
             
             //Conflict Detection with Sub & Num
             
-            psInsertCourse.setString(1, course_id);
-            psInsertCourse.setString(2, sub);
-            psInsertCourse.setString(3, num);
-            psInsertCourse.setString(4, name);
-            psInsertCourse.setString(5, description);
-            psInsertCourse.setDouble(6, units);
+            //psInsertCourse.setString(1, course_id);
+            psInsertCourse.setString(1, sub);
+            psInsertCourse.setString(2, num);
+            psInsertCourse.setString(3, name);
+            psInsertCourse.setString(4, description);
+            psInsertCourse.setDouble(5, units);
             
             success = psInsertCourse.execute();
             JOptionPane.showMessageDialog(null, sub + " " + num + "'s information is saved.", "MySQL: Course", JOptionPane.INFORMATION_MESSAGE);
@@ -389,11 +398,13 @@ public class SQLPreparedStatements {
             times.add(new ArrayList<>());
             times.add(new ArrayList<>());
             times.add(new ArrayList<>());
+            times.add(new ArrayList<>());
             
             while(rsSelectAllTime.next()) {
                 times.get(0).add(rsSelectAllTime.getInt("period"));
-                times.get(1).add(rsSelectAllTime.getTime("start_time").toLocalTime());
-                times.get(2).add(rsSelectAllTime.getTime("end_time").toLocalTime());
+                times.get(1).add(rsSelectAllTime.getString("Days"));
+                times.get(2).add(rsSelectAllTime.getTime("start_time").toLocalTime());
+                times.get(3).add(rsSelectAllTime.getTime("end_time").toLocalTime());
             }
             
             return times;
@@ -501,7 +512,7 @@ public class SQLPreparedStatements {
         }
     }
     
-    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, int days, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
+    public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
         boolean success;
         
         try {
@@ -511,12 +522,12 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setString(4, course_id);
             psInsertFinalCourseAssignment.setString(5, faculty_id);
             psInsertFinalCourseAssignment.setInt(6, time_period);
-            psInsertFinalCourseAssignment.setInt(7, days);
-            psInsertFinalCourseAssignment.setDate(8, Date.valueOf(start_date));
-            psInsertFinalCourseAssignment.setDate(9, Date.valueOf(end_date));
-            psInsertFinalCourseAssignment.setInt(10, capacity);
-            psInsertFinalCourseAssignment.setInt(11, enrollment);
-            psInsertFinalCourseAssignment.setString(12, type);
+            
+            //psInsertFinalCourseAssignment.setDate(7, Date.valueOf(start_date));
+            //psInsertFinalCourseAssignment.setDate(8, Date.valueOf(end_date));
+            psInsertFinalCourseAssignment.setInt(7, capacity);
+            psInsertFinalCourseAssignment.setInt(8, enrollment);
+            psInsertFinalCourseAssignment.setString(9, type);
             
             success = psInsertFinalCourseAssignment.execute();
             JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
@@ -548,35 +559,14 @@ public class SQLPreparedStatements {
     }
     
     
-    public static void resetDB() {
-        String s = "";
-        StringBuffer sb = new StringBuffer();
-        try {
-            FileReader fr = new FileReader(new File("IST261DBTables.sql"));
-
-            BufferedReader br = new BufferedReader(fr);
-
-            while((s = br.readLine()) != null) {
-                sb.append(s);
-            }
-            
-            br.close();
-            
-            String[] inst = sb.toString().split(";");
-            
-            Statement st = c.createStatement();
- 
-            for(int i = 0; i<inst.length; i++) {
-                if(!inst[i].trim().equals("")) {
-                    st.executeUpdate(inst[i]);
-                    //System.out.println(">>"+inst[i]);
-                }
-            }
-   
-            JOptionPane.showMessageDialog(null, "DB reset!", "MySQL: Reset", JOptionPane.INFORMATION_MESSAGE);
-        } catch(HeadlessException | IOException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! DB not reset!\n" + e.getMessage(), "MySQL: Reset", JOptionPane.ERROR_MESSAGE);
+    public static void resetDB() throws IOException {
+        File dbInfo = new File("261DBLogin.dat");
+        if(dbInfo.delete()){
+            JOptionPane.showMessageDialog(null, "Login Reset", "MySQL: DB Login Reset", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "File not found", "MySQL: DB Login Reset", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
     
     public static ArrayList<String> getCoursePrereqs(String course_id) {
@@ -603,17 +593,17 @@ public class SQLPreparedStatements {
             
             ResultSet rsSelectSingleFaculty = psSelectFacultyByPsuID.executeQuery();
 
-            ArrayList<Object> courses = new ArrayList<>();
+            ArrayList<Object> faculty = new ArrayList<>();
             
             while(rsSelectSingleFaculty.next()) {
-                courses.add(rsSelectSingleFaculty.getString("psu_id"));
-                courses.add(rsSelectSingleFaculty.getString("last_name"));
-                courses.add(rsSelectSingleFaculty.getString("first_name"));
-                courses.add(rsSelectSingleFaculty.getString("major_college"));
-                courses.add(rsSelectSingleFaculty.getInt("preferred_days"));
+                faculty.add(rsSelectSingleFaculty.getString("psu_id"));
+                faculty.add(rsSelectSingleFaculty.getString("last_name"));
+                faculty.add(rsSelectSingleFaculty.getString("first_name"));
+                faculty.add(rsSelectSingleFaculty.getString("major_college"));
+                faculty.add(rsSelectSingleFaculty.getString("Employment_Type"));
             }
             
-            return courses;
+            return faculty;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
             return null;
@@ -655,6 +645,7 @@ public class SQLPreparedStatements {
             
             while(rsSelectSingleTime.next()) {
                 times.add(rsSelectSingleTime.getInt("period"));
+                times.add(rsSelectSingleTime.getString("days"));
                 times.add(rsSelectSingleTime.getTime("start_time"));
                 times.add(rsSelectSingleTime.getTime("end_time"));
             }
@@ -752,54 +743,76 @@ public class SQLPreparedStatements {
     
     
     
-    public static int daysToInt(boolean[] days) {
+    public static String daysToString(boolean[] days) {
         //MTWTFSS
-        int mon, tues, wed, thurs, fri, sat, sun;
-        mon = tues = wed = thurs = fri = sat = sun = 0;
+        String dates = "";
         
         if(days[0])
-            mon = 1000000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[1])
-            tues = 100000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[2])
-            wed = 10000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[3])
-            thurs = 1000;
+            dates += "1";
+        else
+            dates += "0";
         if(days[4])
-            fri = 100;
+            dates += "1";
+        else
+            dates += "0";
         if(days[5])
-            sat = 10;
+            dates += "1";
+        else
+            dates += "0";
         if(days[6])
-            sun = 1;
+            dates += "1";
+        else
+            dates += "0";
         
-        return mon + tues + wed + thurs + fri + sat + sun;
+        return dates;
     }
     
-    public static boolean[] intToArray(int days) {
+    public static boolean[] stringToArray(String days) {
+        boolean[] dates = new boolean[]{false, false, false, false, false, false, false}; 
         
-        int sun = days % 10;
-        days /= 10;
+        for(int i = 0; i < days.length(); i++)
+            dates[i] = days.charAt(i) == '1';
         
-        int sat = days % 10;
-        days /= 10;
         
-        int fri = days % 10;
-        days /= 10;
-        
-        int thurs = days % 10;
-        days /= 10;
-        
-        int wed = days % 10;
-        days /= 10;
-        
-        int tues = days % 10;
-        days /= 10;
-        
-        int mon = days % 10;
-        days /= 10;
-        
-        return new boolean[]{mon == 1, tues  == 1, wed  == 1, thurs  == 1, fri  == 1, sat  == 1, sun  == 1};
+        return dates;
     }
+    
+    public static String stringDaysToString(String dates) {
+        String days = "";
+        boolean[] booldays = SQLPreparedStatements.stringToArray(dates);
+        
+        if(booldays[0])
+            days += "Mon, ";
+        if(booldays[1])
+            days += "Tues, ";
+        if(booldays[2])
+            days += "Wed, ";
+        if(booldays[3])
+            days += "Thurs, ";
+        if(booldays[4])
+            days += "Fri, ";
+        if(booldays[5])
+            days += "Sat, ";
+        if(booldays[6])
+            days += "Sun, ";
+        
+        
+        
+        return days.substring(0, days.length() - 2);
+    }
+
     
     //Insert
     private static PreparedStatement psInsertFaculty;

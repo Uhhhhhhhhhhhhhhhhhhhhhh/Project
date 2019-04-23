@@ -5,6 +5,7 @@
  */
 package View.Item;
 
+import Main.SQLPreparedStatements;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class ItemTimePanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Time Information");
@@ -52,11 +55,15 @@ public class ItemTimePanel extends javax.swing.JPanel {
 
         jLabel4.setText("Start Time:");
 
-        jLabel5.setText(((java.sql.Time) info.get(1)).toLocalTime().format(dateTimeFormatter));
+        jLabel5.setText(((java.sql.Time) info.get(2)).toLocalTime().format(dateTimeFormatter));
 
-        jLabel6.setText(((java.sql.Time) info.get(2)).toLocalTime().format(dateTimeFormatter));
+        jLabel6.setText(((java.sql.Time) info.get(3)).toLocalTime().format(dateTimeFormatter));
 
         jLabel7.setText("End Time:");
+
+        jLabel8.setText("Dates:");
+
+        jLabel9.setText(SQLPreparedStatements.stringDaysToString((String) info.get(1)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -77,7 +84,11 @@ public class ItemTimePanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel9)))
                 .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
@@ -97,7 +108,11 @@ public class ItemTimePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6))
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -110,5 +125,7 @@ public class ItemTimePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }

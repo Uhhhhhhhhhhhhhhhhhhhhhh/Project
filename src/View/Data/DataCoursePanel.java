@@ -22,6 +22,7 @@ public class DataCoursePanel extends javax.swing.JPanel {
     
     /**
      * Creates new form DataFacultyPanel
+     * @param visual
      */
     public DataCoursePanel(int visual) {
         this.visual = visual;

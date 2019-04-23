@@ -56,7 +56,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            time.addElement(times.get(1).get(i) + " - " + times.get(2).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
         }
         return time;
     }
@@ -108,8 +108,6 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jsEnrollment = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
         jsCapacity = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
-        jtfSectionNumber = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jcbType = new javax.swing.JComboBox<>();
 
@@ -172,8 +170,6 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
         jsCapacity.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        jLabel2.setText("Section Number");
-
         jLabel12.setText("Type of Course");
 
         jcbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In-Person", "Online", "Hybrid" }));
@@ -220,8 +216,6 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel11)
                                 .addComponent(jsCapacity)
                                 .addComponent(jsEnrollment, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(jtfSectionNumber)
                                 .addComponent(jLabel12)
                                 .addComponent(jcbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(34, 34, 34))
@@ -277,11 +271,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
                         .addComponent(jsCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfSectionNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(35, 35, 35)
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
                         .addComponent(jcbType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -293,12 +283,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean[] days = {false, false, false, false, false, false, false};
-        
-        for(int day:jlDays.getSelectedIndices()){
-            days[day] = true;
-        }
-        
+ 
         Date start = (Date) jsStartDate.getValue();
         Date end = (Date) jsEndDate.getValue();
         
@@ -325,9 +310,22 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
             case "Online": type = "W"; break;  
         }
         
-        // TODO - Need to Update to use StorageController
-        SQLPreparedStatements.addNewFCA(room_num, room_bldg, jtfSectionNumber.getText(), course_id, fac_id, time_period, SQLPreparedStatements.daysToInt(days), startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
-        
+        if((int) jsCapacity.getValue() > (int) jsEnrollment.getValue())
+            SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
+        else {
+            int section = 1;
+            int capacity = (int) jsCapacity.getValue();
+            int enrollment = (int) jsEnrollment.getValue();
+            while(capacity < enrollment) {
+                int class_enrollment = enrollment - capacity;
+                enrollment -= class_enrollment;
+                String sect = null;
+                if(section < 10)
+                    sect = "00" + section++;
+                SQLPreparedStatements.addNewFCA(room_num, room_bldg, sect, course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), class_enrollment, type);
+                
+            }
+        }
         clearItems();
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -339,7 +337,6 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -362,7 +359,6 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner jsEndDate;
     private javax.swing.JSpinner jsEnrollment;
     private javax.swing.JSpinner jsStartDate;
-    private javax.swing.JTextField jtfSectionNumber;
     // End of variables declaration//GEN-END:variables
 
     private void clearItems() {
@@ -375,6 +371,6 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         jsEndDate.setModel(new javax.swing.SpinnerDateModel());
         jsCapacity.setValue(1);
         jsEnrollment.setValue(0);
-        jtfSectionNumber.setText("");
+        //jtfSectionNumber.setText("");
     }
 }
