@@ -216,6 +216,9 @@ public class SQLPreparedStatements {
         query = "select exists(select * from faculty where (Last_Name like ? and first_name like ?) or psu_id like ?) as result";
         psConflictFaculty = c.prepareStatement(query);
         
+        query = "select count(*) from FinalCourseAssignment where faculty_psu_id like ? as result";
+        psNumberOfCoursesTeaching = c.prepareStatement(query);
+        
     }
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, int[] timePref, String employ){
@@ -512,8 +515,44 @@ public class SQLPreparedStatements {
         }
     }
     
+    
+    
     public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
         boolean success;
+        
+        //Check Teaching Load
+        
+        try {
+            
+            psNumberOfCoursesTeaching.setString(1, faculty_id);
+            
+            ResultSet rsConflict = psNumberOfCoursesTeaching.executeQuery();
+            rsConflict.beforeFirst();
+            rsConflict.next();
+            
+            int result = rsConflict.getInt("result");
+            
+            if(result > 3)
+                throw new Exception("Professor Teaching Too Much");
+        } catch(Exception ex) {
+            
+        }
+        
+        //Check Teaching Already
+        
+        try {
+            
+        } catch(Exception ex) {
+            
+        }
+        
+        //Check Room Avalibility
+        
+        try {
+            
+        } catch(Exception ex) {
+            
+        }
         
         try {
             psInsertFinalCourseAssignment.setString(1, room_num);
@@ -522,9 +561,6 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setString(4, course_id);
             psInsertFinalCourseAssignment.setString(5, faculty_id);
             psInsertFinalCourseAssignment.setInt(6, time_period);
-            
-            //psInsertFinalCourseAssignment.setDate(7, Date.valueOf(start_date));
-            //psInsertFinalCourseAssignment.setDate(8, Date.valueOf(end_date));
             psInsertFinalCourseAssignment.setInt(7, capacity);
             psInsertFinalCourseAssignment.setInt(8, enrollment);
             psInsertFinalCourseAssignment.setString(9, type);
@@ -888,4 +924,5 @@ public class SQLPreparedStatements {
     
     //Conflict
     private static PreparedStatement psConflictFaculty;
+    private static PreparedStatement psNumberOfCoursesTeaching;
 }
