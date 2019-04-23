@@ -112,7 +112,10 @@ public class CreateCoursePanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Course Information");
 
+        jtfCourse_id.setEnabled(false);
+
         jLabel2.setText("Course ID");
+        jLabel2.setEnabled(false);
 
         jLabel3.setText("Subject");
 
@@ -168,11 +171,8 @@ public class CreateCoursePanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addComponent(jScrollPane2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))))
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(

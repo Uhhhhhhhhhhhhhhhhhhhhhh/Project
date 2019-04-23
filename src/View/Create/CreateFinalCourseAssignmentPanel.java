@@ -56,7 +56,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            time.addElement(times.get(1).get(i) + " - " + times.get(2).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
         }
         return time;
     }
@@ -316,15 +316,15 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
             int section = 1;
             int capacity = (int) jsCapacity.getValue();
             int enrollment = (int) jsEnrollment.getValue();
-            do {
-                int class_enrollment = enrollment / 2;
-                enrollment /= 2;
+            while(capacity < enrollment) {
+                int class_enrollment = enrollment - capacity;
+                enrollment -= class_enrollment;
                 String sect = null;
                 if(section < 10)
                     sect = "00" + section++;
                 SQLPreparedStatements.addNewFCA(room_num, room_bldg, sect, course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), class_enrollment, type);
                 
-            } while(capacity < enrollment);
+            }
         }
         clearItems();
         

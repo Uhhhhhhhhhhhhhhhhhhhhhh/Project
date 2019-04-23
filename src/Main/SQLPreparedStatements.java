@@ -93,10 +93,10 @@ public class SQLPreparedStatements {
         query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignmentWIthSelects = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
@@ -523,11 +523,11 @@ public class SQLPreparedStatements {
             psInsertFinalCourseAssignment.setString(5, faculty_id);
             psInsertFinalCourseAssignment.setInt(6, time_period);
             
-            psInsertFinalCourseAssignment.setDate(7, Date.valueOf(start_date));
-            psInsertFinalCourseAssignment.setDate(8, Date.valueOf(end_date));
-            psInsertFinalCourseAssignment.setInt(9, capacity);
-            psInsertFinalCourseAssignment.setInt(10, enrollment);
-            psInsertFinalCourseAssignment.setString(11, type);
+            //psInsertFinalCourseAssignment.setDate(7, Date.valueOf(start_date));
+            //psInsertFinalCourseAssignment.setDate(8, Date.valueOf(end_date));
+            psInsertFinalCourseAssignment.setInt(7, capacity);
+            psInsertFinalCourseAssignment.setInt(8, enrollment);
+            psInsertFinalCourseAssignment.setString(9, type);
             
             success = psInsertFinalCourseAssignment.execute();
             JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
@@ -593,16 +593,17 @@ public class SQLPreparedStatements {
             
             ResultSet rsSelectSingleFaculty = psSelectFacultyByPsuID.executeQuery();
 
-            ArrayList<Object> courses = new ArrayList<>();
+            ArrayList<Object> faculty = new ArrayList<>();
             
             while(rsSelectSingleFaculty.next()) {
-                courses.add(rsSelectSingleFaculty.getString("psu_id"));
-                courses.add(rsSelectSingleFaculty.getString("last_name"));
-                courses.add(rsSelectSingleFaculty.getString("first_name"));
-                courses.add(rsSelectSingleFaculty.getString("major_college"));
+                faculty.add(rsSelectSingleFaculty.getString("psu_id"));
+                faculty.add(rsSelectSingleFaculty.getString("last_name"));
+                faculty.add(rsSelectSingleFaculty.getString("first_name"));
+                faculty.add(rsSelectSingleFaculty.getString("major_college"));
+                faculty.add(rsSelectSingleFaculty.getString("Employment_Type"));
             }
             
-            return courses;
+            return faculty;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR! Faculty not found!\n" + e.getMessage(), "MySQL: Faculty", JOptionPane.ERROR_MESSAGE);
             return null;
