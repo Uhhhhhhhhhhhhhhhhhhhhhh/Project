@@ -53,13 +53,17 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
     }
     
     public DefaultListModel createPreferredTimeList() {
-        DefaultListModel preferredTimes = new DefaultListModel();
+        DefaultListModel time = new DefaultListModel();
         
-        for(Object i : SQLPreparedStatements.getProfPrefTimes((String) info.get(0)))
-            preferredTimes.addElement((int) i);
+        ArrayList<ArrayList> times = SQLPreparedStatements.getTimePeriods();
+        ArrayList<Object> savedTimes = SQLPreparedStatements.getProfPrefTimes((String) info.get(0));
+        
+        for(int i = 0; i < savedTimes.size(); i++) {
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
+        }
         
         
-        return preferredTimes;
+        return time;
     }
 
     /**
@@ -107,7 +111,7 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
 
         jLabel10.setText("Preferred Days:");
 
-        jList1.setModel(createPreferredDayList());
+        jList1.setModel(createPreferredTimeList());
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jList1);
 

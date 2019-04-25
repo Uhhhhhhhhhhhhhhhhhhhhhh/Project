@@ -6,19 +6,13 @@
 package Main;
 
 import java.awt.HeadlessException;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -50,7 +44,7 @@ public class SQLPreparedStatements {
             JOptionPane.showMessageDialog(null, "Connection to db successful!", "DB Storage Connection", JOptionPane.INFORMATION_MESSAGE);
             createPreparedStatements();
         } catch(HeadlessException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Connection to db unsuccessful!", "DB Storage Connection", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Connection to db unsuccessful!\n" + e, "DB Storage Connection", JOptionPane.ERROR_MESSAGE);
             System.out.println(e);
         }
     }
@@ -320,8 +314,6 @@ public class SQLPreparedStatements {
         
         try {
             
-            //Conflict Detection
-            
             //psInsertCourse.setString(1, course_id);
             psInsertCourse.setString(1, sub);
             psInsertCourse.setString(2, num);
@@ -343,9 +335,6 @@ public class SQLPreparedStatements {
         boolean success;
         
         try {
-            
-            //Conflict Detection with Sub & Num
-            
             //psInsertCourse.setString(1, course_id);
             psInsertCourse.setString(1, sub);
             psInsertCourse.setString(2, num);
@@ -518,8 +507,8 @@ public class SQLPreparedStatements {
     
     
     public static boolean addNewFCA(String room_num, String room_building, String session_num, String course_id, String faculty_id, int time_period, LocalDate start_date, LocalDate end_date, int capacity, int enrollment, String type) {
-        boolean success;
-        
+        boolean success, conflict;
+        conflict = success = false;
         //Check Teaching Load
         
         try {
@@ -534,43 +523,45 @@ public class SQLPreparedStatements {
             
             if(result > 3)
                 throw new Exception("Professor Teaching Too Much");
+            conflict = true;
         } catch(Exception ex) {
             
         }
         
         //Check Teaching Already
-        
-        try {
-            
-        } catch(Exception ex) {
-            
-        }
+        if(!conflict)
+            try {
+
+            } catch(Exception ex) {
+
+            }
         
         //Check Room Avalibility
+        if(!conflict)
+            try {
+
+            } catch(Exception ex) {
+
+            }
         
-        try {
-            
-        } catch(Exception ex) {
-            
-        }
-        
-        try {
-            psInsertFinalCourseAssignment.setString(1, room_num);
-            psInsertFinalCourseAssignment.setString(2, room_building);
-            psInsertFinalCourseAssignment.setString(3, session_num);
-            psInsertFinalCourseAssignment.setString(4, course_id);
-            psInsertFinalCourseAssignment.setString(5, faculty_id);
-            psInsertFinalCourseAssignment.setInt(6, time_period);
-            psInsertFinalCourseAssignment.setInt(7, capacity);
-            psInsertFinalCourseAssignment.setInt(8, enrollment);
-            psInsertFinalCourseAssignment.setString(9, type);
-            
-            success = psInsertFinalCourseAssignment.execute();
-            JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
-            success = false;
-        }
+        if(!conflict)
+            try {
+                psInsertFinalCourseAssignment.setString(1, room_num);
+                psInsertFinalCourseAssignment.setString(2, room_building);
+                psInsertFinalCourseAssignment.setString(3, session_num);
+                psInsertFinalCourseAssignment.setString(4, course_id);
+                psInsertFinalCourseAssignment.setString(5, faculty_id);
+                psInsertFinalCourseAssignment.setInt(6, time_period);
+                psInsertFinalCourseAssignment.setInt(7, capacity);
+                psInsertFinalCourseAssignment.setInt(8, enrollment);
+                psInsertFinalCourseAssignment.setString(9, type);
+
+                success = psInsertFinalCourseAssignment.execute();
+                JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + e.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
+                success = false;
+            }
         
         return success;
     }

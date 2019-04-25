@@ -5,6 +5,7 @@
  */
 package View.Create;
 
+import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -24,6 +25,22 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
      */
     public CreateFinalCourseAssignmentPanel() {
         initComponents();
+    }
+    
+    public CreateFinalCourseAssignmentPanel(int faculty, int room, int time, int course, JSpinner start, JSpinner end, int e, int c, int type) {
+        initComponents();
+        
+        jlFaculty.setSelectedIndex(faculty);
+        jlRoom.setSelectedIndex(room);
+        jlTime.setSelectedIndex(time);
+        jlCourse.setSelectedIndex(course);
+        
+        jsStartDate = start;
+        jsEndDate = end;
+        
+        jsCapacity.setValue(c);
+        jsEnrollment.setValue(e);
+        jcbType.setSelectedIndex(type);
     }
     
     public DefaultListModel createFacultyList(){
@@ -294,18 +311,8 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         if((int) jsCapacity.getValue() > (int) jsEnrollment.getValue())
             SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
         else {
-            int section = 1;
-            int capacity = (int) jsCapacity.getValue();
-            int enrollment = (int) jsEnrollment.getValue();
-            while(capacity < enrollment) {
-                int class_enrollment = enrollment - capacity;
-                enrollment -= class_enrollment;
-                String sect = null;
-                if(section < 10)
-                    sect = "00" + section++;
-                SQLPreparedStatements.addNewFCA(room_num, room_bldg, sect, course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), class_enrollment, type);
-                
-            }
+            
+            ApplicationFrame.createNewPanel(new CreateFinalCourseAssignmentPanel(jlFaculty.getSelectedIndex(), jlRoom.getSelectedIndex(), jlTime.getSelectedIndex(), jlCourse.getSelectedIndex(), jsStartDate, jsEndDate, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue(), jcbType.getSelectedIndex()), "New: Final Course Assignment", 835, 745);
         }
         clearItems();
         
