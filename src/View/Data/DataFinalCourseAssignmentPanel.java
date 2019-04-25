@@ -162,9 +162,9 @@ public class DataFinalCourseAssignmentPanel extends javax.swing.JPanel {
             String section_num = (String) fca.get(2).get(index);
             Date start_date = (Date) fca.get(6).get(index);
             Date end_date = (Date) fca.get(7).get(index);
-            String days = (String) fca.get(8).get(index);
-            Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(1);
-            Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(2);
+            String days = (String) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(1);
+            Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(2);
+            Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(3);
 
             fcas.addAll(CourseToEvents.fcaToCalendarEvent(course_id, section_num, "COURSE SUB - NUM - SECTION", start_date.toLocalDate(), end_date.toLocalDate(), start_time.toLocalTime(), end_time.toLocalTime(), days));
         }

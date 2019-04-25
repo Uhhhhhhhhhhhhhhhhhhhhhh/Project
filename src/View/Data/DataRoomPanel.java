@@ -5,12 +5,24 @@
  */
 package View.Data;
 
+import Calendar.CalendarEvent;
+import Calendar.CourseToEvents;
+import Calendar.CreatePanels;
+import Calendar.WeekCalendar;
 import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
 import View.Item.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JInternalFrame;
 import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -18,11 +30,16 @@ import javax.swing.DefaultListModel;
  */
 public class DataRoomPanel extends javax.swing.JPanel {
 
+    int visual;
+    
     /**
      * Creates new form DataFacultyPanel
      */
-    public DataRoomPanel() {
+    public DataRoomPanel(int visual) {
+        this.visual = visual;
         initComponents();
+        jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
     }
     
     
@@ -62,6 +79,11 @@ public class DataRoomPanel extends javax.swing.JPanel {
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jList1MouseClicked(evt);
+            }
+        });
+        jList1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jList1KeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(jList1);
@@ -108,7 +130,61 @@ public class DataRoomPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        if(evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
+            if (visual == 0) {
+                singleItem();
+            } else if (visual == 1) {
+                calendarStuff();
+            }
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jList1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList1KeyPressed
+        if (visual == 1 && evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            calendarStuff();
+        }
+    }//GEN-LAST:event_jList1KeyPressed
+
+    private void calendarStuff(){
+        ArrayList<ArrayList> fca = SQLPreparedStatements.getFCA();
+        ArrayList<CalendarEvent> fcas = new ArrayList<>();
+        ArrayList<ArrayList> room = SQLPreparedStatements.getRooms();
+        String building = (String) room.get(0).get(jList1.getSelectedIndex());
+        String num = (String) room.get(1).get(jList1.getSelectedIndex());
+        
+        for (int index : jList1.getSelectedIndices()) {
+            String r = (String) fca.get(1).get(index);
+            String b = (String) fca.get(0).get(index);
+            if(b.equals(building) && r.equals(num)){
+              String course_id = (String) fca.get(3).get(index);
+                String section_num = (String) fca.get(2).get(index);
+                Date start_date = (Date) fca.get(6).get(index);
+                Date end_date = (Date) fca.get(7).get(index);
+                String days = (String) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(1);
+                Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(2);
+                Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(3);
+
+                fcas.addAll(CourseToEvents.fcaToCalendarEvent(course_id, section_num, "COURSE SUB - NUM - SECTION", start_date.toLocalDate(), end_date.toLocalDate(), start_time.toLocalTime(), end_time.toLocalTime(), days));
+            }
+        }
+        JInternalFrame jif = new JInternalFrame("Calendar: Room's", true, true, true, true);
+        jif.setBounds(0, 0, 1000, 900);
+        jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+        ApplicationFrame.openFrameCount++;
+
+        WeekCalendar cal = CreatePanels.createWeekCalendarPanel(fcas);
+
+        jif.add(CreatePanels.createWeekControlPanel(cal), BorderLayout.NORTH);
+        jif.add(cal, BorderLayout.CENTER);
+        jif.setVisible(true);
+        ApplicationFrame.jDesktop.add(jif);
+        jif.toFront();
+        
+        
+        
+    }
+    
+    private void singleItem() {
             ArrayList<ArrayList> room = SQLPreparedStatements.getRooms();
             String building = (String) room.get(0).get(jList1.getSelectedIndex());
             String num = (String) room.get(1).get(jList1.getSelectedIndex());
@@ -122,9 +198,7 @@ public class DataRoomPanel extends javax.swing.JPanel {
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
-        }
-    }//GEN-LAST:event_jList1MouseClicked
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

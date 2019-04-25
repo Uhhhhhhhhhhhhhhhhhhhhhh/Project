@@ -737,10 +737,9 @@ public class SQLPreparedStatements {
                 fcas.get(5).add(rsSelectAllFaculty.getInt("time_period"));
                 fcas.get(6).add(rsSelectAllFaculty.getDate("start_date"));
                 fcas.get(7).add(rsSelectAllFaculty.getDate("end_date"));
-                fcas.get(8).add(rsSelectAllFaculty.getInt("days"));
-                fcas.get(9).add(rsSelectAllFaculty.getInt("class_capacity"));
-                fcas.get(10).add(rsSelectAllFaculty.getInt("enrollment"));
-                fcas.get(11).add(rsSelectAllFaculty.getString("course_type"));
+                fcas.get(8).add(rsSelectAllFaculty.getInt("class_capacity"));
+                fcas.get(9).add(rsSelectAllFaculty.getInt("enrollment"));
+                fcas.get(10).add(rsSelectAllFaculty.getString("course_type"));
             }
             
             return fcas;

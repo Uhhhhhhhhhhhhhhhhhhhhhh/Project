@@ -309,7 +309,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiDataTimeActionPerformed
 
     private void jmiDataRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataRoomActionPerformed
-        createNewPanel(new DataRoomPanel(), "Data: Room", 700, 720);
+        createNewPanel(new DataRoomPanel(0), "Data: Room", 700, 720);
     }//GEN-LAST:event_jmiDataRoomActionPerformed
 
     private void jmiDataCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataCourseActionPerformed
@@ -366,8 +366,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
 
     private void jmiCVCLFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVCLFCAActionPerformed
         createNewPanel(new DataFinalCourseAssignmentPanel(1), "Calendar: Final Course Assignment", 700, 720);
-        
-        
     }//GEN-LAST:event_jmiCVCLFCAActionPerformed
 
     private void jmiResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiResetActionPerformed
@@ -384,7 +382,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiResetActionPerformed
 
     private void jmiCVRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVRoomActionPerformed
-        // TODO add your handling code here:
+        createNewPanel(new DataRoomPanel(1), "Calendar: Room", 700, 720);
     }//GEN-LAST:event_jmiCVRoomActionPerformed
 
     private void jmiNewFCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNewFCAActionPerformed
