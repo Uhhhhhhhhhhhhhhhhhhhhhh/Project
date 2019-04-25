@@ -8,6 +8,7 @@ package View.Item;
 import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultListModel;
@@ -20,6 +21,7 @@ import javax.swing.JInternalFrame;
 public class ItemFacultyPanel extends javax.swing.JPanel {
 
     ArrayList<Object> info;
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
     
     /**
      * Creates new form ItemFacultyPanel
@@ -59,7 +61,7 @@ public class ItemFacultyPanel extends javax.swing.JPanel {
         ArrayList<Object> savedTimes = SQLPreparedStatements.getProfPrefTimes((String) info.get(0));
         
         for(int i = 0; i < savedTimes.size(); i++) {
-            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + ((java.time.LocalTime) times.get(2).get(i)).format(dateTimeFormatter) + " - " + ((java.time.LocalTime) times.get(3).get(i)).format(dateTimeFormatter));
         }
         
         

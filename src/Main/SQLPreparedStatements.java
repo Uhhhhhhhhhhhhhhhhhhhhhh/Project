@@ -213,6 +213,8 @@ public class SQLPreparedStatements {
         query = "select count(*) from FinalCourseAssignment where faculty_psu_id like ? as result";
         psNumberOfCoursesTeaching = c.prepareStatement(query);
         
+        query = "select exists(select * from finalcourseassignment where Faculty_PSU_ID like ? and Time_Period = ?) as result";
+        psConflictTeaching = c.prepareStatement(query);
     }
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, int[] timePref, String employ){
@@ -523,17 +525,29 @@ public class SQLPreparedStatements {
             
             if(result > 3)
                 throw new Exception("Professor Teaching Too Much");
-            conflict = true;
         } catch(Exception ex) {
-            
+            JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + ex.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
+            conflict = true;
         }
         
         //Check Teaching Already
         if(!conflict)
             try {
-
+                
+                psConflictTeaching.setString(1, faculty_id);
+                psConflictTeaching.setInt(2, time_period);
+                
+                ResultSet rsConflict = psConflictTeaching.executeQuery();
+                rsConflict.beforeFirst();
+                rsConflict.next();
+                
+                int result = rsConflict.getInt("result");
+            
+                if(result > 3)
+                    throw new Exception("Professor Teaching At Selected Time");
             } catch(Exception ex) {
-
+                JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + ex.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
+                conflict = true;
             }
         
         //Check Room Avalibility
@@ -916,4 +930,5 @@ public class SQLPreparedStatements {
     //Conflict
     private static PreparedStatement psConflictFaculty;
     private static PreparedStatement psNumberOfCoursesTeaching;
+    private static PreparedStatement psConflictTeaching;
 }

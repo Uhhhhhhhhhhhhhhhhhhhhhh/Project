@@ -119,7 +119,7 @@ public class DataCoursePanel extends javax.swing.JPanel {
             String sub = (String) courses.get(0).get(jList1.getSelectedIndex());
             String num = (String) courses.get(1).get(jList1.getSelectedIndex());
             JInternalFrame jif = new JInternalFrame("Item: Course " + sub + " " + num, true, true, true, true);
-            jif.setBounds(0, 0, 629, 610);
+            jif.setBounds(0, 0, 629, 408);
             jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
             ApplicationFrame.openFrameCount++;
             jif.add((new ItemCoursePanel(SQLPreparedStatements.getSingleCourse(course_id))));

@@ -9,6 +9,7 @@ import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
 import View.Item.*;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JInternalFrame;
 import javax.swing.DefaultListModel;
@@ -19,6 +20,8 @@ import javax.swing.DefaultListModel;
  */
 public class DataTimePeriodPanel extends javax.swing.JPanel {
 
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    
     /**
      * Creates new form DataFacultyPanel
      */
@@ -33,7 +36,7 @@ public class DataTimePeriodPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + ((java.time.LocalTime) times.get(2).get(i)).format(dateTimeFormatter) + " - " + ((java.time.LocalTime) times.get(3).get(i)).format(dateTimeFormatter));
         }
         return time;
     }

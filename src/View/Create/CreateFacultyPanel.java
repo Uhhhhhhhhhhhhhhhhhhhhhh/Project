@@ -6,6 +6,7 @@
 package View.Create;
 
 import Main.SQLPreparedStatements;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -20,6 +21,7 @@ import javax.swing.JSpinner;
 public class CreateFacultyPanel extends javax.swing.JPanel {
 
     DefaultComboBoxModel subjects;
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
     
     /**
      * Creates new form CreateFacultyPanel
@@ -34,7 +36,7 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " " + times.get(2).get(i) + " - " + times.get(3).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + ((java.time.LocalTime) times.get(2).get(i)).format(dateTimeFormatter) + " - " + ((java.time.LocalTime) times.get(3).get(i)).format(dateTimeFormatter));
         }
         return time;
     }
@@ -141,12 +143,12 @@ public class CreateFacultyPanel extends javax.swing.JPanel {
                             .addComponent(jtfPSU_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jcbSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

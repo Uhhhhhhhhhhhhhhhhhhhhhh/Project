@@ -9,6 +9,7 @@ import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultListModel;
@@ -20,6 +21,8 @@ import javax.swing.JSpinner;
  */
 public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
 
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    
     /**
      * Creates new form CreateFinalCourseAssignmentPanel
      */
@@ -73,7 +76,7 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         DefaultListModel time = new DefaultListModel();
         
         for(int i = 0; i < times.get(1).size(); i++) {
-            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + times.get(2).get(i) + " - " + times.get(3).get(i));
+            time.addElement(SQLPreparedStatements.stringDaysToString((String) times.get(1).get(i)) + " - " + ((java.time.LocalTime) times.get(2).get(i)).format(dateTimeFormatter) + " - " + ((java.time.LocalTime) times.get(3).get(i)).format(dateTimeFormatter));
         }
         return time;
     }
@@ -308,13 +311,23 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
             case "Online": type = "W"; break;  
         }
         
-        if((int) jsCapacity.getValue() > (int) jsEnrollment.getValue())
-            SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
-        else {
-            
-            ApplicationFrame.createNewPanel(new CreateFinalCourseAssignmentPanel(jlFaculty.getSelectedIndex(), jlRoom.getSelectedIndex(), jlTime.getSelectedIndex(), jlCourse.getSelectedIndex(), jsStartDate, jsEndDate, (int) jsEnrollment.getValue(), (int) jsCapacity.getValue(), jcbType.getSelectedIndex()), "New: Final Course Assignment", 835, 745);
+        if((int) jsCapacity.getValue() > (int) jsEnrollment.getValue()) {
+            boolean success = SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
+            if(success)
+                clearItems();
+        } else {
+            int capacity = (int) jsCapacity.getValue();
+            int enrollment = (int) jsEnrollment.getValue();
+            int section = 0;
+            while(capacity < enrollment) {
+                section++;
+                enrollment = enrollment - capacity;
+                ApplicationFrame.createNewPanel(new CreateFinalCourseAssignmentPanel(jlFaculty.getSelectedIndex(), jlRoom.getSelectedIndex(), jlTime.getSelectedIndex(), jlCourse.getSelectedIndex(), jsStartDate, jsEndDate, capacity, (int) jsCapacity.getValue(), jcbType.getSelectedIndex()), "New: Final Course Assignment", 835, 745);
+            }
+            //ApplicationFrame.createNewPanel(new CreateFinalCourseAssignmentPanel(jlFaculty.getSelectedIndex(), jlRoom.getSelectedIndex(), jlTime.getSelectedIndex(), jlCourse.getSelectedIndex(), jsStartDate, jsEndDate, enrollment % section, (int) jsCapacity.getValue(), jcbType.getSelectedIndex()), "New: Final Course Assignment", 835, 745);
+            jsEnrollment.setValue((int) jsEnrollment.getValue() - (section * capacity));
         }
-        clearItems();
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
