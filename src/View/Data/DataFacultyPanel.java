@@ -5,9 +5,17 @@
  */
 package View.Data;
 
+import Calendar.CalendarEvent;
+import Calendar.CourseToEvents;
+import Calendar.CreatePanels;
+import Calendar.WeekCalendar;
 import Main.ApplicationFrame;
 import Main.SQLPreparedStatements;
 import View.Item.ItemFacultyPanel;
+import View.Item.ItemFinalCourseAssignmentPanel;
+import java.awt.BorderLayout;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
@@ -18,10 +26,13 @@ import javax.swing.JInternalFrame;
  */
 public class DataFacultyPanel extends javax.swing.JPanel {
 
+    int visual;
+    
     /**
      * Creates new form DataFacultyPanel
      */
-    public DataFacultyPanel() {
+    public DataFacultyPanel(int visual) {
+        this.visual = visual;
         initComponents();
     }
     
@@ -69,6 +80,11 @@ public class DataFacultyPanel extends javax.swing.JPanel {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PSU ID", "First Name", "Last Name", "Employment Type", "Major" }));
 
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -108,22 +124,74 @@ public class DataFacultyPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        if(evt.getClickCount() == 2) {
-            ArrayList<ArrayList> faculty = SQLPreparedStatements.getFaculty();
-            String psu_id = (String) faculty.get(0).get(jList1.getSelectedIndex());
-            String first = (String) faculty.get(2).get(jList1.getSelectedIndex());
-            String last = (String) faculty.get(1).get(jList1.getSelectedIndex());
-            JInternalFrame jif = new JInternalFrame("Item: Faculty " + last + ", " + first + " - " + psu_id, true, true, true, true);
-            jif.setBounds(0, 0, 529, 410);
-            jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
-            ApplicationFrame.openFrameCount++;
-            jif.add((new ItemFacultyPanel(SQLPreparedStatements.getSingleFaculty(psu_id))));
-            jif.setVisible(true);
-            ApplicationFrame.jDesktop.add(jif);
-            jif.toFront();
+        if (evt.getClickCount() == 2) {
+            if (visual == 0) {
+                singleItem();
+            } else if (visual == 1) {
+                calendarStuff();
+            }
         }
     }//GEN-LAST:event_jList1MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void calendarStuff(){
+        ArrayList<ArrayList> fca = SQLPreparedStatements.getFCA();
+        ArrayList<CalendarEvent> fcas = new ArrayList<>();
+        ArrayList<ArrayList> faculty = SQLPreparedStatements.getFaculty();
+        String psu_id = (String) faculty.get(0).get(jList1.getSelectedIndex());
+        
+        ArrayList<Integer> courses = new ArrayList<>();
+        
+        for(int i = 0; i < jList1.getModel().getSize(); i++) {
+            String f = (String) fca.get(4).get(i);
+            if(f.equals(psu_id)){
+                courses.add(i);
+            }
+        }
+        
+        courses.forEach((index) -> {
+            String course_id = (String) fca.get(3).get(index);
+            String section_num = (String) fca.get(2).get(index);
+            Date start_date = (Date) fca.get(6).get(index);
+            Date end_date = (Date) fca.get(7).get(index);
+            String days = (String) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(1);
+            Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(2);
+            Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(3);
+            
+            fcas.addAll(CourseToEvents.fcaToCalendarEvent(course_id, section_num, "COURSE SUB - NUM - SECTION", start_date.toLocalDate(), end_date.toLocalDate(), start_time.toLocalTime(), end_time.toLocalTime(), days));
+        });
+        
+        JInternalFrame jif = new JInternalFrame("Calendar: Room's", true, true, true, true);
+        jif.setBounds(0, 0, 1000, 900);
+        jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+        ApplicationFrame.openFrameCount++;
+
+        WeekCalendar cal = CreatePanels.createWeekCalendarPanel(fcas);
+
+        jif.add(CreatePanels.createWeekControlPanel(cal), BorderLayout.NORTH);
+        jif.add(cal, BorderLayout.CENTER);
+        jif.setVisible(true);
+        ApplicationFrame.jDesktop.add(jif);
+        jif.toFront();
+    }
+    
+    private void singleItem(){
+        ArrayList<ArrayList> faculty = SQLPreparedStatements.getFaculty();
+        String psu_id = (String) faculty.get(0).get(jList1.getSelectedIndex());
+        String first = (String) faculty.get(2).get(jList1.getSelectedIndex());
+        String last = (String) faculty.get(1).get(jList1.getSelectedIndex());
+        JInternalFrame jif = new JInternalFrame("Item: Faculty " + last + ", " + first + " - " + psu_id, true, true, true, true);
+        jif.setBounds(0, 0, 529, 410);
+        jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
+        ApplicationFrame.openFrameCount++;
+        jif.add((new ItemFacultyPanel(SQLPreparedStatements.getSingleFaculty(psu_id))));
+        jif.setVisible(true);
+        ApplicationFrame.jDesktop.add(jif);
+        jif.toFront();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

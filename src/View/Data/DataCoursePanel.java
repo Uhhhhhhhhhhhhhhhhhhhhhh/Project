@@ -71,6 +71,11 @@ public class DataCoursePanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jList1);
 
         jToggleButton1.setText("Search");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Course ID", "Course Name", "Description", "Subject & Course Number", "Subject", "Units" }));
 
@@ -79,21 +84,25 @@ public class DataCoursePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(318, 318, 318))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(83, 83, 83)
+                                .addGap(109, 109, 109)
                                 .addComponent(jTextField1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jToggleButton1))))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,10 +135,33 @@ public class DataCoursePanel extends javax.swing.JPanel {
             jif.setVisible(true);
             ApplicationFrame.jDesktop.add(jif);
             jif.toFront();
-        } else if(visual == 1 && evt.getClickCount() == 2) {
-            
         }
     }//GEN-LAST:event_jList1MouseClicked
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        String search = jTextField1.getText();
+        
+        switch(jComboBox1.getSelectedIndex()){
+            case 0:
+                System.out.println("0");
+                break;
+            case 1:
+                System.out.println("0");
+                break;
+            case 2:
+                System.out.println("0");
+                break;
+            case 3:
+                System.out.println("0");
+                break;
+            case 4:
+                System.out.println("0");
+                break;
+            case 5:
+                System.out.println("0");
+                break;
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

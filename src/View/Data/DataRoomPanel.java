@@ -149,24 +149,31 @@ public class DataRoomPanel extends javax.swing.JPanel {
         ArrayList<ArrayList> fca = SQLPreparedStatements.getFCA();
         ArrayList<CalendarEvent> fcas = new ArrayList<>();
         ArrayList<ArrayList> room = SQLPreparedStatements.getRooms();
-        String building = (String) room.get(0).get(jList1.getSelectedIndex());
-        String num = (String) room.get(1).get(jList1.getSelectedIndex());
+        String num = (String) room.get(0).get(jList1.getSelectedIndex());
+        String building = (String) room.get(1).get(jList1.getSelectedIndex());
         
-        for (int index : jList1.getSelectedIndices()) {
-            String r = (String) fca.get(1).get(index);
-            String b = (String) fca.get(0).get(index);
+        ArrayList<Integer> courses = new ArrayList<>();
+        
+        for(int i = 0; i < jList1.getModel().getSize(); i++) {
+            String r = (String) fca.get(1).get(i);
+            String b = (String) fca.get(0).get(i);
             if(b.equals(building) && r.equals(num)){
-              String course_id = (String) fca.get(3).get(index);
-                String section_num = (String) fca.get(2).get(index);
-                Date start_date = (Date) fca.get(6).get(index);
-                Date end_date = (Date) fca.get(7).get(index);
-                String days = (String) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(1);
-                Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(2);
-                Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(3);
-
-                fcas.addAll(CourseToEvents.fcaToCalendarEvent(course_id, section_num, "COURSE SUB - NUM - SECTION", start_date.toLocalDate(), end_date.toLocalDate(), start_time.toLocalTime(), end_time.toLocalTime(), days));
+                courses.add(i);
             }
         }
+        
+        courses.forEach((index) -> {
+            String course_id = (String) fca.get(3).get(index);
+            String section_num = (String) fca.get(2).get(index);
+            Date start_date = (Date) fca.get(6).get(index);
+            Date end_date = (Date) fca.get(7).get(index);
+            String days = (String) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(1);
+            Time start_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(2);
+            Time end_time = (Time) SQLPreparedStatements.getSingleTime((int) fca.get(5).get(index)).get(3);
+            
+            fcas.addAll(CourseToEvents.fcaToCalendarEvent(course_id, section_num, "COURSE SUB - NUM - SECTION", start_date.toLocalDate(), end_date.toLocalDate(), start_time.toLocalTime(), end_time.toLocalTime(), days));
+        });
+        
         JInternalFrame jif = new JInternalFrame("Calendar: Room's", true, true, true, true);
         jif.setBounds(0, 0, 1000, 900);
         jif.setLocation(ApplicationFrame.XOFFSET * ApplicationFrame.openFrameCount, ApplicationFrame.YOFFSET * ApplicationFrame.openFrameCount);
@@ -179,9 +186,6 @@ public class DataRoomPanel extends javax.swing.JPanel {
         jif.setVisible(true);
         ApplicationFrame.jDesktop.add(jif);
         jif.toFront();
-        
-        
-        
     }
     
     private void singleItem() {

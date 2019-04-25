@@ -75,7 +75,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmCVCL = new javax.swing.JMenu();
         jmiCVCLFCA = new javax.swing.JMenuItem();
         jmiCVCLCourse = new javax.swing.JMenuItem();
-        jmiCVCLSections = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmiSQLConnection = new javax.swing.JMenuItem();
         jmiDisconnect = new javax.swing.JMenuItem();
@@ -241,9 +240,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
         jmiCVCLCourse.setText("Courses");
         jmCVCL.add(jmiCVCLCourse);
 
-        jmiCVCLSections.setText("Sections");
-        jmCVCL.add(jmiCVCLSections);
-
         jmCalView.add(jmCVCL);
 
         jMenuBar1.add(jmCalView);
@@ -301,7 +297,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiDataFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataFacultyActionPerformed
-        createNewPanel(new DataFacultyPanel(), "Data: Faculty", 700, 720);
+        createNewPanel(new DataFacultyPanel(0), "Data: Faculty", 700, 720);
     }//GEN-LAST:event_jmiDataFacultyActionPerformed
 
     private void jmiDataTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDataTimeActionPerformed
@@ -321,7 +317,7 @@ public class ApplicationFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiDataFCAActionPerformed
 
     private void jmiCVFacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCVFacultyActionPerformed
-        // TODO Find Courses Teacher is in, Make Events, Place in Weekly View and show
+        createNewPanel(new DataFacultyPanel(1), "Data: Faculty", 700, 720);
     }//GEN-LAST:event_jmiCVFacultyActionPerformed
 
     private void jmiSQLConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSQLConnectionActionPerformed
@@ -492,7 +488,6 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private static javax.swing.JMenuItem jmiAbout;
     private static javax.swing.JMenuItem jmiCVCLCourse;
     private static javax.swing.JMenuItem jmiCVCLFCA;
-    private static javax.swing.JMenuItem jmiCVCLSections;
     private static javax.swing.JMenuItem jmiCVFaculty;
     private static javax.swing.JMenuItem jmiCVRoom;
     private static javax.swing.JMenuItem jmiDataCourse;
@@ -503,11 +498,11 @@ public class ApplicationFrame extends javax.swing.JFrame {
     private static javax.swing.JMenuItem jmiDisconnect;
     private static javax.swing.JMenuItem jmiExport;
     private static javax.swing.JMenuItem jmiImport;
-    private javax.swing.JMenuItem jmiNewCourse;
-    private javax.swing.JMenuItem jmiNewFCA;
-    private javax.swing.JMenuItem jmiNewFaculty;
-    private javax.swing.JMenuItem jmiNewRoom;
-    private javax.swing.JMenuItem jmiNewTime;
+    private static javax.swing.JMenuItem jmiNewCourse;
+    private static javax.swing.JMenuItem jmiNewFCA;
+    private static javax.swing.JMenuItem jmiNewFaculty;
+    private static javax.swing.JMenuItem jmiNewRoom;
+    private static javax.swing.JMenuItem jmiNewTime;
     private static javax.swing.JMenuItem jmiReset;
     private static javax.swing.JMenuItem jmiSQLConnection;
     // End of variables declaration//GEN-END:variables
