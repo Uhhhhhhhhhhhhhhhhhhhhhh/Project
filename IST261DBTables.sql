@@ -149,9 +149,14 @@ values ('IST', '110','Information, People and Technology', 'Test Description for
 INSERT into ProfessorTimePref(TimePeriod_Period, Faculty_PSU_ID)
 values ('1', 'crm13'),
 ('2', 'auk3'),
+('1', 'auk3'),
+('3', 'auk3'),
 ('3', 'kms122'),
+('4', 'kms122'),
 ('1', 'qry323'),
+('2', 'qry323'),
 ('4', 'whb108'),
 ('6', 'dpr15'),
 ('5', 'tkc3'),
+('2', 'tkc3'),
 ('3', 'jkb20');
