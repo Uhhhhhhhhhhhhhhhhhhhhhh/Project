@@ -312,7 +312,25 @@ public class CreateFinalCourseAssignmentPanel extends javax.swing.JPanel {
         }
         
         if((int) jsCapacity.getValue() > (int) jsEnrollment.getValue()) {
-            boolean success = SQLPreparedStatements.addNewFCA(room_num, room_bldg, "001", course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
+            String section;
+            
+            String count = SQLPreparedStatements.getNumOfCoursesForSection(jlCourse.getSelectedIndex() + 1);
+            if(count.equals("-1"))
+                section = "001";
+            else
+                switch (count.length()) {
+                    case 1:
+                        section = "00" + count;
+                        break;
+                    case 2:
+                        section = "0" + count;
+                        break;
+                    default:
+                        section = count;
+                        break;
+                }
+            
+            boolean success = SQLPreparedStatements.addNewFCA(room_num, room_bldg, section, course_id, fac_id, time_period, startDate, endDate, (int) jsCapacity.getValue(), (int) jsEnrollment.getValue(), type);
             if(success)
                 clearItems();
         } else {

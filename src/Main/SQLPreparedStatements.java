@@ -87,11 +87,8 @@ public class SQLPreparedStatements {
         query = "INSERT into section(class_num, course_course_id) values(?, ?)";
         psInsertSection = c.prepareStatement(query);
         
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_num, course_course_id, faculty_psu_id, time_period, start_date, end_date, class_capacity, enrollment, course_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         psInsertFinalCourseAssignment = c.prepareStatement(query);
-        
-        query = "INSERT into finalcourseassignment(room_room_id, room_building, section_class_num, course_course_id, faculty_psu_id, time_period, days, class_capacity, enrollment, course_type) values(?, ?, ?, (select course_id from course where sub like ? and course_num like ?), ?, ?, ?, ?, ?, ?)";
-        psInsertFinalCourseAssignmentWIthSelects = c.prepareStatement(query);
         
         query = "SELECT * from faculty";
         psSelectAllFaculty = c.prepareStatement(query);
@@ -210,11 +207,19 @@ public class SQLPreparedStatements {
         query = "select exists(select * from faculty where (Last_Name like ? and first_name like ?) or psu_id like ?) as result";
         psConflictFaculty = c.prepareStatement(query);
         
-        query = "select count(*) from FinalCourseAssignment where faculty_psu_id like ? as result";
+        query = "select count(*) as result from FinalCourseAssignment where faculty_psu_id like ? ";
         psNumberOfCoursesTeaching = c.prepareStatement(query);
         
         query = "select exists(select * from finalcourseassignment where Faculty_PSU_ID like ? and Time_Period = ?) as result";
         psConflictTeaching = c.prepareStatement(query);
+        
+        query = "select count(*) as result from finalcourseassignment where time_period = ? and room_building like ? and room_room_id like ?";
+        psConflictRoomTime = c.prepareStatement(query);
+        
+        query = "select count(*) as result from finalcourseassignment where course_course_id = ?";
+        psCountCourseNumbers = c.prepareStatement(query);
+        
+        
     }
     
     public static boolean addNewFaculty(String psu_id, String first_name, String last_name, String major_college, int[] timePref, String employ){
@@ -523,7 +528,7 @@ public class SQLPreparedStatements {
             
             int result = rsConflict.getInt("result");
             
-            if(result > 3)
+            if(result > 2)
                 throw new Exception("Professor Teaching Too Much");
         } catch(Exception ex) {
             JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + ex.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
@@ -543,7 +548,7 @@ public class SQLPreparedStatements {
                 
                 int result = rsConflict.getInt("result");
             
-                if(result > 3)
+                if(result == 1)
                     throw new Exception("Professor Teaching At Selected Time");
             } catch(Exception ex) {
                 JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + ex.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
@@ -553,9 +558,21 @@ public class SQLPreparedStatements {
         //Check Room Avalibility
         if(!conflict)
             try {
-
+                psConflictRoomTime.setInt(1, time_period);
+                psConflictRoomTime.setString(2, room_building);
+                psConflictRoomTime.setString(3, room_num);
+                
+                ResultSet rsConflict = psConflictRoomTime.executeQuery();
+                rsConflict.beforeFirst();
+                rsConflict.next();
+                
+                int result = rsConflict.getInt("result");
+            
+                if(result > 0)
+                    throw new Exception("Room already busy at time period");
             } catch(Exception ex) {
-
+                JOptionPane.showMessageDialog(null, "ERROR! FCA NOT CREATED!\n" + ex.getMessage(), "MySQL: FCA", JOptionPane.ERROR_MESSAGE);
+                conflict = true;
             }
         
         if(!conflict)
@@ -566,9 +583,12 @@ public class SQLPreparedStatements {
                 psInsertFinalCourseAssignment.setString(4, course_id);
                 psInsertFinalCourseAssignment.setString(5, faculty_id);
                 psInsertFinalCourseAssignment.setInt(6, time_period);
-                psInsertFinalCourseAssignment.setInt(7, capacity);
-                psInsertFinalCourseAssignment.setInt(8, enrollment);
-                psInsertFinalCourseAssignment.setString(9, type);
+                psInsertFinalCourseAssignment.setDate(7, java.sql.Date.valueOf(start_date));
+                psInsertFinalCourseAssignment.setDate(8, java.sql.Date.valueOf(end_date));
+                
+                psInsertFinalCourseAssignment.setInt(9, capacity);
+                psInsertFinalCourseAssignment.setInt(10, enrollment);
+                psInsertFinalCourseAssignment.setString(11, type);
 
                 success = psInsertFinalCourseAssignment.execute();
                 JOptionPane.showMessageDialog(null, "FCA information is saved.", "MySQL: FCA", JOptionPane.INFORMATION_MESSAGE);
@@ -782,7 +802,23 @@ public class SQLPreparedStatements {
         return courseInfo;
     }
     
-    
+    public static String getNumOfCoursesForSection(int course_id) {
+        try {
+            
+            psCountCourseNumbers.setInt(1, course_id);
+            
+            ResultSet rsConflict = psCountCourseNumbers.executeQuery();
+            rsConflict.beforeFirst();
+            rsConflict.next();
+            
+            int result = rsConflict.getInt("result");
+            
+            return Integer.toString(result + 1);
+        } catch(SQLException ex) {
+            System.out.println(ex);
+            return Integer.toString(-1);
+        }
+    }
     
     public static String daysToString(boolean[] days) {
         //MTWTFSS
@@ -925,10 +961,13 @@ public class SQLPreparedStatements {
 
     //Other
     private static PreparedStatement psSelectSubNumByCourseId;
-    
+    private static PreparedStatement psCountCourseNumbers;
     
     //Conflict
     private static PreparedStatement psConflictFaculty;
     private static PreparedStatement psNumberOfCoursesTeaching;
     private static PreparedStatement psConflictTeaching;
+    private static PreparedStatement psConflictRoomTime;
+    
+    
 }
