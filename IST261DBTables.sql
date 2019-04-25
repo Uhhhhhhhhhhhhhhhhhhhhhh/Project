@@ -145,3 +145,13 @@ values ('IST', '110','Information, People and Technology', 'Test Description for
 ('CAS', '100A','Intro to Communication Arts and Sciences', 'Test Description for CAS 100A', 3),
 ('CAS', '100B','Intro to Communication Arts and Sciences', 'Test Description for CAS 100B', 3),
 ('CAS', '100C','Intro to Communication Arts and Sciences', 'Test Description for CAS 100C', 3);
+
+INSERT into ProfessorTimePref(TimePeriod_Period, Faculty_PSU_ID)
+values ('1', 'crm13'),
+('2', 'auk3'),
+('3', 'kms122'),
+('1', 'qry323'),
+('4', 'whb108'),
+('6', 'dpr15'),
+('5', 'tkc3'),
+('3', 'jkb20');
