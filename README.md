@@ -15,7 +15,8 @@ Run the application once it is downloaded.
 
 Currently, Lionplanner only supports the view for the Registrar. As such, the ability to insert new data for Faculty, Rooms, Courses, and the Final Course Assignment (schedule). This data is inserted into the MySQL Database specified in the SQL Connection Information.
 
-The [Administrative UI] can be located at the top left of the application window.
+
+The [Administrative UI] can be located at the top left of the application window, which contains the following Tabs:
 
 ### File
 Allows the user to import / export [XML] files.
@@ -36,10 +37,9 @@ This is where the user connects to the MySQL database.
 
 ## Instruction
 
-1. Specify the database located under [SQL]
-    -This allows the other functions in the [Administrative UI] to be used.
+1. Specify the database located under [SQL]. This allows the other functions in the [Administrative UI] to be used.
 
-2. If data was not imported under [File] than add data via the [Data] tab for the appropriate categories as needed, though it is recommended to at least have one entry for Faculty, Course, Room, and Final Course Assignment.
+2. If data was not imported under [File] than add data via the [Data] tab for the appropriate categories as needed, though it is recommended to at least have one entry for Faculty, Course, Room, and Final Course Assignment. Multiple Time Periods can be selected in Final Course Assignment with CTRL + Click.
 
 3. After a Final Course Assignment is generated, go to [Calendar View] to see any Final Course Assignment schedule in a Calendar View.
 
