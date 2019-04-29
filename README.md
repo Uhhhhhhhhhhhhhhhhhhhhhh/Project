@@ -11,11 +11,11 @@ Github for Desktop can be downloaded [here.](https://desktop.github.com/)
 
 Run the application once it is downloaded.
 
-Currently, Lionplanner only supports the view for the Registrar. As such, the ability to insert new data for Faculty, Rooms, Courses, and the Final Course Assignment (schedule). This data is inserted into the MySQL Database specified in the SQL Connection Information.
-
 ## Application Guide
 
-The Administrative UI can be located at the top left of the application window.
+Currently, Lionplanner only supports the view for the Registrar. As such, the ability to insert new data for Faculty, Rooms, Courses, and the Final Course Assignment (schedule). This data is inserted into the MySQL Database specified in the SQL Connection Information.
+
+The [Administrative UI] can be located at the top left of the application window.
 
 ### File
 Allows the user to import / export [XML] files.
@@ -40,6 +40,15 @@ Pull requests are always welcome for LionPlanner.
 Major changes need to be addressed first by opening an an issue to discuss what you would like to see changed.
 
 Please make sure to update tests as appropriate. 
+
+### Instruction
+
+1. Specify the database located under [SQL]
+    -This allows the other functions in the [Administrative UI] to be used.
+
+2. If data was not imported under [File] than add data via the [Data] tab for the appropriate categories as needed, though it is recommended to at least have one entry for Faculty, Course, Room, and Final Course Assignment.
+
+3. After a Final Course Assignment is generated, go to [Calendar View] to see any Final Course Assignment schedule in a Calendar View.
 
 ## Roadmap / Future Plans
 
