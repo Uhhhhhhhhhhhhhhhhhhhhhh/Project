@@ -9,7 +9,10 @@ You must have a Java compiler installed as well as Github for the Desktop. Some 
 
 Github for Desktop can be downloaded [here.](https://desktop.github.com/)
 
-Run the ADD THE PLACE TO RUN HERE
+Run the application once it is downloaded.
+
+Currently, Lionplanner only supports the view for the Registrar. As such, the ability to insert new data for Faculty, Rooms, Courses, and the Final Course Assignment (schedule). This data is inserted into the MySQL Database specified in the SQL Connection Information.
+
 
 ## Contributing
 
