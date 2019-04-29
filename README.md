@@ -1,4 +1,4 @@
-# LionPlanner
+# LionPlanner by Uninventive Softworks
 
 ## LionPlanner Motivation:
 LionPlanner was developed for the purpose of abolishing the previous analog method of scheduling used by the Resistrar at Penn State University: Berks Campus. The previous analog method involved the use of a whiteboard and constant human communication to determine the possible schedule, which lead to issues with efficiency and human communication error. LionPlanner streamlines this with a simple to follow GUI which allows better organization of data and efficiency for the registrar when scheduling. For other users such as the Professors, a calendar view is available to make visualizing course and make changes based off preferences easy.
@@ -34,14 +34,7 @@ This is where the user can view the Final Course Assignment entries in a calenda
 ### SQL
 This is where the user connects to the MySQL database. 
 
-## Contributing
-
-Pull requests are always welcome for LionPlanner. 
-Major changes need to be addressed first by opening an an issue to discuss what you would like to see changed.
-
-Please make sure to update tests as appropriate. 
-
-### Instruction
+## Instruction
 
 1. Specify the database located under [SQL]
     -This allows the other functions in the [Administrative UI] to be used.
@@ -49,6 +42,13 @@ Please make sure to update tests as appropriate.
 2. If data was not imported under [File] than add data via the [Data] tab for the appropriate categories as needed, though it is recommended to at least have one entry for Faculty, Course, Room, and Final Course Assignment.
 
 3. After a Final Course Assignment is generated, go to [Calendar View] to see any Final Course Assignment schedule in a Calendar View.
+
+## Contributing
+
+Pull requests are always welcome for LionPlanner. 
+Major changes need to be addressed first by opening an an issue to discuss what you would like to see changed.
+
+Please make sure to update tests as appropriate. 
 
 ## Roadmap / Future Plans
 
